@@ -3,26 +3,27 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* --- ADWI TECHNOLOGIES - LIGHT MODE (Full Logo Theme) --- */
 :root {
-  --background: #ffffff;
-  --foreground: #1a1a1a;
-  --card: #f5f7fa;
-  --card-foreground: #1a1a1a;
+  --background: #ffffff; /* White background */
+  --foreground: #231f20; /* Dark charcoal text (from logo) */
+  --card: #f5f7fa; /* Near-white card background */
+  --card-foreground: #231f20;
   --popover: #f5f7fa;
-  --popover-foreground: #1a1a1a;
-  --primary: #003d82;
-  --primary-foreground: #ffffff;
-  --secondary: #f0f4f8;
-  --secondary-foreground: #1a1a1a;
-  --muted: #e5e8ed;
+  --popover-foreground: #231f20;
+  --primary: #231f20; /* Logo Dark Charcoal - Main actions/buttons */
+  --primary-foreground: #ffffff; /* White text on charcoal */
+  --secondary: #f0f4f8; /* Very light grey */
+  --secondary-foreground: #231f20;
+  --muted: #e5e8ed; /* Subtle grey for inactive elements */
   --muted-foreground: #666666;
-  --accent: #ff9500;
-  --accent-foreground: #1a1a1a;
+  --accent: #69b300; /* Logo Lime Green - Secondary/Highlight accent */
+  --accent-foreground: #231f20; /* Dark Charcoal text on green accent */
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
   --border: #e5e8ed;
   --input: #f5f7fa;
-  --ring: #003d82;
+  --ring: #231f20; /* Focus ring matches primary/charcoal */
   --radius: 0.625rem;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -30,35 +31,36 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: #f5f7fa;
-  --sidebar-foreground: #1a1a1a;
-  --sidebar-primary: #003d82;
+  --sidebar-foreground: #231f20;
+  --sidebar-primary: #231f20;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #f0f4f8;
-  --sidebar-accent-foreground: #1a1a1a;
+  --sidebar-accent-foreground: #231f20;
   --sidebar-border: #e5e8ed;
-  --sidebar-ring: #003d82;
+  --sidebar-ring: #231f20;
 }
 
+/* --- ADWI TECHNOLOGIES - DARK MODE (Full Logo Theme) --- */
 .dark {
-  --background: #0f1419;
-  --foreground: #ffffff;
+  --background: #0f1419; /* Deep charcoal background */
+  --foreground: #ffffff; /* White text for contrast */
   --card: #1a1f2e;
   --card-foreground: #ffffff;
   --popover: #1a1f2e;
   --popover-foreground: #ffffff;
-  --primary: #4a9eff;
-  --primary-foreground: #0f1419;
+  --primary: #99cc33; /* Brighter Lime Green for dark mode accessibility - Main actions */
+  --primary-foreground: #0f1419; /* Dark text on bright green */
   --secondary: #1a1f2e;
   --secondary-foreground: #ffffff;
   --muted: #2d3748;
   --muted-foreground: #999999;
-  --accent: #ff9500;
-  --accent-foreground: #1a1a1a;
+  --accent: #99cc33; /* Lime Green - Secondary/Highlight accent */
+  --accent-foreground: #0f1419; /* Dark text on green accent */
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
   --border: #2d3748;
   --input: #1a1f2e;
-  --ring: #4a9eff;
+  --ring: #99cc33;
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -66,12 +68,12 @@
   --chart-5: oklch(0.645 0.246 16.439);
   --sidebar: #1a1f2e;
   --sidebar-foreground: #ffffff;
-  --sidebar-primary: #4a9eff;
+  --sidebar-primary: #99cc33;
   --sidebar-primary-foreground: #0f1419;
   --sidebar-accent: #1a1f2e;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #2d3748;
-  --sidebar-ring: #4a9eff;
+  --sidebar-ring: #99cc33;
 }
 
 @theme inline {
@@ -215,13 +217,13 @@ html {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background: var(--primary);
-  color: white;
+  background: var(--primary); /* Now uses Primary (Dark Charcoal) */
+  color: var(--primary-foreground);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0, 61, 130, 0.3);
+  box-shadow: 0 8px 20px rgba(35, 31, 32, 0.3); /* Uses the primary charcoal color */
   transition: all 0.3s ease;
   opacity: 0;
   visibility: hidden;
@@ -234,7 +236,7 @@ html {
 
 .scroll-to-top:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 61, 130, 0.4);
+  box-shadow: 0 12px 28px rgba(35, 31, 32, 0.4); /* Uses the primary charcoal color */
 }
 
 /* Header blur effect */
