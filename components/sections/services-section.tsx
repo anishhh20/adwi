@@ -6,6 +6,10 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 
+// --- Icons (Keeping original icons and adding new ones) ---
+// Note: Using existing icons where appropriate and keeping original names for consistency.
+
+// Software Development (CodeIcon)
 const CodeIcon = (props: { className?: string }) => (
   <svg
     {...props}
@@ -25,6 +29,7 @@ const CodeIcon = (props: { className?: string }) => (
   </svg>
 )
 
+// Recruitment & Staffing (UsersIcon)
 const UsersIcon = (props: { className?: string }) => (
   <svg
     {...props}
@@ -45,7 +50,8 @@ const UsersIcon = (props: { className?: string }) => (
   </svg>
 )
 
-const CameraIcon = (props: { className?: string }) => (
+// IT Training and Certification (Graduation Cap Icon - using a new icon)
+const GraduationCapIcon = (props: { className?: string }) => (
   <svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
@@ -58,12 +64,14 @@ const CameraIcon = (props: { className?: string }) => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-    <circle cx="12" cy="13" r="3" />
+    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+    <path d="M6.91 16.27A10 10 0 0 1 12 16c2.47 0 4.75-.82 6.09-2.27" />
+    <path d="M12 2v20" />
   </svg>
 )
 
-const HeartIcon = (props: { className?: string }) => (
+// Foreign Language (Book Open Icon - using a new icon)
+const BookOpenIcon = (props: { className?: string }) => (
   <svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
@@ -76,10 +84,11 @@ const HeartIcon = (props: { className?: string }) => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+    <path d="M2 13.5c.3 1.8 1.4 3.4 3.3 4.4L12 22l6.7-4.1c1.9-1.1 3-2.7 3.3-4.4M2 13.5V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6.5M2 13.5c0-3 3-5 10-5s10 2 10 5M12 5V2" />
   </svg>
 )
 
+// CheckCircleIcon for details list
 const CheckCircleIcon = (props: { className?: string }) => (
   <svg
     {...props}
@@ -107,69 +116,72 @@ interface Service {
   details: string[]
 }
 
+// --- Updated Services Array ---
 const services: Service[] = [
   {
     id: "software",
     title: "Software Development",
-    subtitle: "End-to-End Solutions",
+    subtitle: "Niche, Essential, and Easy-to-Integrate Services",
     IconComponent: CodeIcon,
     description:
-      "Modern IT solutions specializing in cloud, mobile and web services. We provide customized software services, web designing, mobile app development, and application solutions with a focus on automation.",
+      "We deliver niche, essential, and easy-to-integrate services that empower businesses to thrive in the digital age. We are your strategic partners, not just service providers .",
     details: [
-      "Customized Software Services",
-      "Web Designing & Hosting",
-      "Mobile App Development",
-      "Application Development",
-      "2D & 3D Animation",
-      "Content Management Websites",
+      "Custom Software Development ",
+      "Web Design & Development ",
+      "Mobile App & Application Development ",
+      "End-to-End Software Development Methodologies ",
+      "Automation-Driven Product Solutions ",
+      "2D & 3D Animation Services ",
+      "Content Management Website Solutions ",
     ],
   },
   {
     id: "recruitment",
-    title: "Recruitment & Staffing",
-    subtitle: "Right Talent Solutions",
+    title: "Recruitment and Staffing",
+    subtitle: "Empowering Organizations with Proven Leadership Talent",
     IconComponent: UsersIcon,
     description:
-      "Finding the most experienced and proven candidates who make immediate and significant impact. We invest in long-term relationships, understanding your business goals, culture, and competitive landscape.",
+      "We specialize in identifying and placing experienced, high-impact leaders who drive immediate results and long-term transformation. Our candidates are proven performers ready to elevate your organization.",
     details: [
-      "Executive Search",
-      "Permanent Placement",
-      "Project Staffing",
-      "Leadership Matching",
-      "Candidate Vetting",
-      "Talent Retention",
+      "Identifying and Placing Experienced, High-Impact Leaders ",
+      "Understanding Your Business Goals and Strategic Direction ",
+      "Focusing on Leadership Competencies Essential for Success ",
+      "Analyzing Market Position and Competitive Landscape ",
+      "Understanding Your Unique Organizational Culture ",
+      "Ensuring Long-term Satisfaction and Retention ",
     ],
   },
   {
-    id: "animation",
-    title: "2D/3D Animation",
-    subtitle: "Creative Excellence",
-    IconComponent: CameraIcon,
+    id: "training",
+    title: "IT Training and Certification",
+    subtitle: "Fast-Track Your Career in the IT Industry!",
+    IconComponent: GraduationCapIcon,
     description:
-      "Professional 2D and 3D animation services including explainer videos, motion graphics, and character animation. We bring your ideas to life with cutting-edge creative solutions.",
+      "Certification is your gateway to success for both technical and leadership positions. Invest in your future with our industry-recognized certification programs.",
     details: [
-      "2D Explainer Videos",
-      "3D Visualizations",
-      "Motion Graphics",
-      "Character Animation",
-      "Architectural Visualization",
-      "Post-Production Services",
+      "Project Management (PMP, PRINCE2) ",
+      "Information Security (CISA, CISM, CRISC) ",
+      "IT Service Management (ITIL) ",
+      "Cloud & Infrastructure (AWS, Azure, VMware) ",
+      "Software Testing (ISTQB) ",
+      "Enterprise Architecture (TOGAF) ",
+      "Networking & Systems (Cisco, Oracle) ",
     ],
   },
   {
-    id: "csr",
-    title: "CSR Activities",
-    subtitle: "Social Responsibility",
-    IconComponent: HeartIcon,
+    id: "language",
+    title: "Foreign Language",
+    subtitle: "Unlock Global Opportunities with Foreign Language Training!",
+    IconComponent: BookOpenIcon,
     description:
-      "Comprehensive Corporate Social Responsibility strategies including CSR committee formation, policy development, NGO partnerships, and impact assessment for sustainable community development.",
+      "Learning a foreign language is a gateway to personal and professional growth in today’s interconnected world. We recognize the rising demand for multilingual professionals in India and beyond.",
     details: [
-      "CSR Policy Development",
-      "Committee Orientation",
-      "Project Identification",
-      "NGO Partnerships",
-      "Impact Assessment",
-      "Compliance & Audit",
+      "Comprehensive Training in English ",
+      "Comprehensive Training in German ",
+      "Comprehensive Training in French ",
+      "Comprehensive Training in Japanese ",
+      "Comprehensive Training in Spanish ",
+      "Boosting Career and Enabling Study Abroad Opportunities ",
     ],
   },
 ]
@@ -227,7 +239,7 @@ export default function ServicesSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-10 md:mb-12"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary mb-2 md:mb-3">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-2 md:mb-3">
             Comprehensive <span className="text-accent">Solutions</span>
           </h2>
           <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">

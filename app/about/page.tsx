@@ -79,8 +79,9 @@ const MinimalAbstractPattern: React.FC<PatternProps> = ({
 // ---------------------------------------------
 
 
-const CheckIcon = ({ className }: { className?: string }) => (
-  <svg
+// CheckIcon component wrapped in motion.div for animation control
+const MotionCheckIcon = ({ className, initialColor = "text-muted-foreground/50", activeColor = "text-primary" }: { className?: string, initialColor?: string, activeColor?: string }) => (
+  <motion.svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="none"
@@ -88,10 +89,24 @@ const CheckIcon = ({ className }: { className?: string }) => (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={className}
+    className={`${className}`}
+    initial={{ opacity: 0.6, scale: 0.8, color: initialColor }}
+    variants={{
+        initial: { opacity: 0.6, scale: 0.8, color: initialColor },
+        hovered: { 
+            opacity: 1, 
+            scale: 1, 
+            color: activeColor,
+            transition: { 
+                type: "spring", 
+                stiffness: 700, 
+                damping: 30 
+            }
+        }
+    }}
   >
     <path d="M20 6L9 17l-5-5" />
-  </svg>
+  </motion.svg>
 )
 
 export default function AboutPage() {
@@ -99,6 +114,21 @@ export default function AboutPage() {
   const y = useMotionValue(0)
   const rotateX = useTransform(y, [-100, 100], [10, -10])
   const rotateY = useTransform(x, [-100, 100], [-10, 10])
+
+  // Container variant for stagger
+  const listContainerVariants = {
+    hovered: {
+      transition: {
+        staggerChildren: 0.08, // Stagger delay between items
+      },
+    },
+  }
+  
+  // Item variant for individual checkmark animation
+  const checkmarkItemVariants = {
+    initial: { opacity: 1 }, // Retain the initial state for the list item itself
+    hovered: { opacity: 1 },
+  }
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect()
@@ -113,11 +143,72 @@ export default function AboutPage() {
     y.set(0)
   }
 
+  // --- Data for simplified section rendering ---
+  const keyPrinciples = [
+    {
+      title: "Our Philosophy",
+      content:
+        "We treat your business as our own. We believe in listening and understanding your needs before developing, deploying, and continuing to support your success.",
+      icon: "🎯",
+    },
+    {
+      title: "Our Approach",
+      content:
+        "Industry-leading technology combined with proven methodologies. We maintain open dialogue with clients throughout every stage, ensuring expectations are met.",
+      icon: "🚀",
+    },
+    {
+      title: "Our Commitment",
+      content:
+        "The bottom line is always determined by results. We focus on delivering measurable outcomes and ensuring smooth transitions with comprehensive support.",
+      icon: "💎",
+    },
+  ]
+  
+  const coreServices = [
+    { title: "Software Development", icon: "💻", href: "/services/software-development" },
+    { title: "Recruitment & Staffing", icon: "👥", href: "/services/recruitment-staffing" },
+    { title: "IT Training & Certification", icon: "🎓", href: "/services/it-training" },
+    { title: "Foreign Language", icon: "🌐", href: "/services/foreign-language" },
+  ]
+  
+  const aboutSections = [
+    {
+      icon: "🔍",
+      title: "What We Do",
+      items: [
+        "We connect clients with top-tier talent across industries.",
+        "We open doors for candidates to access exceptional career opportunities.",
+        "We understand the critical importance of matching the right person to the right role.",
+      ]
+    },
+    {
+      icon: "💡",
+      title: "How We Work",
+      items: [
+        "We leverage industry-leading technology and a robust India-wide and global network of offices.",
+        "Our approach is results-driven, ensuring measurable impact for every client.",
+        "Our extensive staffing network enables us to fulfill urgent and specialized hiring needs with speed and precision.",
+      ]
+    },
+    {
+      icon: "🤝",
+      title: "Why Choose Us",
+      items: [
+        "Proven expertise in workforce solutions",
+        "Personalized service with a partnership mindset",
+        "Agile and scalable recruitment strategies",
+      ]
+    },
+  ]
+  // ---------------------------------------------
+
+
   return (
     <>
       <main className="w-full">
-        {/* Hero */}
-        <section className="py-16 md:py-28 px-4 bg-gradient-to-br from-primary/15 via-background to-accent/5 relative overflow-hidden">
+        {/* Hero - Minimized and Aesthetic */}
+        <section className="py-16 md:py-32 px-4 bg-gradient-to-br from-primary/15 via-background to-accent/5 relative overflow-hidden">
           
           {/* --- Advanced Pattern Instances --- */}
           {/* Top-Right Pattern (Accent color accent) */}
@@ -134,133 +225,153 @@ export default function AboutPage() {
           />
           {/* ---------------------------------- */}
 
-          <div className="container mx-auto max-w-6xl relative z-10"> {/* Added z-10 for text visibility */}
+          <div className="container mx-auto max-w-5xl relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8 }}
               className="text-center"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-foreground mb-4 leading-tight">
-                About <span className="text-accent">ADWI Technologies</span>
+              {/* Simplified H1 */}
+              <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-foreground mb-4 leading-tight">
+                Add <span className="text-accent">Value</span> To Your Business
               </h1>
-              <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                A privately owned company that believes in itself. We treat your business as our own, providing
-                exceptional IT solutions, expert recruitment, and staffing services with a focus on results.
+              {/* Stronger Subtext */}
+              <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium mt-6">
+                ADWI Technologies – Empowering Talent, Driving Results. We treat your business as our own, built on a foundation of trust, innovation, and commitment.
               </p>
             </motion.div>
           </div>
         </section>
 
-        {/* Main Story Section */}
+        {/* Main Story Section - Modularized Content */}
         <section className="py-16 md:py-24 px-4 bg-background">
-          <div className="container mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="container mx-auto max-w-6xl space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"> 
+              
               {/* Image with Mouse Tracking */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.7 }}
                 viewport={{ once: false, margin: "-100px" }}
-                className="relative h-72 md:h-96 flex items-center justify-center"
+                className="relative h-96 flex items-center justify-center rounded-3xl overflow-hidden"
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
               >
-                {/* Removed commented-out BlobSVGPattern code */}
                 <motion.img
                   style={{ rotateX, rotateY }}
                   src="/aboutMain.png"
                   alt="ADWI Team"
-                  className="relative w-full h-full object-cover rounded-2xl md:rounded-3xl "
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ type: "spring", stiffness: 100 }}
+                  className="relative w-full h-full object-cover"
+                  transition={{ type: "spring", stiffness: 80 }}
                 />
               </motion.div>
 
-              {/* Content */}
+              {/* Modular Content Section - ENHANCED */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.7 }}
                 viewport={{ once: false, margin: "-100px" }}
                 className="space-y-6"
               >
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">Our Story</h2>
-                  <p className="text-base text-muted-foreground leading-relaxed mb-4">
-                    ADWI Technologies is a privately owned company committed to treating your business as our own. We
-                    operate an India and global-wide network of offices with very good network of staffing subordinates
-                    for fulfilling immediate client requirements.
-                  </p>
-                  <p className="text-base text-muted-foreground leading-relaxed">
-                    We believe in finding the right person for the right job. Using industry-leading technology and
-                    proven methodologies, we deliver results that matter. Our bottom line is always determined by
-                    measurable results and client satisfaction.
-                  </p>
-                </div>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Core Identity</h2>
+                <p className="text-base text-muted-foreground leading-relaxed mb-6">
+                  ADWI Technologies is a privately owned organization built on a foundation of trust, innovation, and commitment. We deliver tailored staffing solutions that align with your goals and values, treating your business as our own.
+                </p>
+              </motion.div>
 
-                <div>
-                  <h3 className="text-xl font-bold text-foreground mb-3">What We Offer</h3>
-                  <div className="space-y-2">
-                    {[
-                      "Software Development & Solutions",
-                      "Recruitment & Staffing Services",
-                      "2D & 3D Animation Services",
-                      "CSR Activities & Impact Programs",
-                    ].map((service, idx) => (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4, delay: idx * 0.1 }}
-                        viewport={{ once: false, margin: "-50px" }}
-                        className="flex gap-2 text-sm text-muted-foreground"
+            </div>
+
+            {/* Grid for Modular Sections - ENHANCED: Individual Item Stagger on Hover */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {aboutSections.map((section, sectionIdx) => (
+                <motion.div
+                  key={sectionIdx}
+                  initial="initial"
+                  whileInView="initial"
+                  variants={checkmarkItemVariants} // Use item variants here only for inView animation, not for hover control
+                  whileHover="hovered" // This will trigger the overall list variant
+                  transition={{ duration: 0.5, delay: sectionIdx * 0.15 }}
+                  viewport={{ once: false, margin: "-50px" }}
+                  // ENHANCED HOVER EFFECT ON CARD
+                  className="p-5 bg-card rounded-xl border border-border space-y-3 shadow-lg transition-all duration-300 relative group" // Added 'group'
+                >
+                  <motion.h3 
+                      className="text-lg font-bold text-foreground flex flex-col items-start gap-2"
+                  >
+                    {/* ENHANCED ICON EFFECT */}
+                    <motion.span 
+                        className="text-4xl text-accent p-2 rounded-lg bg-accent/10"
+                        // Hover on the parent card will trigger this
+                        variants={{
+                            initial: { scale: 1, rotate: 0 },
+                            hovered: { scale: 1.15, rotate: 5 } // Icon scale and subtle rotation
+                        }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                        {section.icon}
+                    </motion.span>
+                      {section.title}
+                  </motion.h3>
+                  
+                  {/* Motion List Container for Stagger Effect */}
+                  <motion.div 
+                    className="space-y-2 pt-2"
+                    variants={listContainerVariants} // Apply stagger children here
+                  >
+                    {section.items.map((item, itemIdx) => (
+                      <motion.div 
+                        key={itemIdx} 
+                        className="flex gap-2 text-sm text-muted-foreground items-start"
+                        variants={checkmarkItemVariants} // Use item variants here only to allow stagger
                       >
-                        <span className="text-accent font-bold">•</span>
-                        <span>{service}</span>
+                        {/* Check Icon with Animation */}
+                        <MotionCheckIcon 
+                            className="w-4 h-4 mt-1 flex-shrink-0" 
+                            initialColor="text-muted-foreground/50"
+                            activeColor="text-primary"
+                            // The parent `whileHover="hovered"` will propagate the "hovered" state to this component via stagger
+                        />
+                        <span className="leading-relaxed">{item}</span>
                       </motion.div>
                     ))}
-                  </div>
-                </div>
-              </motion.div>
+                  </motion.div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Mission, Vision, Values */}
+        {/* Mission, Vision, Values - Horizontal Aesthetic Layout - ENHANCED Hover */}
         <section className="py-16 md:py-24 px-4 bg-card/30">
           <div className="container mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: "Our Philosophy",
-                  content:
-                    "We treat your business as our own. We believe in listening and understanding your needs before developing, deploying, and continuing to support your success.",
-                  icon: "🎯",
-                },
-                {
-                  title: "Our Approach",
-                  content:
-                    "Industry-leading technology combined with proven methodologies. We maintain open dialogue with clients throughout every stage, ensuring expectations are met.",
-                  icon: "🚀",
-                },
-                {
-                  title: "Our Commitment",
-                  content:
-                    "The bottom line is always determined by results. We focus on delivering measurable outcomes and ensuring smooth transitions with comprehensive support.",
-                  icon: "💎",
-                },
-              ].map((item, idx) => (
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12">Our Guiding Principles</h2>
+            <div className="flex flex-col md:flex-row gap-6"> 
+              {keyPrinciples.map((item, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   viewport={{ once: false, margin: "-50px" }}
-                  className="p-6 bg-background rounded-xl border border-border hover:border-primary/50 transition-all"
+                  whileHover={{ 
+                    translateY: -8, // More noticeable lift
+                    boxShadow: "0 15px 30px -8px rgba(0, 0, 0, 0.15)",
+                    borderColor: "var(--color-primary)" // Assuming your primary color is defined
+                  }}
+                  className="flex-1 p-8 bg-background rounded-xl border border-border shadow-lg hover:border-primary/50 transition-all text-center"
                 >
-                  <div className="text-4xl mb-3">{item.icon}</div>
-                  <h3 className="text-lg font-bold text-foreground mb-3">{item.title}</h3>
+                  <motion.div 
+                    className="text-5xl mb-4 leading-none"
+                    whileHover={{ scale: 1.2, rotate: [-10, 10, -10, 0] }} // This array caused the error
+                    // FIX: Changed to tween transition to allow multi-keyframe array rotation
+                    transition={{ type: "tween", duration: 0.8, ease: "easeInOut" }}
+                  >
+                    {item.icon}
+                  </motion.div> 
+                  <h3 className="text-xl font-bold text-foreground mb-3 border-b border-accent/30 pb-2">{item.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{item.content}</p>
                 </motion.div>
               ))}
@@ -268,7 +379,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Stats */}
+        {/* Stats (Retained) */}
         <section className="py-16 md:py-24 px-4 bg-background">
           <div className="container mx-auto max-w-6xl">
             <motion.div
@@ -282,19 +393,15 @@ export default function AboutPage() {
             </motion.div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-              {[
-                { number: "Global", label: "Network" },
-                { number: "1000s", label: "Candidates Placed" },
-                { number: "Trusted", label: "By Industry" },
-                { number: "Results", label: "Driven" },
-              ].map((stat, idx) => (
+              {[{ number: "Global", label: "Network" }, { number: "1000s", label: "Candidates Placed" }, { number: "Trusted", label: "By Industry" }, { number: "Results", label: "Driven" },].map((stat, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   viewport={{ once: false, margin: "-50px" }}
-                  className="text-center p-6 bg-card rounded-xl border border-border hover:border-accent/50 transition-all"
+                  whileHover={{ scale: 1.05, borderColor: "var(--color-accent)" }} // Subtle stat hover
+                  className="text-center p-6 bg-card rounded-xl border border-border shadow-md hover:border-accent/50 transition-all"
                 >
                   <div className="text-3xl md:text-4xl font-bold text-accent mb-2">{stat.number}</div>
                   <div className="text-xs md:text-sm text-muted-foreground font-medium">{stat.label}</div>
@@ -304,7 +411,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Services Overview */}
+        {/* Services Overview - Aesthetic Card Grid */}
         <section className="py-16 md:py-24 px-4 bg-card/30">
           <div className="container mx-auto max-w-6xl">
             <motion.div
@@ -318,13 +425,8 @@ export default function AboutPage() {
               <p className="text-base text-muted-foreground mt-2">Comprehensive solutions for your business needs.</p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {[
-                { title: "Software Development", icon: "💻", href: "/services/software-development" },
-                { title: "Recruitment & Staffing", icon: "👥", href: "/services/recruitment-staffing" },
-                { title: "2D/3D Animation", icon: "🎬", href: "/services/2d-3d-animation" },
-                { title: "CSR Activities", icon: "❤️", href: "/services/csr-activities" },
-              ].map((service, idx) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              {coreServices.map((service, idx) => (
                 <motion.a
                   href={service.href}
                   key={idx}
@@ -332,11 +434,11 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   viewport={{ once: false, margin: "-50px" }}
-                  whileHover={{ y: -4 }}
-                  className="p-5 md:p-6 bg-background border border-border hover:border-primary/50 rounded-xl text-center transition-all cursor-pointer"
+                  whileHover={{ y: -6, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }} // Lift and shadow on hover
+                  className="p-6 bg-background border border-border hover:border-accent/50 rounded-xl text-center transition-all cursor-pointer shadow-lg"
                 >
-                  <div className="text-4xl mb-3">{service.icon}</div>
-                  <h3 className="text-base md:text-lg font-bold text-foreground">{service.title}</h3>
+                  <div className="text-5xl mb-4">{service.icon}</div> 
+                  <h3 className="text-lg font-bold text-foreground">{service.title}</h3>
                 </motion.a>
               ))}
             </div>

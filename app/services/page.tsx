@@ -1,160 +1,13 @@
-// Enhanced page.tsx
 "use client"
 
 import Footer from "@/components/footer"
 import Header from "@/components/header"
-import { motion, useScroll, useTransform } from "framer-motion"
-import DesktopCarousel from "@/components/DesktopCarousel"
-import { useRef } from "react" // Import useRef
+import { motion } from "framer-motion"
+import ServiceHeroSection from "@/components/services/service-hero-section"
+import ServiceGridSection from "@/components/services/service-grid-section"
+import RelatedServicesSection from "@/components/services/related-services-section"
+import AnimatedVectorPattern from "@/components/services/animated-vector-pattern"
 import CTA from "@/components/CTA"
-
-// --- NEW COMPONENT: MinimalAbstractPattern (Vector Pattern) ---
-interface PatternProps {
-  className?: string
-  colorClass?: string
-  initialRotation?: number
-}
-
-const MinimalAbstractPattern: React.FC<PatternProps> = ({
-  className = "",
-  colorClass = "text-primary/30",
-  initialRotation = 0,
-}) => {
-  const rotation = initialRotation % 360 // Ensure initial rotation is valid
-
-  const patternVariants = {
-    animate: {
-      rotate: [rotation, 360 + rotation], // Subtle 360 rotation loop
-      x: [0, 8, -8, 0],    // Subtle horizontal sway
-      y: [0, -5, 5, 0],    // Subtle vertical float
-      pathOffset: [0, 0.5, 1, 0.5, 0], // Advanced 'drawing' effect
-      transition: {
-        rotate: {
-          duration: 90,
-          ease: "linear",
-          repeat: Infinity,
-        },
-        x: {
-          duration: 12,
-          ease: "easeInOut",
-          repeat: Infinity,
-          repeatType: "reverse",
-        },
-        y: {
-          duration: 16,
-          ease: "easeInOut",
-          repeat: Infinity,
-          repeatType: "reverse",
-        },
-        pathOffset: {
-          duration: 20,
-          ease: "easeInOut",
-          repeat: Infinity,
-        },
-      },
-    },
-  }
-
-  return (
-    <motion.div
-      variants={patternVariants}
-      animate="animate"
-      className={`absolute h-48 w-48 md:h-72 md:w-72 opacity-20 pointer-events-none ${className}`}
-      style={{ transformOrigin: '50% 50%' }}
-    >
-      {/* Abstract Grid/Line SVG for a modern look */}
-      <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className={colorClass}>
-        <path
-          d="M 10 10 L 90 90 M 10 90 L 90 10 M 50 10 V 90 M 10 50 H 90"
-          stroke="currentColor"
-          strokeWidth="1"
-          strokeLinecap="round"
-          strokeDasharray="100" // Required for path animation
-          // Framer motion uses 'style' to apply animated properties
-          style={{ pathLength: 1, pathOffset: 0 }} 
-        />
-        <circle cx="50" cy="50" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
-        <rect x="20" y="20" width="60" height="60" rx="5" stroke="currentColor" strokeWidth="1" fill="none" />
-      </svg>
-    </motion.div>
-  )
-}
-// ------------------------------------------------------------------
-
-// 1. ENHANCED ServiceCard with complex hover animation and better theme utilization
-// From the enhanced page.tsx
-const ServiceCard = ({ service, idx }: { service: any; idx: number }) => (
-  <motion.a
-    href={service.href}
-    // Initial entrance animation
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, delay: idx * 0.1 }}
-
-    // Enhanced hover for a 'lift' and 'shadow' effect
-    whileHover={{ y: -10, boxShadow: "0 20px 30px rgba(var(--color-primary-rgb), 0.2)" }}
-
-    className="group relative overflow-hidden rounded-3xl bg-card border border-border hover:border-primary/80 transition-all h-80 duration-500 will-change-transform"
-  >
-    {/* Background gradient overlay - now more vibrant on hover */}
-    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-    {/* Animated icon background - adds subtle movement */}
-    <motion.div
-      initial={{ scale: 1, rotate: 0 }}
-      whileHover={{ scale: 1.1, rotate: 5 }}
-      transition={{ duration: 0.4 }}
-      className="absolute -top-12 -right-12 w-48 h-48 bg-accent/15 rounded-full blur-3xl transition-colors duration-500"
-    />
-
-    <div className="relative p-8 h-full flex flex-col justify-between">
-      <div>
-        {/* Icon Container - Larger and changes color on hover */}
-        <div className="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center mb-4 group-hover:bg-accent/40 transition-colors duration-300">
-          <div className="text-2xl">{service.icon}</div>
-        </div>
-
-        {/* Title - Bold and uses primary color on hover */}
-        <h2 className="text-2xl font-extrabold text-foreground group-hover:text-primary transition-colors duration-300 mb-3">
-          {service.title}
-        </h2>
-
-        <p className="text-base text-muted-foreground line-clamp-3">{service.description}</p>
-      </div>
-
-      {/* Footer link - Uses primary color for emphasis */}
-      <div className="flex items-center gap-2 text-primary font-bold text-base mt-4">
-        Explore <motion.span whileHover={{ x: 6 }} className="transition-transform duration-300">→ </motion.span>
-      </div>
-    </div>
-  </motion.a>
-)
-
-// 2. STICKY/PARALLAX IMPLEMENTATION FOR "WHY CHOOSE US" SECTION
-const WhyChooseUsItem = ({ item, idx }: { item: { title: string; desc: string }; idx: number }) => (
-  <motion.div
-    key={idx}
-    initial={{ opacity: 0, scale: 0.9 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.6, delay: idx * 0.2 }} // Increased delay and duration for a more staggered effect
-    viewport={{ once: true, margin: "-100px" }} // Changed to once: true for single appearance
-    className="p-8 bg-background rounded-2xl border-2 border-border hover:border-accent/70 transition-all duration-500 text-center shadow-lg hover:shadow-xl" // Enhanced styling
-  >
-    <motion.div
-      initial={{ rotate: -10 }}
-      whileInView={{ rotate: 0 }}
-      transition={{ type: "spring", stiffness: 100, delay: idx * 0.2 }}
-      className="text-4xl mb-4 text-accent" // Icon emphasis
-    >
-      {/* Using a better icon than a checkmark for visual interest */}
-      {idx === 0 && "🚀"}
-      {idx === 1 && "🏆"}
-      {idx === 2 && "📞"}
-    </motion.div>
-    <h3 className="font-extrabold text-xl text-foreground mb-2">{item.title}</h3>
-    <p className="text-sm text-muted-foreground">{item.desc}</p>
-  </motion.div>
-);
 
 export default function ServicesPage() {
   const services = [
@@ -163,126 +16,193 @@ export default function ServicesPage() {
       title: "Software Development",
       href: "/services/software-development",
       icon: "💻",
-      description: "Custom applications, web, mobile, and cloud solutions built with cutting-edge technology.",
+      description: "Building custom web, mobile, and cloud applications tailored to your business needs.",
     },
     {
       id: "recruitment-staffing",
-      title: "Recruitment & Staffing",
+      title: "Recruitment and Staffing",
       href: "/services/recruitment-staffing",
       icon: "👥",
-      description: "Strategic talent acquisition and staffing solutions for businesses of all sizes.",
+      description: "Strategic talent acquisition and staffing solutions for finding the best IT professionals.",
     },
     {
-      id: "2d-3d-animation",
-      title: "2D/3D Animation",
-      href: "/services/2d-3d-animation",
-      icon: "🎬",
-      description: "Engaging animations and visual content that bring your brand story to life.",
+      id: "it-training-certification",
+      title: "IT Training and Certification",
+      href: "/services/training-certification",
+      icon: "🎓",
+      description: "Industry-recognized training and certification programs to upskill your team.",
     },
     {
-      id: "csr-activities",
-      title: "CSR Activities",
-      href: "/services/csr-activities",
-      icon: "❤️",
-      description: "Corporate social responsibility initiatives creating positive community impact.",
+      id: "foreign-language",
+      title: "Foreign Language",
+      href: "/services/foreign-language",
+      icon: "🌍",
+      description: "Professional courses in various foreign languages for business and personal growth.",
     },
   ]
 
-  const whyChooseUsRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: whyChooseUsRef, offset: ["start end", "end start"] });
-
-  // Use the scroll progress to transform the scale of the title to create a "sticky/zoom" effect
-  const scale = useTransform(scrollYProgress, [0.3, 0.7], [1, 1.05]);
+  const whyChooseUs = [
+    {
+      title: "Expert Team",
+      description: "50+ talented professionals with years of experience across multiple domains.",
+      icon: "🚀",
+    },
+    {
+      title: "Proven Results",
+      description: "1000+ successful projects delivered worldwide with a 98% client retention rate.",
+      icon: "🏆",
+    },
+    {
+      title: "24/7 Support",
+      description: "Dedicated support team always ready to assist you around the clock, globally.",
+      icon: "📞",
+    },
+  ]
 
   return (
     <>
       <Header />
-
       <main className="w-full">
-        {/* Hero Section - Minor animation refinement */}
-        <section className="py-20 md:py-36 px-4 bg-gradient-to-br from-primary/10 via-background to-accent/5 relative overflow-hidden">
-          
-          {/* --- ADVANCED ANIMATED VECTOR PATTERNS --- */}
-          {/* Top-Right Pattern (Primary color accent) */}
-          <MinimalAbstractPattern
-            className="top-0 right-0 translate-x-1/2 -translate-y-1/2"
-            colorClass="text-primary/50"
+        {/* Hero Section */}
+        <ServiceHeroSection
+          badge="Our Expertise"
+          title="Our"
+          titleHighlight="Services"
+          description="Comprehensive IT solutions and staffing services designed to accelerate your growth and deliver measurable results. Discover how we can transform your business."
+          ctaText="Explore Services"
+          ctaHref="#services"
+        />
+
+        {/* Why Choose Us Section */}
+        <section className="py-16 md:py-28 px-4 bg-card/30 relative overflow-hidden">
+          <AnimatedVectorPattern
+            className="top-10 right-10 md:top-20 md:right-20 w-48 h-48 md:w-64 md:h-64"
+            colorClass="text-accent/40"
             initialRotation={20}
+            duration={120}
           />
-          {/* Bottom-Left Pattern (Accent color accent) */}
-          <MinimalAbstractPattern
-            className="bottom-0 left-0 -translate-x-1/2 translate-y-1/2"
-            colorClass="text-accent/50"
-            initialRotation={-30}
+          <AnimatedVectorPattern
+            className="bottom-10 left-10 md:bottom-20 md:left-20 w-48 h-48 md:w-64 md:h-64"
+            colorClass="text-primary/30"
+            initialRotation={-40}
+            duration={150}
           />
-          {/* ----------------------------------------- */}
 
           <div className="container mx-auto max-w-6xl relative z-10">
             <motion.div
-              initial={{ opacity: 0, y: 50 }} // Larger initial y-offset
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, type: "spring", stiffness: 100 }} // Spring physics
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true, margin: "-100px" }}
               className="text-center mb-16"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-foreground mb-4 leading-tight">
-                Our <span className="text-accent">Services</span>
-              </h1>
-             <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Comprehensive IT solutions and staffing services designed to accelerate your growth and deliver
-                measurable results. Discover how we can transform your business.
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">Why Choose ADWI</h2>
+              <p className="text-base text-muted-foreground max-w-3xl mx-auto">
+                Industry-leading expertise with a proven track record of success and client satisfaction.
               </p>
             </motion.div>
-          </div>
-        </section>
-
-        <DesktopCarousel />
-
-        {/* Services Grid - Using ServiceCard with enhanced hovers */}
-        <section className="py-16 md:py-28 px-4 bg-background">
-          <div className="container mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {services.map((service, idx) => (
-                <ServiceCard key={service.id} service={service} idx={idx} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 3. Enhanced Why Choose Us Section with Scroll-driven Sticky/Scale effect */}
-        <section className="py-16 md:py-28 px-4 bg-card/50" ref={whyChooseUsRef}>
-          <div className="container mx-auto max-w-6xl">
-            <div className="mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7 }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="text-center"
-              >
-                <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">
-                  <motion.span style={{ scale }}>Why Choose ADWI</motion.span> {/* Applied scale transform */}
-                </h2>
-                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                  Industry-leading expertise with a proven track record of success and client satisfaction.
-                </p>
-              </motion.div>
-            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                { title: "Expert Team", desc: "50+ talented professionals with years of experience across multiple domains." },
-                { title: "Proven Results", desc: "1000+ successful projects delivered worldwide with a 98% client retention rate." },
-                { title: "24/7 Support", desc: "Dedicated support team always ready to assist you around the clock, globally." },
-              ].map((item, idx) => (
-                <WhyChooseUsItem key={idx} item={item} idx={idx} />
+              {whyChooseUs.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: idx * 0.15 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  whileHover={{ y: -8 }}
+                  className="p-8 bg-background rounded-xl border border-border hover:border-accent/50 transition-all shadow-lg group relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <motion.div
+                    initial={{ scale: 0.8, rotate: -20 }}
+                    whileInView={{ scale: 1, rotate: 0 }}
+                    transition={{ delay: idx * 0.15 + 0.2 }}
+                    className="text-4xl mb-4 group-hover:scale-110 transition-transform"
+                  >
+                    {item.icon}
+                  </motion.div>
+                  <h3 className="font-extrabold text-lg text-foreground mb-2 group-hover:text-accent transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* CTA Section - Fixed background for Parallax effect remains */}
-              <CTA />
+        {/* Services Grid Section */}
+        <section id="services" className="py-16 md:py-28 px-4 bg-background">
+          <div className="container mx-auto max-w-6xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="mb-16"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">Our Comprehensive Services</h2>
+              <p className="text-base text-muted-foreground">
+                Tailored solutions designed to drive innovation and accelerate your business growth.
+              </p>
+            </motion.div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {services.map((service, idx) => (
+                <motion.a
+                  key={service.id}
+                  href={service.href}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.12 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  whileHover={{ y: -12, boxShadow: "0 20px 50px rgba(0,0,0,0.15)" }}
+                  className="group relative overflow-hidden p-8 h-80 bg-gradient-to-br from-card to-card/50 border border-border hover:border-accent/60 rounded-xl transition-all duration-300"
+                >
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                  />
+
+                  {/* Icon with animation */}
+                  <motion.div
+                    initial={{ scale: 1, rotate: 0 }}
+                    whileHover={{ scale: 1.2, rotate: 8 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-4xl mb-4 group-hover:text-accent transition-colors duration-300"
+                  >
+                    {service.icon}
+                  </motion.div>
+
+                  {/* Content */}
+                  <div className="relative z-10 flex flex-col h-full justify-between">
+                    <div>
+                      <h3 className="text-2xl font-extrabold text-foreground mb-3 group-hover:text-accent transition-colors duration-300">
+                        {service.title}
+                      </h3>
+                      <p className="text-base text-muted-foreground">{service.description}</p>
+                    </div>
+                    <div className="flex items-center gap-2 text-accent font-bold mt-6">
+                      Explore
+                      <motion.span
+                        whileHover={{ x: 6 }}
+                        transition={{ duration: 0.2 }}
+                        className="inline-block"
+                      >
+                        →
+                      </motion.span>
+                    </div>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <CTA />
       </main>
       <Footer />
     </>

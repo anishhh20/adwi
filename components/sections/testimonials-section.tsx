@@ -328,16 +328,14 @@ export default function TestimonialsSection() {
 
       <div className="container mx-auto max-w-5xl relative z-20">
         <motion.div
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={headerVariants}
-          className="text-center mb-8 md:mb-12"
+          initial={{ opacity: 0, y: 15 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-8 md:mb-10"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2 md:mb-3">
-            Trusted by <span className="text-accent">Industry Innovators</span>
-          </h2>
-          <p className="text-xs md:text-sm text-white/70 max-w-2xl mx-auto font-light">
-            Hear from partners and clients who have experienced measurable results with ADWI.
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2 md:mb-3 text-white">Trusted by <span className="text-accent">Industry Innovators</span></h2>
+          <p className="text-sm md:text-base text-white/75 max-w-2xl mx-auto">
+                        Hear from partners and clients who have experienced measurable results with ADWI.
           </p>
         </motion.div>
 

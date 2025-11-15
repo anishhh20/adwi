@@ -117,7 +117,7 @@ export default function StatsSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-8 md:mb-10"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">Our Track <span className="text-accent">Record</span></h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2 md:mb-3 text-white">Our Track <span className="text-accent">Record</span></h2>
           <p className="text-sm md:text-base text-white/75 max-w-2xl mx-auto">
             Proven expertise in delivering measurable results for our clients.
           </p>

@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X, ArrowUpRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -80,22 +81,19 @@ export default function Header() {
           : "bg-background/50 backdrop-blur-md"
       }`}
     >
-            <div className="container mx-auto px-4 h-14 md:h-16 flex items-center justify-between">
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-bold text-xs md:text-sm text-primary group flex-shrink-0"
-        >
-          <motion.div
-            className="w-6 h-6 md:w-7 md:h-7 bg-primary rounded-full flex items-center justify-center text-white font-extrabold text-xs"
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            A
-          </motion.div>
-          <span className="hidden sm:inline transition-colors group-hover:text-accent">ADWI</span>
-
-        </Link>
-
+      <div className="container mx-auto px-4 h-14 md:h-16 flex items-center justify-between">
+        <Link href="/" className="block">
+      <div className="relative h-14 w-32 md:h-16 md:w-40 cursor-pointer">
+        <Image
+          src="/adwi_logo.jpg"
+          alt="ADWI Logo"
+          fill
+          style={{ objectFit: "contain" }}
+          sizes="100vw"
+        />
+      </div>
+    </Link>
+        
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           {navLinks.map((link) => (

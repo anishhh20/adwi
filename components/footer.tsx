@@ -3,6 +3,7 @@
 import { Facebook, Linkedin, Twitter, Mail, Phone, MapPin } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -52,15 +53,17 @@ export default function Footer() {
             // MODIFIED: col-span-1 to col-span-2 to ensure it spans full width on mobile
             className="col-span-2 sm:col-span-2 md:col-span-1 lg:col-span-1"
           >
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <motion.div
-                className="w-10 h-10 bg-accent text-primary rounded-lg flex items-center justify-center font-extrabold text-base shadow-xl"
-                whileHover={{ scale: 1.1, rotate: 5 }} // Slight rotation added for flair
-              >
-                A
-              </motion.div>
-              <span className="font-extrabold text-base md:text-xl tracking-wider">ADWI</span>
-            </Link>
+            <Link href="/" className="block">
+      <div className="relative h-14 w-32 md:h-16 md:w-40 cursor-pointer">
+        <Image
+          src="/adwi_logo.jpg"
+          alt="ADWI Logo"
+          fill
+          style={{ objectFit: "contain" }}
+          sizes="100vw"
+        />
+      </div>
+    </Link>
             <p className="text-xs md:text-sm leading-relaxed text-primary-foreground/70 max-w-xs">
               Privately owned company specializing in IT solutions, recruitment & staffing, and CSR activities.
             </p>
@@ -93,10 +96,10 @@ export default function Footer() {
             <h4 className="font-bold text-sm md:text-base text-white border-b border-accent/30 pb-1 w-fit">Key Services</h4>
             <ul className="space-y-3 text-xs md:text-sm">
               {[
-                { label: "Software Dev", href: "/services/software-development" },
-                { label: "Recruitment", href: "/services/recruitment-staffing" },
-                { label: "2D/3D Animation", href: "/services/2d-3d-animation" },
-                { label: "CSR Activities", href: "/services/csr-activities" },
+                { label: "Software Development", href: "/services/software-development" },
+                { label: "Recruitment and Staffing", href: "/services/recruitment-staffing" },
+                { label: "IT Training and Certification", href: "/services/training-certification" },
+                { label: "Foreign Language", href: "/services/foreign-language" },
               ].map((service) => (
                 <li key={service.href}>
                   <Link
@@ -148,7 +151,7 @@ export default function Footer() {
             viewport={{ once: true }}
             className="text-xs md:text-sm text-primary-foreground/60"
           >
-            &copy; {currentYear} ADWI Technologies. All rights reserved. | Crafted with &hearts;
+            &copy; {currentYear} ADWI Technologies. All rights reserved.
           </motion.p>
 
           {/* Social Icons */}

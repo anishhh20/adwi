@@ -3,33 +3,33 @@
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 // Updated Icons for a more realistic workflow
-import { Layout, GitBranch, Code, BarChart3, Rocket } from "lucide-react"
+import { Layout, GitBranch, Code, BarChart3, Rocket, Users, Target, Handshake, CheckCircle } from "lucide-react"
 
-// --- 1. Revised Process Steps Data Structure for Realism & Productivity ---
+// --- 1. Revised Process Steps Data Structure for Alignment with ADWI Technologies ---
 const processSteps = [
   {
     number: "01",
-    title: "Discovery & Planning",
-    description: "Validate the business case, define success metrics (KPIs), map user stories, and establish the technical architecture. Deliverable: Project Scope & Sprint Backlog.",
-    icon: Layout,
+    title: "Understanding & Scoping",
+    description: "Listen first to understand your goals, challenges, vision, and unique organizational culture. Deliverable: Clear Requirements & Strategic Direction.",
+    icon: Target, // Represents defining the goal
   },
   {
     number: "02",
-    title: "Design & Prototyping",
-    description: "Create wireframes, high-fidelity mockups, and interactive prototypes. Conduct user testing and integrate feedback before development begins.",
-    icon: GitBranch, // Represents branching/prototyping before main development
+    title: "Tailored Strategy & Planning",
+    description: "Design a personalized, agile, and scalable strategy. This involves solution architecture (Software) or identifying key leadership competencies (Staffing).",
+    icon: GitBranch, // Represents branching/prototyping or strategic pathfinding
   },
   {
     number: "03",
-    title: "Agile Implementation",
-    description: "Develop the solution in short, iterative sprints. Focus on clean, maintainable code, continuous integration (CI), and rigorous unit testing.",
-    icon: Code,
+    title: "Collaborative Implementation",
+    description: "Develop the solution in iterative cycles (Software) or conduct transparent selection/placement (Staffing). Maintain open communication and rigorous quality checks.",
+    icon: Handshake, // Represents collaboration and partnership
   },
   {
     number: "04",
-    title: "Launch & Validation",
-    description: "Full system testing (QA), controlled deployment, and go-live. Monitor immediate post-launch performance against the defined KPIs and gather critical user data.",
-    icon: Rocket,
+    title: "Results & Ongoing Support",
+    description: "Final implementation, launch, and validation. We ensure long-term satisfaction and retention, staying connected for continuous support and measurable impact.",
+    icon: CheckCircle, // Represents completion and validation
   },
 ]
 
@@ -58,7 +58,7 @@ const BackgroundFlow = () => (
   />
 )
 
-// --- Process Card Component (Minor description update for focus) ---
+// --- Process Card Component (Kept all styling and animations) ---
 function ProcessCard({ step, isLast }: { step: (typeof processSteps)[0], isLast: boolean }) {
   const itemVariants = {
     hidden: { opacity: 0, y: 40, scale: 0.98 },
@@ -82,12 +82,12 @@ function ProcessCard({ step, isLast }: { step: (typeof processSteps)[0], isLast:
         }}
         transition={spring}
       >
-        <div className="w-16 h-16 rounded-full flex items-center justify-center text-3xl font-mono font-extrabold mb-5 shadow-xl bg-accent text-accent-foreground border-4 border-accent/30 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+        <div className="w-14 h-14 rounded-full flex items-center justify-center text-3xl font-mono font-extrabold mb-5 shadow-xl bg-accent text-accent-foreground border-4 border-accent/30 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
           <IconComponent className="w-8 h-8 absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <span className="opacity-100 group-hover:opacity-0 transition-opacity duration-300">{step.number}</span>
         </div>
 
-        <h3 className="text-2xl font-extrabold text-center mb-3 text-primary tracking-tight transition-colors group-hover:text-accent">{step.title}</h3>
+        <h3 className="text-xl font-bold text-center mb-3 text-primary tracking-tight transition-colors group-hover:text-accent">{step.title}</h3>
         <p className="text-muted-foreground text-center text-base leading-relaxed flex-grow">{step.description}</p>
       </motion.div>
 
@@ -136,13 +136,13 @@ export default function ProcessSection() {
           initial={{ opacity: 0, y: 15 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-10 md:mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-3 md:mb-4">
-            Our <span className="text-accent">Agile, Result-Driven</span> Process
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-2 md:mb-3">
+            Our <span className="text-accent">Strategic Partnership</span> Process
           </h2>
-          <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-            We operate in iterative cycles with clear milestones, focusing on early validation and continuous delivery for maximum velocity and predictable outcomes.
+          <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
+            We operate with a partnership mindset, listening first to align our personalized, agile strategies with your unique vision and goals for a measurable impact.
           </p>
         </motion.div>
 
