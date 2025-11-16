@@ -88,8 +88,8 @@ const DesktopCarousel = ({ }) => {
     const screens = [
         { name: 'Software Development', component: <SoftwareDevelopmentScreen imageSrc={"/software.png"} /> },
         { name: 'Recruitment & Staffing', component: <RecruitmentStaffingScreen imageSrc={"/Recruitment.png"} /> },
-        { name: '2D/3D Animation', component: <AnimationScreen imageSrc={"/Animation.png"} /> },
-        { name: 'CSR Activities', component: <CSRAactivitiesScreen imageSrc={"/CSR.png"} /> },
+        { name: 'IT Training and Certification', component: <AnimationScreen imageSrc={"/training.png"} /> },
+        { name: 'Foreign Language', component: <CSRAactivitiesScreen imageSrc={"/foreign.png"} /> },
     ];
 
     const nextScreen = () => setCurrentScreen((prev) => (prev + 1) % screens.length);

@@ -8,6 +8,7 @@ import ServiceGridSection from "@/components/services/service-grid-section"
 import RelatedServicesSection from "@/components/services/related-services-section"
 import AnimatedVectorPattern from "@/components/services/animated-vector-pattern"
 import CTA from "@/components/CTA"
+import DesktopCarousel from "@/components/DesktopCarousel"
 
 export default function ServicesPage() {
   const services = [
@@ -72,6 +73,8 @@ export default function ServicesPage() {
           ctaText="Explore Services"
           ctaHref="#services"
         />
+
+        <DesktopCarousel />
 
         {/* Why Choose Us Section */}
         <section className="py-16 md:py-28 px-4 bg-card/30 relative overflow-hidden">
