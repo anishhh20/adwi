@@ -9,6 +9,7 @@ import RelatedServicesSection from "@/components/services/related-services-secti
 import AnimatedVectorPattern from "@/components/services/animated-vector-pattern"
 import CTA from "@/components/CTA"
 import DesktopCarousel from "@/components/DesktopCarousel"
+import AIWorkforceSection from "@/components/AIWorkforceSection"
 
 export default function ServicesPage() {
   const services = [
@@ -203,6 +204,10 @@ export default function ServicesPage() {
             </div>
           </div>
         </section>
+{/* 
+        <section id="services" className="">
+          <AIWorkforceSection />
+        </section> */}
 
         {/* CTA Section */}
         <CTA />
