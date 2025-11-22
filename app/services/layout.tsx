@@ -82,7 +82,7 @@ export default function RootLayout({
   "@type": "Organization",
   "name": "ADWI Technologies",
   "url": "https://www.adwitechnologies.com/",
-  "logo": "https://www.adwitechnologies.com/adwi_logo.jpg",
+  "logo": "https://www.adwitechnologies.com/adwi_logo.png",
   "description": "ADWI Technologies provides software development, staffing, IT training and foreign language programs.",
   "contactPoint": [{
     "@type": "ContactPoint",

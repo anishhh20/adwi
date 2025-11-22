@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { MapPin, Phone, Mail, Globe, Sparkles, ArrowRight } from 'lucide-react'
+import GlareHover from "../GlareHover"
 
 const officeLocations = [
   {
@@ -67,47 +68,62 @@ function OfficeCard({ office, index }: { office: (typeof officeLocations)[0], in
 
   return (
     <motion.div variants={itemVariants} whileHover={{ y: -8 }} className="group relative">
-
-      <div className="relative bg-gradient-to-br from-card to-card/50 border border-primary/20 rounded-2xl p-6 md:p-8 h-full group-hover:border-primary/50 transition-all duration-300 shadow-xl">
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <div className="text-2xl mb-2">{office.country}</div>
-            <h3 className="text-lg md:text-xl font-bold text-foreground group-hover:text-primary transition-colors">{office.city}</h3>
+      <GlareHover
+        glareColor="#000000"
+        glareOpacity={0.1}
+        glareAngle={-30}
+        glareSize={300}
+        transitionDuration={800}
+        playOnce={false}
+        width="100%"
+        height="100%"
+        background="transparent" // Will be overridden by child div's gradient
+        borderRadius="1rem" // 2xl is 1rem (16px)
+        borderColor="transparent" // Border is applied to the child div
+        className="!p-0 !border-0" // Remove default GlareHover padding/border
+      >
+        {/* The original card content is now the child of GlareHover */}
+        <div className="relative border border-primary/20 rounded-2xl p-6 md:p-8 h-full group-hover:border-primary/50 transition-all duration-300 shadow-xl w-full">
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <div className="text-2xl mb-2">{office.country}</div>
+              <h3 className="text-lg md:text-xl font-bold text-foreground group-hover:text-primary transition-colors">{office.city}</h3>
+            </div>
+            <motion.div
+              whileHover={{ rotate: 180, scale: 1.1 }}
+              className={`p-2.5 rounded-xl bg-gradient-to-br ${color} text-white`}
+            >
+              <Globe className="w-5 h-5" />
+            </motion.div>
           </div>
-          <motion.div
-            whileHover={{ rotate: 180, scale: 1.1 }}
-            className={`p-2.5 rounded-xl bg-gradient-to-br ${color} text-white`}
+
+          <div className="space-y-3">
+            <motion.div className="flex items-start gap-3 text-sm group-hover:translate-x-1 transition-transform">
+              <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
+              <span className="text-muted-foreground leading-relaxed">{office.address}</span>
+            </motion.div>
+
+            <motion.a href={`tel:${office.phone}`} className="flex items-center gap-3 text-sm hover:text-primary transition-colors group-hover:translate-x-1">
+              <Phone className="w-4 h-4 text-primary flex-shrink-0" />
+              <span className="text-muted-foreground">{office.phone}</span>
+            </motion.a>
+
+            <motion.a href={`mailto:${office.email}`} className="flex items-center gap-3 text-sm hover:text-primary transition-colors group-hover:translate-x-1">
+              <Mail className="w-4 h-4 text-primary flex-shrink-0" />
+              <span className="text-muted-foreground truncate">{office.email}</span>
+            </motion.a>
+          </div>
+
+          <motion.button
+            whileHover={{ scale: 1.05, x: 5 }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-6 w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-background rounded-lg font-semibold text-sm hover:shadow-lg transition-all"
           >
-            <Globe className="w-5 h-5" />
-          </motion.div>
+            Get in Touch
+            <ArrowRight className="w-4 h-4" />
+          </motion.button>
         </div>
-
-        <div className="space-y-3">
-          <motion.div className="flex items-start gap-3 text-sm group-hover:translate-x-1 transition-transform">
-            <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
-            <span className="text-muted-foreground leading-relaxed">{office.address}</span>
-          </motion.div>
-
-          <motion.a href={`tel:${office.phone}`} className="flex items-center gap-3 text-sm hover:text-primary transition-colors group-hover:translate-x-1">
-            <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-            <span className="text-muted-foreground">{office.phone}</span>
-          </motion.a>
-
-          <motion.a href={`mailto:${office.email}`} className="flex items-center gap-3 text-sm hover:text-primary transition-colors group-hover:translate-x-1">
-            <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-            <span className="text-muted-foreground truncate">{office.email}</span>
-          </motion.a>
-        </div>
-
-        <motion.button
-          whileHover={{ scale: 1.05, x: 5 }}
-          whileTap={{ scale: 0.95 }}
-          className="mt-6 w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-background rounded-lg font-semibold text-sm hover:shadow-lg transition-all"
-        >
-          Get in Touch
-          <ArrowRight className="w-4 h-4" />
-        </motion.button>
-      </div>
+      </GlareHover>
     </motion.div>
   )
 }

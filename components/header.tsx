@@ -9,27 +9,39 @@ import Image from "next/image"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const [scrollBlur, setScrollBlur] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false) 
   const pathname = usePathname()
   const menuRef = useRef<HTMLDivElement>(null)
 
+  // Determine Initial State Based on Page Path
+  const isHomePage = pathname === "/"
+  const isInitialDarkBg = isHomePage 
+  
+  // LOGO SOURCE LOGIC: We no longer need logoSrc, instead we use two images and control opacity.
+  const showDarkLogo = hasScrolled || !isInitialDarkBg
+  const showLightLogo = !hasScrolled && isInitialDarkBg
+
+  // Initial text color when not scrolled
+  const initialTextColor = isInitialDarkBg ? "text-white/80" : "text-foreground/80"
+  
+  // Scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      setScrollBlur(window.scrollY > 10)
+      setHasScrolled(window.scrollY > 50) 
     }
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Lock body scroll and handle outside click (Unchanged)
   useEffect(() => {
-    // 1. Capture original body styles before modification
     const originalBodyOverflow = document.body.style.overflow
     const originalBodyPaddingRight = document.body.style.paddingRight
 
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        if (isOpen && !(event.target as HTMLElement).closest("button")) {
+        if (isOpen && !(event.target as HTMLElement).closest("button")) { 
           setIsOpen(false)
         }
       }
@@ -38,23 +50,18 @@ export default function Header() {
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside)
 
-      // 2. FIX: Calculate scrollbar width and apply compensation padding
       const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
 
-      // Prevent body scrolling
       document.body.style.overflow = "hidden"
       
-      // Compensate for scrollbar disappearance to prevent layout shift
       if (scrollBarWidth > 0) {
         document.body.style.paddingRight = `${scrollBarWidth}px`
       }
     }
     
-    // 3. Cleanup function to restore original styles
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
       
-      // Restore original values
       document.body.style.overflow = originalBodyOverflow
       document.body.style.paddingRight = originalBodyPaddingRight
     }
@@ -62,103 +69,174 @@ export default function Header() {
 
   const navLinks = [
     { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Contact Us", href: "/contact" },
   ]
-
+  
   const isActive = (href: string) => {
-    // Simple check: is the current path an exact match or does it start with the link?
-    // Using a simple check for demonstration purposes
     return pathname === href || (href !== "/" && pathname.startsWith(href))
   }
 
+  const linkVariants = {
+    hover: { scale: 1.05, y: -2, transition: { type: "spring", stiffness: 300 } },
+    initial: { scale: 1, y: 0 }
+  }
+
+  // --- Dynamic Color Variables (PRIORITIZE SCROLL STATE) ---
+  // Ensure we keep 'transition-colors' on the elements for smoothness
+  const dynamicTextColor = hasScrolled ? "text-foreground" : initialTextColor 
+  
+  const menuHoverBg = hasScrolled 
+    ? "hover:bg-secondary/50" 
+    : isInitialDarkBg 
+      ? "hover:bg-white/10" 
+      : "hover:bg-secondary/50" 
+
+  const buttonBgColor = hasScrolled 
+    ? "bg-primary text-primary-foreground hover:bg-primary/90" 
+    : isInitialDarkBg 
+      ? "bg-white/10 text-white hover:bg-white/20" 
+      : "bg-primary text-primary-foreground hover:bg-primary/90" 
+      
+  const iconColor = hasScrolled ? "text-foreground" : isInitialDarkBg ? "text-white" : "text-foreground"
+
+
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        scrollBlur
-          ? "bg-background/50 backdrop-blur-xl border-b border-border shadow-lg"
-          : "bg-background/50 backdrop-blur-md"
-      }`}
+      className="fixed top-0 z-50 w-full p-4 md:p-6 transition-all duration-300 pointer-events-none"
     >
-      <div className="container mx-auto px-4 h-14 md:h-16 flex items-center justify-between">
-        <Link href="/" className="block">
-      <div className="relative h-14 w-32 md:h-16 md:w-40 cursor-pointer">
-        <Image
-          src="/adwi_logo.jpg"
-          alt="ADWI Logo"
-          fill
-          style={{ objectFit: "contain" }}
-          sizes="100vw"
-        />
-      </div>
-    </Link>
-        
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-sm transition-colors hover:text-primary ${
-                isActive(link.href) ? "text-primary font-semibold" : "text-foreground"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <a
-            href="/contact"
-            className="flex items-center text-sm font-semibold px-4 py-2 bg-primary text-primary-foreground rounded-full transition-all hover:bg-primary/90 shadow-md"
-          >
-            Get Quote
-            <ArrowUpRight size={16} className="ml-1" />
-          </a>
-        </nav>
-
-        {/* Mobile Menu Toggle & Icon */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 rounded-full hover:bg-secondary transition-colors"
-          aria-label={isOpen ? "Close Menu" : "Open Menu"}
+      <div className="mx-auto max-w-7xl">
+        <motion.div
+          className={`h-14 md:h-16 flex items-center justify-between px-4 md:px-6 rounded-[2rem] transition-all duration-500 border border-transparent pointer-events-auto
+            ${
+              hasScrolled
+                ? "bg-card/70 backdrop-blur-xl shadow-xl border-border/50" 
+                : "bg-white/5 backdrop-blur-md" 
+            }`}
+          initial={false}
         >
-          {isOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          {/* Logo/Brand Link */}
+          <Link href="/" className="block">
+            {/* LOGO SIZE INCREASED HERE (h-8 w-40 md:h-10 md:w-48) */}
+            {/* --- MODIFICATION FOR SMOOTHER LOGO TRANSITION (Opacity Fade) --- */}
+            <div className="relative h-8 w-40 md:h-10 md:w-48 cursor-pointer"> 
+              
+              {/* Dark Logo (Default/Scrolled) - Always present, opacity controlled */}
+              <Image
+                src="/adwi_logo.png"
+                alt="ADWI Logo"
+                fill
+                style={{ objectFit: "contain" }}
+                sizes="(max-width: 768px) 40vw, 20vw" 
+                className={`transition-opacity duration-500 ${showDarkLogo ? "opacity-100" : "opacity-0"}`}
+                priority // Priority for better LCP
+              />
+
+              {/* White Logo (Only on Dark Homepage, not scrolled) - Positioned over the dark one, opacity controlled */}
+              <Image
+                src="/adwi_logo_white.png"
+                alt="ADWI Logo White"
+                fill
+                style={{ objectFit: "contain" }}
+                sizes="(max-width: 768px) 40vw, 20vw" 
+                className={`absolute top-0 left-0 transition-opacity duration-500 ${showLightLogo ? "opacity-100" : "opacity-0"}`}
+              />
+            </div>
+          </Link>
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-4">
+            {navLinks.map((link) => (
+              <motion.div
+                key={link.href}
+                variants={linkVariants}
+                whileHover="hover"
+                initial="initial"
+              >
+                <Link
+                  href={link.href}
+                  // Added duration-300 to existing transition-colors for smoother text color change
+                  className={`text-sm py-2 px-3 rounded-xl transition-colors duration-300 ${dynamicTextColor} ${menuHoverBg}
+                    ${isActive(link.href) 
+                        ? hasScrolled 
+                          ? "text-primary font-semibold bg-primary/10" 
+                          : isInitialDarkBg
+                            ? "text-white font-semibold underline underline-offset-4 decoration-primary" 
+                            : "text-foreground font-semibold underline underline-offset-4 decoration-primary" 
+                        : ""
+                    }
+                  `}
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
+            {/* Animated 'Get Quote' Button */}
+            <motion.a
+              href="/contact"
+              className={`flex items-center text-sm font-semibold px-5 py-2.5 rounded-full transition-all shadow-lg ml-4 ${buttonBgColor}`}
+              whileHover={{ scale: 1.05, boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)" }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Get Quote
+              <ArrowUpRight size={16} className="ml-1" />
+            </motion.a>
+          </nav>
+
+          {/* Mobile Menu Toggle & Icon */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className={`md:hidden p-2 rounded-full transition-colors ${hasScrolled ? "hover:bg-secondary" : "hover:bg-white/10"}`}
+            aria-label={isOpen ? "Close Menu" : "Open Menu"}
+          >
+            <motion.div
+              key={isOpen ? "x" : "menu"}
+              initial={{ rotate: isOpen ? -90 : 90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              transition={{ duration: 0.2 }}
+              className={iconColor}
+            >
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </motion.div>
+          </button>
+        </motion.div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu (Background remains dark for contrast) */}
       <AnimatePresence>
         {isOpen && (
           <motion.nav
             ref={menuRef}
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-card border-t border-border overflow-hidden"
+            className="md:hidden mx-auto max-w-[calc(100vw-2rem)] mt-2 bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl pointer-events-auto" 
           >
             <div className="p-4 space-y-2 flex flex-col">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   className={`text-sm p-3 rounded-lg transition-all font-medium ${
                     isActive(link.href)
-                      ? "bg-accent text-accent-foreground shadow-md"
-                      : "text-foreground hover:bg-secondary"
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "text-white hover:bg-white/10"
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
-              <a
+              <motion.a
                 href="/contact"
-                className="w-full text-center px-4 py-2 bg-accent text-accent-foreground rounded-lg font-semibold transition-all mt-2 text-sm shadow-md"
+                className="w-full text-center px-4 py-2 bg-primary text-primary-foreground rounded-lg font-semibold transition-all mt-4 text-sm shadow-md"
                 onClick={() => setIsOpen(false)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Get Quote
-              </a>
+              </motion.a>
             </div>
           </motion.nav>
         )}

@@ -81,7 +81,7 @@ export default function RootLayout({
   "@type": "Organization",
   "name": "ADWI Technologies",
   "url": "https://www.adwitechnologies.com/",
-  "logo": "https://www.adwitechnologies.com/adwi_logo.jpg",
+  "logo": "https://www.adwitechnologies.com/adwi_logo.png",
   "email": "adwitechnologies@gmail.com",
   "telephone": "+91 7720077514",
   "sameAs": [
@@ -118,7 +118,7 @@ export default function RootLayout({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "ADWI Technologies - Pune Office",
-  "image": "https://www.adwitechnologies.com/adwi_logo.jpg",
+  "image": "https://www.adwitechnologies.com/adwi_logo.png",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "D4 / A / 801, Rahul Park, Warje",

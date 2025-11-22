@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
+import CountUp from "../CountUp"
 
 interface Stat {
   label: string
@@ -143,7 +144,18 @@ export default function StatsSection() {
                 transition={{ delay: 0.15 + idx * 0.08, type: "spring", stiffness: 100 }}
                 className="mb-3"
               >
-                <AnimatedCounter value={stat.value} duration={stat.duration} suffix={stat.suffix} />
+                {/* <AnimatedCounter value={stat.value} duration={stat.duration} suffix={stat.suffix} /> */}
+                <p
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent"
+                >
+                  <CountUp
+                  from={0}
+                  to={stat.value}
+                  separator=","
+                  direction="up"
+                  duration={1}
+                />+
+                </p>
               </motion.div>
               <p className="text-white/80 text-xs md:text-sm font-medium group-hover:text-white transition-colors">
                 {stat.label}

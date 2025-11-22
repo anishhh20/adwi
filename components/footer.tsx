@@ -30,7 +30,7 @@ export default function Footer() {
 
   return (
     // Increased vertical padding for a more substantial look
-    <footer className="bg-primary/80 text-primary-foreground relative overflow-hidden pt-8 sm:pt-16">
+    <footer className="bg-primary/80 text-primary-foreground relative overflow-hidden pt-8 sm:pt-16 z-20">
       <div className="absolute inset-0 opacity-10">
         {/* Adjusted blur and position for better visual interest */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent rounded-full blur-[100px] opacity-70" />
@@ -54,16 +54,16 @@ export default function Footer() {
             className="col-span-2 sm:col-span-2 md:col-span-1 lg:col-span-1"
           >
             <Link href="/" className="block">
-      <div className="relative h-14 w-32 md:h-16 md:w-40 cursor-pointer">
-        <Image
-          src="/adwi_logo.jpg"
-          alt="ADWI Logo"
-          fill
-          style={{ objectFit: "contain" }}
-          sizes="100vw"
-        />
-      </div>
-    </Link>
+              <div className="relative bg-white p-4 h-14 w-32 md:h-16 md:w-40 cursor-pointer">
+                <Image
+                  src="/adwi_logo.png"
+                  alt="ADWI Logo"
+                  fill
+                  style={{ objectFit: "contain" }}
+                  sizes="100vw"
+                />
+              </div>
+            </Link>
             <p className="text-xs md:text-sm leading-relaxed text-primary-foreground/70 max-w-xs">
               Privately owned company specializing in IT solutions, recruitment & staffing, and CSR activities.
             </p>
@@ -162,9 +162,9 @@ export default function Footer() {
             className="flex items-center gap-3"
           >
             {[
-              { Icon: Linkedin, href: "https://www.linkedin.com/company/adwi-technologies?report%2Esuccess=KJ_KkFGTDCfMt-A7wV3Fn9Yvgwr02Kd6AZHGx4bQCDiP6-2rfP2oxyVoEQiPrcAQ7Bf", label: "LinkedIn" },
+              { Icon: Linkedin, href: "https://www.linkedin.com/in/rasshmi-thakur-94a986398/", label: "LinkedIn" },
               { Icon: Twitter, href: "#", label: "Twitter" },
-              { Icon: Facebook, href: "https://www.facebook.com/people/ADWI-Technologies/100068307975578/?ref=aymt_homepage_panel#", label: "Facebook" },
+              { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=100068307975578", label: "Facebook" },
               { Icon: Mail, href: "mailto:adwitechnologies@gmail.com", label: "Email" },
             ].map(({ Icon, href, label }, idx) => (
               <motion.a

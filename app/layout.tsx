@@ -36,7 +36,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        <link rel="preload" href="/adwi_logo.jpg" as="image" />
+        <link rel="preload" href="/adwi_logo.png" as="image" />
 
         <link rel="manifest" href="/site.webmanifest" />
 
@@ -48,7 +48,7 @@ export default function RootLayout({
               "@type": "Organization",
               name: "ADWI Technologies",
               url: "https://www.adwitechnologies.com/",
-              logo: "https://www.adwitechnologies.com/adwi_logo.jpg",
+              logo: "https://www.adwitechnologies.com/adwi_logo.png",
               contactPoint: [
                 {
                   "@type": "ContactPoint",

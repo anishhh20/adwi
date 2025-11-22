@@ -23,7 +23,7 @@ export const metadata = {
     icon: [
       "/favicon.jpg",
       "/logo.png",
-      "/adwi_logo.jpg",
+      "/adwi_logo.png",
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180" },
