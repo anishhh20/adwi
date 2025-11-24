@@ -21,10 +21,10 @@ export default function Loop() {
       {/* Basic horizontal loop */}
       <LogoLoop
         logos={imageLogos}
-        speed={80}
+        speed={70}
         direction="left"
-        logoHeight={100}
-        gap={50}
+        logoHeight={70}
+        gap={80}
         hoverSpeed={0}
         scaleOnHover
         fadeOut

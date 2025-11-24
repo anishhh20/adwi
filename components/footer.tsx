@@ -1,9 +1,26 @@
 "use client"
 
-import { Facebook, Linkedin, Twitter, Mail, Phone, MapPin } from "lucide-react"
+import { Facebook, Linkedin, Twitter, Mail, Phone, MapPin, X } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
+
+// XIcon Component (Can be defined at the top of your file or in a separate file)
+const XIcon = ({ size = 16, className = '' }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    fill="currentColor" // Changed to currentColor so it respects the text color utility
+    className={`bi bi-twitter-x ${className}`} 
+    viewBox="0 0 16 16" 
+    height={size} // Pass the size prop to height/width
+    width={size} 
+  >
+    <path 
+      d="M12.6 0.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867 -5.07 -4.425 5.07H0.316l5.733 -6.57L0 0.75h5.063l3.495 4.633L12.601 0.75Zm-0.86 13.028h1.36L4.323 2.145H2.865z" 
+      strokeWidth="1" // Use camelCase in React for SVG attributes
+    />
+  </svg>
+);
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -30,7 +47,7 @@ export default function Footer() {
 
   return (
     // Increased vertical padding for a more substantial look
-    <footer className="bg-primary/80 text-primary-foreground relative overflow-hidden pt-8 sm:pt-16 z-20">
+    <footer className="bg-primary text-primary-foreground relative overflow-hidden pt-8 sm:pt-16 z-80">
       <div className="absolute inset-0 opacity-10">
         {/* Adjusted blur and position for better visual interest */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent rounded-full blur-[100px] opacity-70" />
@@ -53,10 +70,10 @@ export default function Footer() {
             // MODIFIED: col-span-1 to col-span-2 to ensure it spans full width on mobile
             className="col-span-2 sm:col-span-2 md:col-span-1 lg:col-span-1"
           >
-            <Link href="/" className="block">
-              <div className="relative bg-white p-4 h-14 w-32 md:h-16 md:w-40 cursor-pointer">
+            <Link href="/" className="block my-4">
+              <div className="relative p-4 h-14 w-32 md:h-16 md:w-40 cursor-pointer">
                 <Image
-                  src="/adwi_logo.png"
+                  src="/adwi_logo_white.png"
                   alt="ADWI Logo"
                   fill
                   style={{ objectFit: "contain" }}
@@ -74,7 +91,7 @@ export default function Footer() {
             <h4 className="font-bold text-sm md:text-base text-white border-b border-accent/30 pb-1 w-fit">Quick Links</h4>
             <ul className="space-y-3 text-xs md:text-sm">
               {[
-                { label: "Home", href: "/" },
+                // { label: "Home", href: "/" },
                 { label: "About", href: "/about" },
                 { label: "Services", href: "/services" },
                 { label: "Contact", href: "/contact" },
@@ -162,24 +179,47 @@ export default function Footer() {
             className="flex items-center gap-3"
           >
             {[
-              { Icon: Linkedin, href: "https://www.linkedin.com/in/rasshmi-thakur-94a986398/", label: "LinkedIn" },
-              { Icon: Twitter, href: "#", label: "Twitter" },
-              { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=100068307975578", label: "Facebook" },
-              { Icon: Mail, href: "mailto:adwitechnologies@gmail.com", label: "Email" },
-            ].map(({ Icon, href, label }, idx) => (
+              { Icon: Linkedin, href: "https://www.linkedin.com/in/rasshmi-thakur-94a986398/", label: "LinkedIn", key: "linkedin" },
+              // --- Use the new XIcon component here ---
+              { Icon: XIcon, href: "#", label: "X (Twitter)", key: "x" },
+              { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=100068307975578", label: "Facebook", key: "facebook" },
+              { Icon: Mail, href: "mailto:adwitechnologies@gmail.com", label: "Email", key: "mail" },
+            ].map(({ Icon, href, label, key }, idx) => {
+              
+              let hoverStyles = "";
+              switch (key) {
+                case "linkedin":
+                  hoverStyles = "hover:bg-[#0077B5] hover:text-white";
+                  break;
+                case "x": // Key changed to 'x'
+                  // --- New styles for 'X' (Black Background, White Text) ---
+                  hoverStyles = "hover:bg-black hover:text-white";
+                  break;
+                case "facebook":
+                  hoverStyles = "hover:bg-[#1877F2] hover:text-white";
+                  break;
+                case "mail":
+                  hoverStyles = "hover:bg-red-600 hover:text-white"; 
+                  break;
+                default:
+                  hoverStyles = "hover:bg-accent hover:text-primary";
+                  break;
+              }
+
+              return (
               <motion.a
                 key={idx}
                 target="_blank"
                 href={href}
-                // Increased size and more defined hover
-                className="w-9 h-9 bg-primary-foreground/15 hover:bg-accent hover:text-primary rounded-full flex items-center justify-center transition-all shadow-lg"
+                className={`w-9 h-9 bg-primary-foreground/15 rounded-full flex items-center justify-center transition-all shadow-lg ${hoverStyles}`}
                 whileHover={{ scale: 1.2, y: -4 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label={label}
               >
-                <Icon size={16} />
+                {/* The Icon component is rendered here */}
+                <Icon size={16} /> 
               </motion.a>
-            ))}
+            )})}
           </motion.div>
         </div>
       </div>

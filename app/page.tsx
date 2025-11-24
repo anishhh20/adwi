@@ -13,9 +13,8 @@ import LightRays from "@/components/LightRays"
 import Loop from "@/components/sections/loop-section"
 import { motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
+
 export default function Home() {
-  // Define a variable for the height of the sticky section
-  // Tailwind's 'screen' utility is h-screen (100vh)
   const stickyHeightClass = "h-screen"; 
   const [isLoaded, setIsLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -71,8 +70,6 @@ export default function Home() {
   }
   return (
     <main className="w-full relative"> {/* Add relative for the subsequent absolute positioning to work if needed, though 'sticky' is the key */}
-      
-      
       <div className={`w-full ${stickyHeightClass} bg-black sticky top-0 z-10`}>
         <LightRays
           raysOrigin="top-center"
@@ -85,7 +82,7 @@ export default function Home() {
           noiseAmount={0.1}
           distortion={0.05}
         />
-        
+      
         {/* 2. Header Banner Text Overlay - Centered and Styled */}
         {/* The banner content is inside the sticky container, so it also sticks. */}
         {/* <div className="absolute inset-0 flex items-center justify-center p-4 z-10">
@@ -131,7 +128,7 @@ export default function Home() {
           </div>
         </div> */}
 
-       <section ref={containerRef} className="absolute inset-0 w-full min-h-screen bg-black overflow-hidden flex flex-col">
+      <section ref={containerRef} className="absolute inset-0 w-full min-h-screen bg-black overflow-hidden flex flex-col">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-green-950/5 z-0" />
 
@@ -160,7 +157,7 @@ export default function Home() {
       )}
 
       {/* Main content - properly centered */}
-      <div className="relative z-10 flex-1 flex items-center justify-center w-full px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 flex-1 flex items-center justify-center w-full px-8 sm:px-6 lg:px-8">
         <motion.div
           className="w-full max-w-3xl text-center"
           variants={containerVariants}
@@ -168,12 +165,12 @@ export default function Home() {
           animate={isLoaded ? "visible" : "hidden"}
         >
           {/* Title */}
-          <motion.div variants={titleVariants} className="mb-6 sm:mb-8 md:mb-10">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tighter">
+          <motion.div variants={titleVariants} className="mb-6 sm:mb-8 md:mb-10 flex items-center justify-center gap-4">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-tight tracking-tighter">
               ADWI
             </h1>
             <motion.h2
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-lime-300 via-lime-400 to-green-400 bg-clip-text text-transparent leading-tight tracking-tighter"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-lime-300 via-lime-400 to-green-400 bg-clip-text text-transparent leading-tight tracking-tighter"
               animate={{ opacity: [0.8, 1, 0.8] }}
               transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
             >
@@ -184,10 +181,10 @@ export default function Home() {
           {/* Subtitle */}
           <motion.div variants={subtitleVariants} className="space-y-4 sm:space-y-6 mb-8 sm:mb-12">
             <div className="space-y-2">
-              <p className="text-sm sm:text-base md:text-lg text-gray-300 font-light tracking-wide">
+              <p className="text-md sm:text-lg md:text-xl text-gray-300 font-light tracking-wide">
                 Empowering Your Success Through
               </p>
-              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white">Strategic Talent & Innovation</p>
+              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">Strategic Talent & Innovation</p>
             </div>
 
             {/* Value proposition */}
@@ -213,6 +210,7 @@ export default function Home() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              href="/contact"
               className="w-full sm:w-auto px-8 py-3 bg-lime-500 hover:bg-lime-400 text-black font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
             >
               Get Started

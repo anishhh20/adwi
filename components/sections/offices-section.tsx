@@ -2,36 +2,36 @@
 
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { MapPin, Phone, Mail, Globe, Sparkles, ArrowRight } from 'lucide-react'
+import { MapPin, Phone, Mail, Globe, ArrowRight } from 'lucide-react'
 import GlareHover from "../GlareHover"
 
 const officeLocations = [
   {
     city: "Pune, India (HQ)",
     address: "D4/A/801, Rahul Park, Warje, Pune, India, Maharashtra 411014",
-    phone: "+91 85998 90899",
-    email: "info@adwitech.com",
+    phone: "+91 7720077514",
+    email: "adwitechnologies@gmail.com",
     country: "🇮🇳",
   },
   {
     city: "Mumbai, India",
-    address: "Regus, B-2101, B-2102, Marathon Futurex, N.M Joshi Marg, Lower Parel, Mumbai, Maharashtra 400013",
-    phone: "+91 85998 90899",
-    email: "mumbai@adwitech.com",
+    address: "Vidyavihar East, Mumbai, 400077.",
+    phone: "",
+    email: "adwitechnologies@gmail.com",
     country: "🇮🇳",
   },
   {
     city: "Dubai, UAE",
-    address: "Business Center 1, M Floor, The Gate Village, DIFC, P.O. Box 507119, Dubai, UAE",
-    phone: "+971 50 123 4567",
-    email: "dubai@adwitech.com",
+    address: "M1010 Al Wadi Building, Sheikh Zayed Road, Dubai, United Arab Emirates",
+    phone: "",
+    email: "adwitechnologies@gmail.com",
     country: "🇦🇪",
   },
   {
     city: "Germany",
-    address: "Frankfurt Office, Taunusanlage 18, 60325 Frankfurt am Main, Germany",
-    phone: "+49 69 9001 0200",
-    email: "germany@adwitech.com",
+    address: "Steglitzer damm, 12169 Berlin, Germany",
+    phone: "",
+    email: "adwitechnologies@gmail.com",
     country: "🇩🇪",
   },
 ]

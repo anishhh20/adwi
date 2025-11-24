@@ -68,7 +68,8 @@ export default function Header() {
   }, [isOpen])
 
   const navLinks = [
-    { label: "Home", href: "/" },
+    // { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Contact Us", href: "/contact" },
   ]
@@ -211,7 +212,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden mx-auto max-w-[calc(100vw-2rem)] mt-2 bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl pointer-events-auto" 
+            className="md:hidden mx-auto max-w-[calc(100vw-2rem)] mt-2 bg-black/30 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl pointer-events-auto" 
           >
             <div className="p-4 space-y-2 flex flex-col">
               {navLinks.map((link) => (
@@ -220,7 +221,7 @@ export default function Header() {
                   href={link.href}
                   className={`text-sm p-3 rounded-lg transition-all font-medium ${
                     isActive(link.href)
-                      ? "bg-primary text-primary-foreground shadow-md"
+                      ? "bg-primary/10 text-primary-foreground shadow-md"
                       : "text-white hover:bg-white/10"
                   }`}
                   onClick={() => setIsOpen(false)}
@@ -230,7 +231,7 @@ export default function Header() {
               ))}
               <motion.a
                 href="/contact"
-                className="w-full text-center px-4 py-2 bg-primary text-primary-foreground rounded-lg font-semibold transition-all mt-4 text-sm shadow-md"
+                className="w-full text-center px-4 py-2 bg-primary/30 text-primary-foreground rounded-lg font-semibold transition-all mt-4 text-sm shadow-md"
                 onClick={() => setIsOpen(false)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
