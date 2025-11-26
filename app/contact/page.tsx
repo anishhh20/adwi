@@ -6,6 +6,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { MinimalAbstractPattern } from "@/components/minimal-abstract-pattern"
 
+// --- SVG Icons remain unchanged ---
 const MailIcon = () => (
   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path
@@ -39,7 +40,42 @@ const MapPinIcon = () => (
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
   </svg>
 )
+// ------------------------------------------
 
+// --- Office Locations Data ---
+const officeLocations = [
+  {
+    city: "Pune, India (HQ)",
+    address: "Warje, Pune, India, Maharashtra 411014",
+    phone: "+91 7720077514",
+    email: "adwitechnologies@gmail.com",
+    country: "🇮🇳",
+  },
+  {
+    city: "Mumbai, India",
+    address: "Vidyavihar East, Mumbai, 400077.",
+    phone: "",
+    email: "adwitechnologies@gmail.com",
+    country: "🇮🇳",
+  },
+  {
+    city: "Dubai, UAE",
+    address: "M1010 Al Wadi Building, Sheikh Zayed Road, Dubai, United Arab Emirates",
+    phone: "",
+    email: "adwitechnologies@gmail.com",
+    country: "🇦🇪",
+  },
+  {
+    city: "Germany",
+    address: "Steglitzer damm, 12169 Berlin, Germany",
+    phone: "",
+    email: "adwitechnologies@gmail.com",
+    country: "🇩🇪",
+  },
+]
+// ------------------------------------------
+
+// --- General Contact Card Component ---
 interface ContactCardProps {
   icon: React.ReactNode
   label: string
@@ -55,7 +91,7 @@ function ContactCard({ icon, label, value, href, idx }: ContactCardProps) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: idx * 0.1 }}
-      viewport={{ once: false, margin: "-50px" }}
+      viewport={{ once: true, margin: "-50px" }} // Changed to once: true for better performance
       whileHover={{ y: -2 }}
       className="flex gap-3 p-3 rounded-lg border border-border hover:border-primary/50 transition-all group cursor-pointer"
     >
@@ -69,6 +105,51 @@ function ContactCard({ icon, label, value, href, idx }: ContactCardProps) {
     </motion.a>
   )
 }
+// ------------------------------------------
+
+
+// --- Office Location Card Component (Used for the new grid layout) ---
+interface OfficeLocationCardProps {
+  location: (typeof officeLocations)[number]
+  idx: number
+}
+
+function OfficeLocationCard({ location, idx }: OfficeLocationCardProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay: idx * 0.15 }}
+      viewport={{ once: true }}
+      className="p-4 bg-card border border-border rounded-lg shadow-md space-y-2 flex flex-col justify-between h-full hover:shadow-lg transition-shadow"
+    >
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-bold text-foreground flex items-center">
+          {location.country} <span className="ml-2">{location.city}</span>
+        </h3>
+        <MapPinIcon />
+      </div>
+
+      <p className="text-xs text-muted-foreground">{location.address}</p>
+
+      {/* Optional: Display Phone/Email links at the bottom of the card */}
+      <div className="mt-2 text-[10px] space-y-1">
+          {location.phone && (
+            <a href={`tel:${location.phone.replace(/\s/g, '')}`} className="flex items-center text-accent hover:underline">
+              <PhoneIcon /> <span className="ml-1">{location.phone}</span>
+            </a>
+          )}
+          {location.email && (
+            <a href={`mailto:${location.email}`} className="flex items-center text-accent hover:underline">
+              <MailIcon /> <span className="ml-1">{location.email}</span>
+            </a>
+          )}
+        </div>
+    </motion.div>
+  )
+}
+// ------------------------------------------
+
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
@@ -94,6 +175,7 @@ export default function ContactPage() {
   return (
     <>
       <main className="w-full">
+        {/* Contact Header Section (Unchanged) */}
         <section className="py-12 md:py-20 px-4 bg-gradient-to-br from-primary/15 via-background to-accent/5 relative overflow-hidden">
           <MinimalAbstractPattern
             className="top-0 right-0 translate-x-1/2 -translate-y-1/2"
@@ -124,156 +206,185 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="py-10 md:py-16 px-4 bg-background">
+        
+        {/* --- NEW DEDICATED OFFICE LOCATIONS SECTION --- */}
+        <section className="pt-0 pb-10- px-4 bg-background">
           <div className="container mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Form Column */}
-              <div className="lg:col-span-2 space-y-4 p-5 bg-card border border-border rounded-lg shadow-md">
-                <h2 className="text-xl font-bold text-foreground mb-3">Course & Student Details</h2>
+              <h2 className="text-xl font-bold text-foreground mb-6">Our Office Locations</h2>
+              {/* Responsive grid: 1-col, 2-col on small/medium, 4-col on large */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {officeLocations.map((item, idx) => (
+                      <OfficeLocationCard 
+                          key={idx}
+                          location={item}
+                          idx={idx}
+                      />
+                  ))}
+              </div>
+          </div>
+        </section>
+        {/* --- END NEW DEDICATED OFFICE LOCATIONS SECTION --- */}
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label htmlFor="enquiryLanguage" className="text-xs font-medium text-foreground block mb-2">
-                      Enquiry For*
-                    </label>
-                    <select
-                      id="enquiryLanguage"
+
+        {/* --- Main Form and General Contact Section --- */}
+        <section className="py-10 md:py-16 pb-10 px-4 bg-background">
+          <div className="container mx-auto max-w-6xl">
+            {/* Using a single column grid for full width content */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6"> 
+
+              <div className="space-y-8 md:col-span-2">
+                {/* Form Card */}
+                <div className="md:col-span-1 space-y-5 p-5 bg-card border border-border rounded-lg shadow-md">
+                  <h2 className="text-xl font-bold text-foreground mb-3">Course & Student Details</h2>
+                  
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
+                      <label htmlFor="enquiryLanguage" className="text-xs font-medium text-foreground block mb-2">
+                        Enquiry For*
+                      </label>
+                      <select
+                        id="enquiryLanguage"
+                        required
+                        value={enquiryType}
+                        onChange={(e) => setEnquiryType(e.target.value)}
+                        className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                      >
+                        <option value="">Select Enquiry</option>
+                        <option value="Language_Enquiry">Enquiry For Language</option>
+                        <option value="General_Enquiry">General Enquiry</option>
+                      </select>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <input
+                        type="text"
+                        placeholder="Full Name*"
+                        required
+                        className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                      />
+                      <input
+                        type="tel"
+                        placeholder="Contact Number*"
+                        required
+                        className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <select
+                        required
+                        className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                      >
+                        <option value="">Gender*</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      <input
+                        type="email"
+                        placeholder="Email Address*"
+                        required
+                        className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <input
+                        type="date"
+                        required
+                        className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                      />
+                      <select
+                        required
+                        className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                      >
+                        <option value="">I Am a:*</option>
+                        <option value="Student">Student</option>
+                        <option value="Working Professional">Working Professional</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+
+                    <textarea
+                      placeholder="Residential Address*"
+                      rows={2}
                       required
-                      value={enquiryType}
-                      onChange={(e) => setEnquiryType(e.target.value)}
-                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors resize-none"
+                    />
+
+                    <div className="flex items-start">
+                      <input
+                        id="agreement"
+                        type="checkbox"
+                        required
+                        className="w-3 h-3 text-accent bg-background border-border rounded focus:ring-accent/50 mt-1"
+                      />
+                      <label htmlFor="agreement" className="ml-2 text-xs text-muted-foreground">
+                        I hereby declare that the information given by me in this form is true, correct, and complete in
+                        all respects.
+                      </label>
+                    </div>
+
+                    <motion.button
+                      type="submit"
+                      disabled={loading}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full px-4 py-2.5 bg-accent text-accent-foreground rounded-lg font-semibold transition-all disabled:opacity-50 text-sm"
                     >
-                      <option value="">Select Enquiry</option>
-                      <option value="Language_Enquiry">Enquiry For Language</option>
-                      <option value="General_Enquiry">General Enquiry</option>
-                    </select>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <input
-                      type="text"
-                      placeholder="Full Name*"
-                      required
-                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
-                    />
-                    <input
-                      type="tel"
-                      placeholder="Contact Number*"
-                      required
-                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <select
-                      required
-                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
-                    >
-                      <option value="">Gender*</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    <input
-                      type="email"
-                      placeholder="Email Address*"
-                      required
-                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <input
-                      type="date"
-                      required
-                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
-                    />
-                    <select
-                      required
-                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
-                    >
-                      <option value="">I Am a:*</option>
-                      <option value="Student">Student</option>
-                      <option value="Working Professional">Working Professional</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </div>
-
-                  <textarea
-                    placeholder="Residential Address*"
-                    rows={2}
-                    required
-                    className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors resize-none"
-                  />
-
-                  <div className="flex items-start">
-                    <input
-                      id="agreement"
-                      type="checkbox"
-                      required
-                      className="w-3 h-3 text-accent bg-background border-border rounded focus:ring-accent/50 mt-1"
-                    />
-                    <label htmlFor="agreement" className="ml-2 text-xs text-muted-foreground">
-                      I hereby declare that the information given by me in this form is true, correct, and complete in
-                      all respects.
-                    </label>
-                  </div>
-
-                  <motion.button
-                    type="submit"
-                    disabled={loading}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full px-4 py-2.5 bg-accent text-accent-foreground rounded-lg font-semibold transition-all disabled:opacity-50 text-sm"
-                  >
-                    {loading ? "Submitting..." : submitted ? "Enrollment Submitted!" : "Submit"}
-                  </motion.button>
-                </form>
+                      {loading ? "Submitting..." : submitted ? "Enrollment Submitted!" : "Submit"}
+                    </motion.button>
+                  </form>
+                </div>
               </div>
 
-              {/* Contact Info Column */}
-              <div className="space-y-5">
-                <h2 className="text-xl font-bold text-foreground mb-4">Contact Information</h2>
-                {[
-                  {
-                    icon: <MailIcon />,
-                    label: "FL Section Email",
-                    value: "fladwitechnologies@gmail.com",
-                    href: "mailto:fladwitechnologies@gmail.com",
-                  },
-                  {
-                    icon: <MailIcon />,
-                    label: "General Email",
-                    value: "info@adwitechnologies.com",
-                    href: "mailto:info@adwitechnologies.com",
-                  },
-                  {
-                    icon: <PhoneIcon />,
-                    label: "Phone",
-                    value: "+91 7720077514",
-                    href: "tel:+917720077514",
-                  },
-                  {
-                    icon: <MapPinIcon />,
-                    label: "Location",
-                    value: "Warje, Pune - 411058",
-                    href: "#",
-                  },
-                ].map((item, idx) => (
-                  <ContactCard
-                    key={idx}
-                    icon={item.icon}
-                    label={item.label}
-                    value={item.value}
-                    href={item.href}
-                    idx={idx}
-                  />
-                ))}
-              </div>
+              {/* General Contact Section */}
+                <div className="space-y-5 p-5 bg-card border border-border rounded-lg shadow-md">
+                    <h2 className="text-xl font-bold text-foreground mb-4">General Contact</h2>
+                    
+                    {/* Phone Contact (using HQ data) */}
+                    {officeLocations[0].phone && (
+                        <ContactCard
+                            key="phone"
+                            icon={<PhoneIcon />}
+                            label="Phone (HQ)"
+                            value={officeLocations[0].phone}
+                            href={`tel:${officeLocations[0].phone.replace(/\s/g, '')}`}
+                            idx={0} 
+                        />
+                    )}
+
+                    {/* General Email (using HQ data) */}
+                    {officeLocations[0].email && (
+                        <ContactCard
+                            key="general-email"
+                            icon={<MailIcon />}
+                            label="General Email"
+                            value={officeLocations[0].email}
+                            href={`mailto:${officeLocations[0].email}`}
+                            idx={1} 
+                        />
+                    )}
+
+                    {/* FL Section Email (dedicated) */}
+                    <ContactCard
+                        key="fl-email"
+                        icon={<MailIcon />}
+                        label="FL Section Email"
+                        value="fladwitechnologies@gmail.com"
+                        href="mailto:fladwitechnologies@gmail.com"
+                        idx={2} 
+                    />
+                </div>
+
             </div>
           </div>
         </section>
+        {/* --- End Main Form and General Contact Section --- */}
 
+
+
+        {/* Map Section (Unchanged) */}
         <section className="py-8 md:py-12 px-4 bg-card/30">
           <div className="container mx-auto max-w-6xl">
             <div className="w-full h-48 bg-card rounded-lg overflow-hidden border border-border shadow-sm">

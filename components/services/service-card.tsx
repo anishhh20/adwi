@@ -28,10 +28,11 @@ export function ServiceCard({ service, isExpanded }: ServiceCardProps) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true, margin: "-50px" }}
-            className="border border-border rounded-xl overflow-hidden bg-card shadow-lg" // Enhanced base style
+            id={service.id}
+            className="border border-border rounded-xl overflow-hidden bg-card shadow-lg scroll-mt-38" // Enhanced base style
         >
             {/* New Prominent Header Area with Image */}
-            <div id={service.id} className="p-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-start bg-accent/5"> 
+            <div  className="p-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-start bg-accent/5 "> 
                 
                 {/* Text Content Column */}
                 <div className="md:col-span-2">
