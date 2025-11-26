@@ -82,13 +82,13 @@ function ProcessCard({ step, isLast }: { step: (typeof processSteps)[0], isLast:
         }}
         transition={spring}
       >
-        <div className="w-14 h-14 rounded-full flex items-center justify-center text-3xl font-mono font-extrabold mb-5 shadow-xl bg-accent text-accent-foreground border-4 border-accent/30 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-          <IconComponent className="w-8 h-8 absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-mono font-extrabold mb-5 shadow-xl bg-accent text-accent-foreground border-4 border-accent/30 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+          <IconComponent className="w-6 h-6 absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <span className="opacity-100 group-hover:opacity-0 transition-opacity duration-300">{step.number}</span>
         </div>
 
-        <h3 className="text-xl font-bold text-center mb-3 text-primary tracking-tight transition-colors group-hover:text-accent">{step.title}</h3>
-        <p className="text-muted-foreground text-center text-base leading-relaxed flex-grow">{step.description}</p>
+        <h3 className="text-lg font-bold text-center mb-3 text-primary tracking-tight transition-colors group-hover:text-accent">{step.title}</h3>
+        <p className="text-muted-foreground text-center text-sm leading-relaxed flex-grow">{step.description}</p>
       </motion.div>
 
       {!isLast && (
@@ -131,20 +131,14 @@ export default function ProcessSection() {
       <BackgroundFlow />
 
       <div className="container mx-auto max-w-7xl relative z-20">
-
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-10 md:mb-12"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-2 md:mb-3">
+        <div className="text-center mb-10 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
             Our <span className="text-accent">Strategic Partnership</span> Process
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm text-muted-foreground leading-relaxed">
             We operate with a partnership mindset, listening first to align our personalized, agile strategies with your unique vision and goals for a measurable impact.
           </p>
-        </motion.div>
+        </div>
 
         <motion.div
           variants={containerVariants}

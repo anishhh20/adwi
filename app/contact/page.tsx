@@ -1,98 +1,13 @@
 "use client"
 
 import type React from "react"
-
 import Footer from "@/components/footer"
-import { motion } from "framer-motion"
 import { useState } from "react"
+import { motion } from "framer-motion"
+import { MinimalAbstractPattern } from "@/components/minimal-abstract-pattern"
 
-// --- NEW/REPLACED COMPONENT: MinimalAbstractPattern ---
-interface PatternProps {
-  className?: string
-  colorClass?: string
-  initialRotation?: number
-}
-
-const MinimalAbstractPattern: React.FC<PatternProps> = ({
-  className = "",
-  colorClass = "text-primary/30",
-  initialRotation = 0,
-}) => {
-  const rotation = initialRotation % 360 // Ensure initial rotation is valid
-
-  const patternVariants = {
-    animate: {
-      rotate: [rotation, 360 + rotation], // Subtle 360 rotation loop
-      x: [0, 8, -8, 0],    // Subtle horizontal sway
-      y: [0, -5, 5, 0],    // Subtle vertical float
-      pathOffset: [0, 0.5, 1, 0.5, 0], // Advanced 'drawing' effect
-      transition: {
-        rotate: {
-          duration: 90,
-          ease: "linear",
-          repeat: Infinity,
-        },
-        x: {
-          duration: 12,
-          ease: "easeInOut",
-          repeat: Infinity,
-          repeatType: "reverse",
-        },
-        y: {
-          duration: 16,
-          ease: "easeInOut",
-          repeat: Infinity,
-          repeatType: "reverse",
-        },
-        pathOffset: {
-          duration: 20,
-          ease: "easeInOut",
-          repeat: Infinity,
-        },
-      },
-    },
-  }
-
-  return (
-    <motion.div
-      variants={patternVariants}
-      animate="animate"
-      className={`absolute h-48 w-48 md:h-72 md:w-72 opacity-20 pointer-events-none ${className}`}
-      style={{ transformOrigin: '50% 50%' }}
-    >
-      {/* Abstract Grid/Line SVG for a modern look */}
-      <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className={colorClass}>
-        <path
-          d="M 10 10 L 90 90 M 10 90 L 90 10 M 50 10 V 90 M 10 50 H 90"
-          stroke="currentColor"
-          strokeWidth="1"
-          strokeLinecap="round"
-          strokeDasharray="100" // Required for path animation
-          // Framer motion uses 'style' to apply animated properties
-          style={{ pathLength: 1, pathOffset: 0 }} 
-        />
-        <circle cx="50" cy="50" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
-        <rect x="20" y="20" width="60" height="60" rx="5" stroke="currentColor" strokeWidth="1" fill="none" />
-      </svg>
-    </motion.div>
-  )
-}
-// ------------------------------------------------------------------
-
-const itemVariants = {
-  hidden: { opacity: 0, x: -30 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.42, 0, 0.58, 1],
-    },
-  },
-}
-
-const Mail = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+const MailIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -102,8 +17,8 @@ const Mail = () => (
   </svg>
 )
 
-const Phone = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+const PhoneIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -113,8 +28,8 @@ const Phone = () => (
   </svg>
 )
 
-const MapPin = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+const MapPinIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -125,168 +40,243 @@ const MapPin = () => (
   </svg>
 )
 
+interface ContactCardProps {
+  icon: React.ReactNode
+  label: string
+  value: string
+  href: string
+  idx: number
+}
+
+function ContactCard({ icon, label, value, href, idx }: ContactCardProps) {
+  return (
+    <motion.a
+      href={href}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: idx * 0.1 }}
+      viewport={{ once: false, margin: "-50px" }}
+      whileHover={{ y: -2 }}
+      className="flex gap-3 p-3 rounded-lg border border-border hover:border-primary/50 transition-all group cursor-pointer"
+    >
+      <div className="flex-shrink-0 h-8 w-8 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors text-accent">
+        {icon}
+      </div>
+      <div>
+        <p className="text-xs font-semibold text-foreground">{label}</p>
+        <p className="text-xs text-muted-foreground">{value}</p>
+      </div>
+    </motion.a>
+  )
+}
+
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [enquiryType, setEnquiryType] = useState("")
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    // Simulate form submission
+
+    const targetEmail = enquiryType === "Language_Enquiry" ? "fladwitechnologies@gmail.com" : "info@adwitechnologies.com"
+
+    console.log("Form submission started...")
+    console.log("Target Email:", targetEmail)
+
     setTimeout(() => {
-      setSubmitted(true)
       setLoading(false)
+      setSubmitted(true)
       setTimeout(() => setSubmitted(false), 3000)
-    }, 1000)
+    }, 1500)
   }
 
   return (
     <>
       <main className="w-full">
-        {/* Hero */}
-        <section className="py-12 md:py-24 px-4 bg-gradient-to-br from-primary/10 via-background to-background relative overflow-hidden">
-          {/* --- Advanced Pattern Instances --- */}
-          {/* Top-Right Pattern (Primary color accent) */}
+        <section className="py-12 md:py-20 px-4 bg-gradient-to-br from-primary/15 via-background to-accent/5 relative overflow-hidden">
           <MinimalAbstractPattern
             className="top-0 right-0 translate-x-1/2 -translate-y-1/2"
-            colorClass="text-primary/50"
+            colorClass="text-accent/50"
             initialRotation={20}
           />
-          {/* Bottom-Left Pattern (Accent color accent) */}
           <MinimalAbstractPattern
             className="bottom-0 left-0 -translate-x-1/2 translate-y-1/2"
-            colorClass="text-accent/50"
+            colorClass="text-primary/50"
             initialRotation={-30}
           />
-          {/* ---------------------------------- */}
-          <div className="container mx-auto max-w-6xl relative z-10"> {/* Added z-10 for text visibility */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center"
-                      >
-                        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-foreground mb-4 leading-tight">
-                          Get in <span className="text-accent">Touch</span>
-                        </h1>
-                        <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                          Have questions or need our services? We'd love to hear from you. Reach out and let's explore how ADWI
+
+          <div className="container mx-auto max-w-5xl relative z-10 mt-10">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground mb-3 leading-tight">
+                Contact <span className="text-accent">Us</span>
+              </h1>
+              <p className="text-sm md:text-base text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium mt-4">
+                Have questions or need our services? We'd love to hear from you. Reach out and let's explore how ADWI
                 can help your business succeed.
-                        </p>
-                      </motion.div>
-                    </div>
+              </p>
+            </motion.div>
+          </div>
         </section>
 
-        {/* Contact Section */}
-        <section className="py-12 md:py-20 px-4 bg-background">
+        <section className="py-10 md:py-16 px-4 bg-background">
           <div className="container mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10">
-              {/* Contact Info */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: false, margin: "-100px" }}
-                className="space-y-6 md:space-y-8"
-              >
-                <div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Contact Information</h2>
-                  <p className="text-sm md:text-base text-muted-foreground">
-                    Reach out to us through any of these channels.
-                  </p>
-                </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Form Column */}
+              <div className="lg:col-span-2 space-y-4 p-5 bg-card border border-border rounded-lg shadow-md">
+                <h2 className="text-xl font-bold text-foreground mb-3">Course & Student Details</h2>
 
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label htmlFor="enquiryLanguage" className="text-xs font-medium text-foreground block mb-2">
+                      Enquiry For*
+                    </label>
+                    <select
+                      id="enquiryLanguage"
+                      required
+                      value={enquiryType}
+                      onChange={(e) => setEnquiryType(e.target.value)}
+                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                    >
+                      <option value="">Select Enquiry</option>
+                      <option value="Language_Enquiry">Enquiry For Language</option>
+                      <option value="General_Enquiry">General Enquiry</option>
+                    </select>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <input
+                      type="text"
+                      placeholder="Full Name*"
+                      required
+                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                    />
+                    <input
+                      type="tel"
+                      placeholder="Contact Number*"
+                      required
+                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <select
+                      required
+                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                    >
+                      <option value="">Gender*</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <input
+                      type="email"
+                      placeholder="Email Address*"
+                      required
+                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <input
+                      type="date"
+                      required
+                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                    />
+                    <select
+                      required
+                      className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors"
+                    >
+                      <option value="">I Am a:*</option>
+                      <option value="Student">Student</option>
+                      <option value="Working Professional">Working Professional</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <textarea
+                    placeholder="Residential Address*"
+                    rows={2}
+                    required
+                    className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs focus:outline-none focus:border-primary/50 transition-colors resize-none"
+                  />
+
+                  <div className="flex items-start">
+                    <input
+                      id="agreement"
+                      type="checkbox"
+                      required
+                      className="w-3 h-3 text-accent bg-background border-border rounded focus:ring-accent/50 mt-1"
+                    />
+                    <label htmlFor="agreement" className="ml-2 text-xs text-muted-foreground">
+                      I hereby declare that the information given by me in this form is true, correct, and complete in
+                      all respects.
+                    </label>
+                  </div>
+
+                  <motion.button
+                    type="submit"
+                    disabled={loading}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full px-4 py-2.5 bg-accent text-accent-foreground rounded-lg font-semibold transition-all disabled:opacity-50 text-sm"
+                  >
+                    {loading ? "Submitting..." : submitted ? "Enrollment Submitted!" : "Submit"}
+                  </motion.button>
+                </form>
+              </div>
+
+              {/* Contact Info Column */}
+              <div className="space-y-5">
+                <h2 className="text-xl font-bold text-foreground mb-4">Contact Information</h2>
                 {[
                   {
-                    icon: Mail,
-                    label: "Email",
-                    value: "adwitechnologies@gmail.com",
-                    href: "mailto:adwitechnologies@gmail.com",
+                    icon: <MailIcon />,
+                    label: "FL Section Email",
+                    value: "fladwitechnologies@gmail.com",
+                    href: "mailto:fladwitechnologies@gmail.com",
                   },
-                  { icon: Phone, label: "Phone", value: "+91 7720077514 / +91 7720077515", href: "tel:+917720077514" },
-                  { icon: MapPin, label: "Location", value: "D4/A/801, Rahul Park, Warje, Pune - 411058", href: "#" },
+                  {
+                    icon: <MailIcon />,
+                    label: "General Email",
+                    value: "info@adwitechnologies.com",
+                    href: "mailto:info@adwitechnologies.com",
+                  },
+                  {
+                    icon: <PhoneIcon />,
+                    label: "Phone",
+                    value: "+91 7720077514",
+                    href: "tel:+917720077514",
+                  },
+                  {
+                    icon: <MapPinIcon />,
+                    label: "Location",
+                    value: "Warje, Pune - 411058",
+                    href: "#",
+                  },
                 ].map((item, idx) => (
-                  <motion.a
+                  <ContactCard
                     key={idx}
+                    icon={item.icon}
+                    label={item.label}
+                    value={item.value}
                     href={item.href}
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    viewport={{ once: false, margin: "-50px" }}
-                    whileHover={{ x: 4 }}
-                    className="flex gap-4 p-4 rounded-lg border border-border hover:border-primary/50 transition-all group cursor-pointer"
-                  >
-                    <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors text-accent">
-                      <item.icon />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{item.label}</p>
-                      <p className="text-xs md:text-sm text-muted-foreground">{item.value}</p>
-                    </div>
-                  </motion.a>
+                    idx={idx}
+                  />
                 ))}
-              </motion.div>
-
-              {/* Contact Form */}
-              <motion.form
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: false, margin: "-100px" }}
-                onSubmit={handleSubmit}
-                className="lg:col-span-2 space-y-4 md:space-y-5 p-6 md:p-8 bg-card border border-border rounded-2xl"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    required
-                    className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-sm focus:outline-none focus:border-primary/50 transition-colors"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Your Email"
-                    required
-                    className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-sm focus:outline-none focus:border-primary/50 transition-colors"
-                  />
-                </div>
-
-                <input
-                  type="text"
-                  placeholder="Subject"
-                  required
-                  className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-sm focus:outline-none focus:border-primary/50 transition-colors"
-                />
-
-                <textarea
-                  placeholder="Your Message"
-                  rows={5}
-                  required
-                  className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-sm focus:outline-none focus:border-primary/50 transition-colors resize-none"
-                />
-
-                <motion.button
-                  type="submit"
-                  disabled={loading}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full px-6 py-3 bg-accent text-accent-foreground rounded-lg font-semibold transition-all disabled:opacity-50"
-                >
-                  {loading ? "Sending..." : submitted ? "Message Sent!" : "Send Message"}
-                </motion.button>
-              </motion.form>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Map Placeholder */}
-        <section className="py-12 md:py-16 px-4 bg-card/30">
+        <section className="py-8 md:py-12 px-4 bg-card/30">
           <div className="container mx-auto max-w-6xl">
-            <motion.div
-              variants={itemVariants}
-              // Added transition for the map loading effect
-              className={`w-full h-56 md:h-64 bg-card rounded-lg overflow-hidden border border-border shadow-sm relative transition-all duration-500`}
-            >
+            <div className="w-full h-48 bg-card rounded-lg overflow-hidden border border-border shadow-sm">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.6841482843486!2d73.8369869!3d18.52!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2cf2c2c2c2c2d%3A0x3c3c3c3c3c3c3c3c!2sWarje%2C%20Pune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890"
                 width="100%"
@@ -295,9 +285,9 @@ export default function ContactPage() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="ADWI Technologies Location"
+                title="Location Map"
               />
-            </motion.div>
+            </div>
           </div>
         </section>
       </main>

@@ -28,7 +28,7 @@ export default function ContactSection() {
     {
       icon: MapPin,
       label: "Address",
-      value: "D4/A/801, Rahul Park, Warje, Pune - 411058, India",
+      value: "Warje, Pune - 411058, India",
       isLink: false,
     },
     {
@@ -142,19 +142,14 @@ export default function ContactSection() {
       <MovingBackground />
 
       <div className="container mx-auto max-w-7xl relative z-10">
-        <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-center mb-10 md:mb-12"
-                >
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-2 md:mb-3">
-                    Let's Start a <span className="text-accent">Conversation</span>
-                  </h2>
-                  <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-                    Ready to build something amazing? Send a message or contact us directly.
-                  </p>
-                </motion.div>
+        <div className="text-center mb-10 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
+            Let's Start a <span className="text-accent">Conversation</span>
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Ready to build something amazing? Send a message or contact us directly.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
           {/* Left - Contact Information (1 column on mobile, 1 on desktop) */}

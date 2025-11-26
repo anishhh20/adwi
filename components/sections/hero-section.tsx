@@ -8,7 +8,7 @@ export default function HeroSection() {
   const [activeSlide, setActiveSlide] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [showOverlay, setShowOverlay] = useState(true)
-  
+
   // 1. New State for Mouse Tracking and Hover Status
   const [isHovering, setIsHovering] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -67,7 +67,7 @@ export default function HeroSection() {
       setActiveSlide((prev) => (prev + 1) % slides.length)
     }, 5000)
     return () => clearInterval(timer)
-  }, [slides.length]) 
+  }, [slides.length])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,23 +113,23 @@ export default function HeroSection() {
   // Max rotation angle (subtle effect)
   const maxRotation = 4
 
-  const rotateX = useTransform(ySpring, (latestY) => 
+  const rotateX = useTransform(ySpring, (latestY) =>
     isHovering ? calculateRotation(latestY, window.innerHeight, maxRotation) : 0
   )
-  const rotateY = useTransform(xSpring, (latestX) => 
+  const rotateY = useTransform(xSpring, (latestX) =>
     isHovering ? -calculateRotation(latestX, window.innerWidth, maxRotation) : 0
   )
-  
+
   // Update motion values on mouse position change
   useEffect(() => {
-      x.set(mousePosition.x);
-      y.set(mousePosition.y);
+    x.set(mousePosition.x);
+    y.set(mousePosition.y);
   }, [mousePosition, x, y]);
 
 
   return (
-    <section 
-      id="home" 
+    <section
+      id="home"
       className="w-full h-screen md:min-h-screen overflow-hidden bg-primary relative"
       // 6. Integrate mouse handlers for the main container
       onMouseMove={handleMouseMove}
@@ -146,11 +146,11 @@ export default function HeroSection() {
         >
           <img src={slide.image || "/placeholder.svg"} alt={slide.title} className="w-full h-full object-cover" />
           {/* Enhanced Overlay: Darker for better text contrast (Black theme from CSS) */}
-          <div className="absolute inset-0 bg-black/50" /> 
+          <div className="absolute inset-0 bg-black/50" />
 
           <div className="absolute inset-0 flex flex-col justify-center items-start p-4 sm:p-6 md:p-12 lg:p-16"
             // Ensure the content container has a perspective for the 3D effect
-            style={{ perspective: '1000px' }} 
+            style={{ perspective: '1000px' }}
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -158,9 +158,9 @@ export default function HeroSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="max-w-2xl"
               // 7. Apply the mouse-driven rotation to the content block
-              style={{ 
-                rotateX: rotateX, 
-                rotateY: rotateY, 
+              style={{
+                rotateX: rotateX,
+                rotateY: rotateY,
                 transition: isHovering ? 'none' : 'transform 0.5s ease-out' // Transition back to 0 smoothly
               }}
             >
@@ -172,8 +172,8 @@ export default function HeroSection() {
               <p className="text-base sm:text-lg md:text-xl text-accent font-semibold mb-3 md:mb-4 drop-shadow-md">{slide.subtitle}</p>
               {/* Description uses white with high opacity */}
               <p className="text-sm sm:text-base text-white/90 mb-4 md:mb-6 max-w-xl drop-shadow-sm">{slide.description}</p>
-              <motion.a 
-                href={slide.link} 
+              <motion.a
+                href={slide.link}
                 className="px-6 md:px-8 py-2.5 md:py-3 bg-accent text-accent-foreground rounded-lg font-bold hover:opacity-90 transition-all text-sm md:text-base inline-block uppercase tracking-wider shadow-lg" // Enhanced button style
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -217,16 +217,16 @@ export default function HeroSection() {
               key={idx}
               onClick={() => setActiveSlide(idx)}
               // FIX/ENHANCEMENT: Ensures correct pill shape (w-7/w-9) for active and small dot for inactive, using ACCENT color.
-              className={`rounded-full transition-all duration-300 ease-in-out ${idx === activeSlide 
-                  ? "w-7 md:w-9 h-2 bg-accent" // Active: Wider pill, Green accent
-                  : "w-2 h-2 bg-white/50 hover:bg-white/80" // Inactive: Small dot, white opacity
+              className={`rounded-full transition-all duration-300 ease-in-out ${idx === activeSlide
+                ? "w-7 md:w-9 h-2 bg-accent" // Active: Wider pill, Green accent
+                : "w-2 h-2 bg-white/50 hover:bg-white/80" // Inactive: Small dot, white opacity
                 }`}
               aria-label={`Go to slide ${idx + 1}`}
               whileHover={{ scale: 1.2 }}
             />
           ))}
         </div>
-        
+
         {/* Navigation Button Styling */}
         <motion.button
           onClick={nextSlide}

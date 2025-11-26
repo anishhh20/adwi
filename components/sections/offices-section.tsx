@@ -8,7 +8,7 @@ import GlareHover from "../GlareHover"
 const officeLocations = [
   {
     city: "Pune, India (HQ)",
-    address: "D4/A/801, Rahul Park, Warje, Pune, India, Maharashtra 411014",
+    address: "Warje, Pune, India, Maharashtra 411014",
     phone: "+91 7720077514",
     email: "adwitechnologies@gmail.com",
     country: "🇮🇳",
@@ -84,32 +84,32 @@ function OfficeCard({ office, index }: { office: (typeof officeLocations)[0], in
       >
         {/* The original card content is now the child of GlareHover */}
         <div className="relative border border-primary/20 rounded-2xl p-6 md:p-8 h-full group-hover:border-primary/50 transition-all duration-300 shadow-xl w-full">
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex items-start justify-between mb-3">
             <div>
-              <div className="text-2xl mb-2">{office.country}</div>
-              <h3 className="text-lg md:text-xl font-bold text-foreground group-hover:text-primary transition-colors">{office.city}</h3>
+              <div className="text-xl mb-2">{office.country}</div>
+              <h3 className="text-sm md:text-base font-bold text-foreground">{office.city}</h3>
             </div>
             <motion.div
               whileHover={{ rotate: 180, scale: 1.1 }}
               className={`p-2.5 rounded-xl bg-gradient-to-br ${color} text-white`}
             >
-              <Globe className="w-5 h-5" />
+              <Globe className="w-4 h-4" />
             </motion.div>
           </div>
 
           <div className="space-y-3">
-            <motion.div className="flex items-start gap-3 text-sm group-hover:translate-x-1 transition-transform">
-              <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-1" />
-              <span className="text-muted-foreground leading-relaxed">{office.address}</span>
+            <motion.div className="flex items-start gap-3 text-xs group-hover:translate-x-1 transition-transform">
+              <MapPin className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
+              <span className="text-muted-foreground ">{office.address}</span>
             </motion.div>
 
-            <motion.a href={`tel:${office.phone}`} className="flex items-center gap-3 text-sm hover:text-primary transition-colors group-hover:translate-x-1">
-              <Phone className="w-4 h-4 text-primary flex-shrink-0" />
+            <motion.a href={`tel:${office.phone}`} className="flex items-center gap-3 text-xs hover:text-primary transition-colors group-hover:translate-x-1">
+              <Phone className="w-3 h-3 text-primary flex-shrink-0" />
               <span className="text-muted-foreground">{office.phone}</span>
             </motion.a>
 
-            <motion.a href={`mailto:${office.email}`} className="flex items-center gap-3 text-sm hover:text-primary transition-colors group-hover:translate-x-1">
-              <Mail className="w-4 h-4 text-primary flex-shrink-0" />
+            <motion.a href={`mailto:${office.email}`} className="flex items-center gap-3 text-xs hover:text-primary transition-colors group-hover:translate-x-1">
+              <Mail className="w-3 h-3 text-primary flex-shrink-0" />
               <span className="text-muted-foreground truncate">{office.email}</span>
             </motion.a>
           </div>
@@ -117,10 +117,10 @@ function OfficeCard({ office, index }: { office: (typeof officeLocations)[0], in
           <motion.button
             whileHover={{ scale: 1.05, x: 5 }}
             whileTap={{ scale: 0.95 }}
-            className="mt-6 w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-background rounded-lg font-semibold text-sm hover:shadow-lg transition-all"
+            className="mt-6 w-full inline-flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-primary to-secondary text-background rounded-lg font-semibold text-sm hover:shadow-lg transition-all"
           >
             Get in Touch
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3 h-3" />
           </motion.button>
         </div>
       </GlareHover>
@@ -135,24 +135,21 @@ export default function OfficesSection() {
   })
 
   return (
-    <section id="offices" ref={ref} className="relative py-20 md:py-32 px-4 bg-background overflow-hidden">
+    <section id="offices" ref={ref} className="relative py-8 md:py-12 px-4 bg-background overflow-hidden">
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
 
       <div className="container mx-auto max-w-7xl relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ duration: 0.5 }}
+        <div
           className="text-center mb-10 md:mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-2 md:mb-3">
+          <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
             Our Global <span className="text-accent">Offices</span>
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
-                        A network of strategic locations to deliver high-impact IT and staffing services across the globe.
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            A network of strategic locations to deliver high-impact IT and staffing services across the globe.
           </p>
-        </motion.div>
+        </div>
 
         <motion.div
           variants={containerVariants}

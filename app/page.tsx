@@ -13,9 +13,10 @@ import LightRays from "@/components/LightRays"
 import Loop from "@/components/sections/loop-section"
 import { motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
+import CTA from "@/components/CTA"
 
 export default function Home() {
-  const stickyHeightClass = "h-screen"; 
+  const stickyHeightClass = "h-screen";
   const [isLoaded, setIsLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -82,7 +83,7 @@ export default function Home() {
           noiseAmount={0.1}
           distortion={0.05}
         />
-      
+
         {/* 2. Header Banner Text Overlay - Centered and Styled */}
         {/* The banner content is inside the sticky container, so it also sticks. */}
         {/* <div className="absolute inset-0 flex items-center justify-center p-4 z-10">
@@ -128,82 +129,82 @@ export default function Home() {
           </div>
         </div> */}
 
-      <section ref={containerRef} className="absolute inset-0 w-full min-h-screen bg-black overflow-hidden flex flex-col">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-green-950/5 z-0" />
+        <section ref={containerRef} className="absolute inset-0 w-full min-h-screen bg-black overflow-hidden flex flex-col">
+          {/* Background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-green-950/5 z-0" />
 
-      {/* Left accent - hidden on mobile */}
-      {!isMobile && (
-        <motion.div
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-80 h-80 -ml-40 z-0"
-          animate={{ x: [-30, 30, -30], y: [-20, 20, -20] }}
-          transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-        >
-          <div className="w-full h-full rounded-full border border-lime-500/20 blur-xl" />
-          <div className="absolute inset-12 rounded-full border border-lime-500/10" />
-        </motion.div>
-      )}
-
-      {/* Right accent - hidden on mobile */}
-      {!isMobile && (
-        <motion.div
-          className="absolute right-0 top-1/3 w-96 h-96 -mr-48 z-0"
-          animate={{ x: [30, -30, 30], y: [20, -20, 20] }}
-          transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-        >
-          <div className="w-full h-full rounded-full border border-green-500/20 blur-xl" />
-          <div className="absolute inset-16 rounded-full border border-green-500/10" />
-        </motion.div>
-      )}
-
-      {/* Main content - properly centered */}
-      <div className="relative z-10 flex-1 flex items-center justify-center w-full px-8 sm:px-6 lg:px-8">
-        <motion.div
-          className="w-full max-w-3xl text-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isLoaded ? "visible" : "hidden"}
-        >
-          {/* Title */}
-          <motion.div variants={titleVariants} className="mb-6 sm:mb-8 md:mb-10 flex items-center justify-center gap-4">
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-tight tracking-tighter">
-              ADWI
-            </h1>
-            <motion.h2
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-lime-300 via-lime-400 to-green-400 bg-clip-text text-transparent leading-tight tracking-tighter"
-              animate={{ opacity: [0.8, 1, 0.8] }}
-              transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-            >
-              Technologies
-            </motion.h2>
-          </motion.div>
-
-          {/* Subtitle */}
-          <motion.div variants={subtitleVariants} className="space-y-4 sm:space-y-6 mb-8 sm:mb-12">
-            <div className="space-y-2">
-              <p className="text-md sm:text-lg md:text-xl text-gray-300 font-light tracking-wide">
-                Empowering Your Success Through
-              </p>
-              <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">Strategic Talent & Innovation</p>
-            </div>
-
-            {/* Value proposition */}
+          {/* Left accent - hidden on mobile */}
+          {!isMobile && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 1, delay: 0.6 }}
-              className="flex items-center justify-center gap-2 sm:gap-3"
+              className="absolute left-0 top-1/2 -translate-y-1/2 w-80 h-80 -ml-40 z-0"
+              animate={{ x: [-30, 30, -30], y: [-20, 20, -20] }}
+              transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
             >
-              <div className="h-px w-6 sm:w-8 bg-gradient-to-r from-transparent to-lime-500 rounded-full" />
-              <p className="text-xs sm:text-sm font-semibold text-lime-400 uppercase tracking-widest whitespace-nowrap">
-                Add Value To Your Business
-              </p>
-              <div className="h-px w-6 sm:w-8 bg-gradient-to-l from-transparent to-lime-500 rounded-full" />
+              <div className="w-full h-full rounded-full border border-lime-500/20 blur-xl" />
+              <div className="absolute inset-12 rounded-full border border-lime-500/10" />
             </motion.div>
-          </motion.div>
+          )}
 
-          {/* CTA Buttons */}
-          <motion.div
+          {/* Right accent - hidden on mobile */}
+          {!isMobile && (
+            <motion.div
+              className="absolute right-0 top-1/3 w-96 h-96 -mr-48 z-0"
+              animate={{ x: [30, -30, 30], y: [20, -20, 20] }}
+              transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            >
+              <div className="w-full h-full rounded-full border border-green-500/20 blur-xl" />
+              <div className="absolute inset-16 rounded-full border border-green-500/10" />
+            </motion.div>
+          )}
+
+          {/* Main content - properly centered */}
+          <div className="relative z-10 flex-1 flex items-center justify-center w-full px-8 sm:px-6 lg:px-8">
+            <motion.div
+              className="w-full max-w-3xl text-center"
+              variants={containerVariants}
+              initial="hidden"
+              animate={isLoaded ? "visible" : "hidden"}
+            >
+              {/* Title */}
+              <motion.div variants={titleVariants} className="mb-6 sm:mb-8 md:mb-10 flex items-center justify-center gap-4">
+                <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tighter">
+                  ADWI
+                </h1>
+                <motion.h2
+                  className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-lime-300 via-lime-400 to-green-400 bg-clip-text text-transparent leading-tight tracking-tighter"
+                  animate={{ opacity: [0.8, 1, 0.8] }}
+                  transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
+                >
+                  Technologies
+                </motion.h2>
+              </motion.div>
+
+              {/* Subtitle */}
+              <motion.div variants={subtitleVariants} className="space-y-4 sm:space-y-6 mb-8 sm:mb-12">
+                <div className="space-y-2">
+                  <p className="text-sm sm:text-md md:text-lg text-gray-300 font-light tracking-wide">
+                    Empowering Your Success Through
+                  </p>
+                  <p className="text-md sm:text-xl md:text-2xl font-bold text-white">Strategic Talent & Innovation</p>
+                </div>
+
+                {/* Value proposition */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={isLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 1, delay: 0.6 }}
+                  className="flex items-center justify-center gap-2 sm:gap-3"
+                >
+                  <div className="h-px w-6 sm:w-8 bg-gradient-to-r from-transparent to-lime-500 rounded-full" />
+                  <p className="text-xs sm:text-sm font-semibold text-lime-400 uppercase tracking-widest whitespace-nowrap">
+                    Add Value To Your Business
+                  </p>
+                  <div className="h-px w-6 sm:w-8 bg-gradient-to-l from-transparent to-lime-500 rounded-full" />
+                </motion.div>
+              </motion.div>
+
+              {/* CTA Buttons */}
+              {/* <motion.div
             variants={buttonVariants}
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center"
           >
@@ -222,24 +223,24 @@ export default function Home() {
             >
               Learn More
             </motion.button>
+          </motion.div> */}
+            </motion.div>
+          </div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY }}
+            className="relative z-10 pb-6 sm:pb-8 flex flex-col items-center gap-2"
+          >
+            <p className="text-xs sm:text-sm text-gray-400 font-light tracking-wide">Scroll to explore</p>
+            <svg className="w-5 h-5 sm:w-6 sm:h-6 text-lime-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
           </motion.div>
-        </motion.div>
+        </section>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY }}
-        className="relative z-10 pb-6 sm:pb-8 flex flex-col items-center gap-2"
-      >
-        <p className="text-xs sm:text-sm text-gray-400 font-light tracking-wide">Scroll to explore</p>
-        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-lime-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </motion.div>
-    </section>
-      </div>
-      
       <div className="w-full relative z-20 bg-white dark:bg-black"> {/* Added a solid background to cover the sticky section as it scrolls */}
         <AboutSection />
         <StatsSection />
@@ -248,9 +249,10 @@ export default function Home() {
         <ProcessSection />
         <Loop />
         <TestimonialsSection />
-        <ContactSection />
+        {/* <ContactSection /> */}
+        <CTA />
       </div>
-      
+
       {/* Footer can be outside the main scrolling container or inside, depending on if you want it to scroll over or stop at the end of the scrollable content. */}
       <Footer />
     </main>

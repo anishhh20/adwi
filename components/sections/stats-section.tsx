@@ -112,17 +112,14 @@ export default function StatsSection() {
 
       {/* Content Container (Needs higher z-index to appear above the background) */}
       <div className="container mx-auto max-w-6xl relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-8 md:mb-10"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2 md:mb-3 text-white">Our Track <span className="text-accent">Record</span></h2>
-          <p className="text-sm md:text-base text-white/75 max-w-2xl mx-auto">
+        <div className="text-center mb-8 md:mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+            Our Track <span className="text-accent">Record</span>
+          </h2>
+          <p className="text-sm text-white/75 leading-relaxed">
             Proven expertise in delivering measurable results for our clients.
           </p>
-        </motion.div>
+        </div>
 
         <motion.div
           variants={containerVariants}
@@ -144,22 +141,20 @@ export default function StatsSection() {
                 transition={{ delay: 0.15 + idx * 0.08, type: "spring", stiffness: 100 }}
                 className="mb-3"
               >
-                {/* <AnimatedCounter value={stat.value} duration={stat.duration} suffix={stat.suffix} /> */}
                 <p
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent"
+                  className="text-lg sm:text-xl md:text-2xl font-bold text-accent"
                 >
                   <CountUp
-                  from={0}
-                  to={stat.value}
-                  separator=","
-                  direction="up"
-                  duration={1}
-                />+
+                    from={0}
+                    to={stat.value}
+                    separator=","
+                    direction="up"
+                    duration={1}
+                  />+
                 </p>
               </motion.div>
-              <p className="text-white/80 text-xs md:text-sm font-medium group-hover:text-white transition-colors">
-                {stat.label}
-              </p>
+              <p className="text-white/80 text-xs md:text-sm font-medium mt-1">{stat.label}</p>
+
             </motion.div>
           ))}
         </motion.div>

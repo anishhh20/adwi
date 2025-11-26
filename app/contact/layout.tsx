@@ -2,7 +2,7 @@ import type React from "react"
 import { Metadata } from "next"
 import Script from "next/script";
 
-export const metadata : Metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL("https://www.adwitechnologies.com/"),
 
   title: "Contact | ADWI Technologies",
@@ -75,7 +75,7 @@ export default function RootLayout({
 
       <head>
         <Script id="contact-org-schema" type="application/ld+json">
-{`
+          {`
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -90,10 +90,10 @@ export default function RootLayout({
   ]
 }
 `}
-</Script>
+        </Script>
 
-<Script id="contact-webpage-schema" type="application/ld+json">
-{`
+        <Script id="contact-webpage-schema" type="application/ld+json">
+          {`
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -109,11 +109,11 @@ export default function RootLayout({
   }
 }
 `}
-</Script>
+        </Script>
 
 
-<Script id="contact-localbusiness-pune" type="application/ld+json">
-{`
+        <Script id="contact-localbusiness-pune" type="application/ld+json">
+          {`
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -121,7 +121,7 @@ export default function RootLayout({
   "image": "https://www.adwitechnologies.com/adwi_logo.png",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "D4 / A / 801, Rahul Park, Warje",
+    "streetAddress": "Warje",
     "addressLocality": "Pune",
     "postalCode": "411058",
     "addressCountry": "IN"
@@ -131,10 +131,10 @@ export default function RootLayout({
   "openingHours": "Mo-Fr 10:00-18:00"
 }
 `}
-</Script>
+        </Script>
 
-<Script id="contact-localbusiness-dubai" type="application/ld+json">
-{`
+        <Script id="contact-localbusiness-dubai" type="application/ld+json">
+          {`
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -145,10 +145,10 @@ export default function RootLayout({
   }
 }
 `}
-</Script>
+        </Script>
 
-<Script id="contact-localbusiness-germany" type="application/ld+json">
-{`
+        <Script id="contact-localbusiness-germany" type="application/ld+json">
+          {`
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -159,10 +159,10 @@ export default function RootLayout({
   }
 }
 `}
-</Script>
+        </Script>
 
       </head>
-      
+
       <body className={`font-sans antialiased`}>
         {children}
       </body>

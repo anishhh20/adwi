@@ -1,47 +1,96 @@
 "use client"
 
+import type React from "react"
+
 import Footer from "@/components/footer"
 import Header from "@/components/header"
-import { motion } from "framer-motion"
-import ServiceHeroSection from "@/components/services/service-hero-section"
-import ServiceGridSection from "@/components/services/service-grid-section"
-import RelatedServicesSection from "@/components/services/related-services-section"
-import AnimatedVectorPattern from "@/components/services/animated-vector-pattern"
 import CTA from "@/components/CTA"
-import DesktopCarousel from "@/components/DesktopCarousel"
-import AIWorkforceSection from "@/components/AIWorkforceSection"
+import AnimatedVectorPattern from "@/components/services/animated-vector-pattern"
+import { ServiceCard } from "@/components/services/service-card"
+import { allServicesData } from "@/lib/services-data"
+import { motion } from "framer-motion"
+
+interface PatternProps {
+  className?: string
+  colorClass?: string
+  initialRotation?: number
+}
+
+const MinimalAbstractPattern: React.FC<PatternProps> = ({
+  className = "",
+  colorClass = "text-primary/30",
+  initialRotation = 0,
+}) => {
+  const rotation = initialRotation % 360 // Ensure initial rotation is valid
+
+  const patternVariants = {
+    animate: {
+      rotate: [rotation, 360 + rotation], // Subtle 360 rotation loop
+      x: [0, 8, -8, 0], // Subtle horizontal sway
+      y: [0, -5, 5, 0], // Subtle vertical float
+      pathOffset: [0, 0.5, 1, 0.5, 0], // Advanced 'drawing' effect
+      transition: {
+        rotate: {
+          duration: 90,
+          ease: "linear",
+          repeat: Number.POSITIVE_INFINITY,
+        },
+        x: {
+          duration: 12,
+          ease: "easeInOut",
+          repeat: Number.POSITIVE_INFINITY,
+          repeatType: "reverse",
+        },
+        y: {
+          duration: 16,
+          ease: "easeInOut",
+          repeat: Number.POSITIVE_INFINITY,
+          repeatType: "reverse",
+        },
+        pathOffset: {
+          duration: 20,
+          ease: "easeInOut",
+          repeat: Number.POSITIVE_INFINITY,
+        },
+      },
+    },
+  }
+
+  return (
+    <motion.div
+      variants={patternVariants}
+      animate="animate"
+      className={`absolute h-48 w-48 md:h-72 md:w-72 opacity-20 pointer-events-none ${className}`}
+      style={{ transformOrigin: "50% 50%" }}
+    >
+      {/* Abstract Grid/Line SVG for a modern look */}
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className={colorClass}
+      >
+        <path
+          d="M 10 10 L 90 90 M 10 90 L 90 10 M 50 10 V 90 M 10 50 H 90"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+          strokeDasharray="100" // Required for path animation
+          // Framer motion uses 'style' to apply animated properties
+          style={{ pathLength: 1, pathOffset: 0 }}
+        />
+        <circle cx="50" cy="50" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
+        <rect x="20" y="20" width="60" height="60" rx="5" stroke="currentColor" strokeWidth="1" fill="none" />
+      </svg>
+    </motion.div>
+  )
+}
 
 export default function ServicesPage() {
-  const services = [
-    {
-      id: "software-development",
-      title: "Software Development",
-      href: "/services/software-development",
-      icon: "💻",
-      description: "Building custom web, mobile, and cloud applications tailored to your business needs.",
-    },
-    {
-      id: "recruitment-staffing",
-      title: "Recruitment and Staffing",
-      href: "/services/recruitment-staffing",
-      icon: "👥",
-      description: "Strategic talent acquisition and staffing solutions for finding the best IT professionals.",
-    },
-    {
-      id: "it-training-certification",
-      title: "IT Training and Certification",
-      href: "/services/training-certification",
-      icon: "🎓",
-      description: "Industry-recognized training and certification programs to upskill your team.",
-    },
-    {
-      id: "foreign-language",
-      title: "Foreign Language",
-      href: "/services/foreign-language",
-      icon: "🌍",
-      description: "Professional courses in various foreign languages for business and personal growth.",
-    },
-  ]
+  // REMOVED: const [expandedService, setExpandedService] = useState<string | null>(null)
+  // The services will now display all details by default
 
   const whyChooseUs = [
     {
@@ -66,16 +115,34 @@ export default function ServicesPage() {
       <Header />
       <main className="w-full">
         {/* Hero Section */}
-        <ServiceHeroSection
-          badge="Our Expertise"
-          title="Our"
-          titleHighlight="Services"
-          description="Comprehensive IT solutions and staffing services designed to accelerate your growth and deliver measurable results. Discover how we can transform your business."
-          ctaText="Explore Services"
-          ctaHref="#services"
-        />
+        <section className="py-12 md:py-20 px-4 bg-gradient-to-br from-primary/15 via-background to-accent/5 relative overflow-hidden">
+          <MinimalAbstractPattern
+            className="top-0 right-0 translate-x-1/2 -translate-y-1/2"
+            colorClass="text-accent/50"
+            initialRotation={20}
+          />
+          <MinimalAbstractPattern
+            className="bottom-0 left-0 -translate-x-1/2 translate-y-1/2"
+            colorClass="text-primary/50"
+            initialRotation={-30}
+          />
 
-        <DesktopCarousel />
+          <div className="container mx-auto max-w-5xl relative z-10 mt-10">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground mb-3 leading-tight">
+                Our <span className="text-accent">Services</span>
+              </h1>
+              <p className="text-sm md:text-base text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium mt-4">
+                Comprehensive IT solutions and staffing designed to accelerate your growth. See how we can transform your business.
+              </p>
+            </motion.div>
+          </div>
+        </section>
 
         {/* Why Choose Us Section */}
         <section className="py-16 md:py-28 px-4 bg-card/30 relative overflow-hidden">
@@ -93,123 +160,54 @@ export default function ServicesPage() {
           />
 
           <div className="container mx-auto max-w-6xl relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="text-center mb-16"
-            >
+            <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">Why Choose ADWI</h2>
               <p className="text-base text-muted-foreground max-w-3xl mx-auto">
                 Industry-leading expertise with a proven track record of success and client satisfaction.
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {whyChooseUs.map((item, idx) => (
-                <motion.div
+                <div
                   key={idx}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: idx * 0.15 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  whileHover={{ y: -8 }}
                   className="p-8 bg-background rounded-xl border border-border hover:border-accent/50 transition-all shadow-lg group relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <motion.div
-                    initial={{ scale: 0.8, rotate: -20 }}
-                    whileInView={{ scale: 1, rotate: 0 }}
-                    transition={{ delay: idx * 0.15 + 0.2 }}
-                    className="text-4xl mb-4 group-hover:scale-110 transition-transform"
-                  >
-                    {item.icon}
-                  </motion.div>
+                  <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">{item.icon}</div>
                   <h3 className="font-extrabold text-lg text-foreground mb-2 group-hover:text-accent transition-colors">
                     {item.title}
                   </h3>
                   <p className="text-sm text-muted-foreground">{item.description}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Services Grid Section */}
+        {/* Services Section - ALWAYS EXPANDED */}
         <section id="services" className="py-16 md:py-28 px-4 bg-background">
           <div className="container mx-auto max-w-6xl">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="mb-16"
-            >
+            <div className="mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">Our Comprehensive Services</h2>
               <p className="text-base text-muted-foreground">
-                Tailored solutions designed to drive innovation and accelerate your business growth.
+                Tailored solutions designed to drive innovation and accelerate your business growth. All our offerings are detailed below.
               </p>
-            </motion.div>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {services.map((service, idx) => (
-                <motion.a
+            <div className="space-y-12"> {/* Increased space-y for better visual separation */}
+              {allServicesData.map((service) => (
+                <ServiceCard
                   key={service.id}
-                  href={service.href}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: idx * 0.12 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  whileHover={{ y: -12, boxShadow: "0 20px 50px rgba(0,0,0,0.15)" }}
-                  className="group relative overflow-hidden p-8 h-80 bg-gradient-to-br from-card to-card/50 border border-border hover:border-accent/60 rounded-xl transition-all duration-300"
-                >
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                  />
-
-                  {/* Icon with animation */}
-                  <motion.div
-                    initial={{ scale: 1, rotate: 0 }}
-                    whileHover={{ scale: 1.2, rotate: 8 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-4xl mb-4 group-hover:text-accent transition-colors duration-300"
-                  >
-                    {service.icon}
-                  </motion.div>
-
-                  {/* Content */}
-                  <div className="relative z-10 flex flex-col h-full justify-between">
-                    <div>
-                      <h3 className="text-2xl font-extrabold text-foreground mb-3 group-hover:text-accent transition-colors duration-300">
-                        {service.title}
-                      </h3>
-                      <p className="text-base text-muted-foreground">{service.description}</p>
-                    </div>
-                    <div className="flex items-center gap-2 text-accent font-bold mt-6">
-                      Explore
-                      <motion.span
-                        whileHover={{ x: 6 }}
-                        transition={{ duration: 0.2 }}
-                        className="inline-block"
-                      >
-                        →
-                      </motion.span>
-                    </div>
-                  </div>
-                </motion.a>
+                  service={service}
+                  isExpanded={true} // FORCED TO TRUE for always-expanded view
+                  onToggle={() => {}} // Empty function as toggle is no longer needed
+                />
               ))}
             </div>
           </div>
         </section>
-{/* 
-        <section id="services" className="">
-          <AIWorkforceSection />
-        </section> */}
 
-        {/* CTA Section */}
         <CTA />
       </main>
       <Footer />

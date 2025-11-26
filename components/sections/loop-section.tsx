@@ -17,13 +17,13 @@ const imageLogos = [
 
 export default function Loop() {
   return (
-    <div style={{ height: '200px', position: 'relative', overflow: 'hidden'}}>
+    <div style={{ height: '200px', position: 'relative', overflow: 'hidden' }}>
       {/* Basic horizontal loop */}
       <LogoLoop
         logos={imageLogos}
         speed={70}
         direction="left"
-        logoHeight={70}
+        logoHeight={60}
         gap={80}
         hoverSpeed={0}
         scaleOnHover

@@ -7,16 +7,16 @@ import Image from "next/image"
 
 // XIcon Component (Can be defined at the top of your file or in a separate file)
 const XIcon = ({ size = 16, className = '' }) => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
     fill="currentColor" // Changed to currentColor so it respects the text color utility
-    className={`bi bi-twitter-x ${className}`} 
-    viewBox="0 0 16 16" 
+    className={`bi bi-twitter-x ${className}`}
+    viewBox="0 0 16 16"
     height={size} // Pass the size prop to height/width
-    width={size} 
+    width={size}
   >
-    <path 
-      d="M12.6 0.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867 -5.07 -4.425 5.07H0.316l5.733 -6.57L0 0.75h5.063l3.495 4.633L12.601 0.75Zm-0.86 13.028h1.36L4.323 2.145H2.865z" 
+    <path
+      d="M12.6 0.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867 -5.07 -4.425 5.07H0.316l5.733 -6.57L0 0.75h5.063l3.495 4.633L12.601 0.75Zm-0.86 13.028h1.36L4.323 2.145H2.865z"
       strokeWidth="1" // Use camelCase in React for SVG attributes
     />
   </svg>
@@ -65,15 +65,15 @@ export default function Footer() {
           className="pb-8 md:pb-16 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1.5fr] gap-x-8 gap-y-8 border-b border-primary-foreground/20"
         >
           {/* Brand Column - Occupies more space on small screens */}
-          <motion.div 
-            variants={itemVariants} 
+          <motion.div
+            variants={itemVariants}
             // MODIFIED: col-span-1 to col-span-2 to ensure it spans full width on mobile
             className="col-span-2 sm:col-span-2 md:col-span-1 lg:col-span-1"
           >
             <Link href="/" className="block my-4">
               <div className="relative p-4 h-14 w-32 md:h-16 md:w-40 cursor-pointer">
                 <Image
-                  src="/adwi_logo_white.png"
+                  src="/adwi_logo1.jpg"
                   alt="ADWI Logo"
                   fill
                   style={{ objectFit: "contain" }}
@@ -131,8 +131,8 @@ export default function Footer() {
           </motion.div>
 
           {/* Contact Info - Occupies more space and aligns better on large screens */}
-          <motion.div 
-            variants={itemVariants} 
+          <motion.div
+            variants={itemVariants}
             // MODIFIED: col-span-1 to col-span-2 to ensure it spans full width on mobile
             className="col-span-2 sm:col-span-2 md:col-span-1 lg:col-span-1 space-y-4"
           >
@@ -140,7 +140,7 @@ export default function Footer() {
             <div className="space-y-3 text-xs md:text-sm">
               <p className="flex items-start gap-3 text-primary-foreground/70">
                 <MapPin size={16} className="text-accent flex-shrink-0 mt-0.5" />
-                <span>D4/A/801, Rahul Park, Warje, <br />Pune - 411058, India</span>
+                <span>Warje, <br />Pune - 411058, India</span>
               </p>
               <a
                 href="tel:+917720077514"
@@ -185,7 +185,7 @@ export default function Footer() {
               { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=100068307975578", label: "Facebook", key: "facebook" },
               { Icon: Mail, href: "mailto:adwitechnologies@gmail.com", label: "Email", key: "mail" },
             ].map(({ Icon, href, label, key }, idx) => {
-              
+
               let hoverStyles = "";
               switch (key) {
                 case "linkedin":
@@ -199,7 +199,7 @@ export default function Footer() {
                   hoverStyles = "hover:bg-[#1877F2] hover:text-white";
                   break;
                 case "mail":
-                  hoverStyles = "hover:bg-red-600 hover:text-white"; 
+                  hoverStyles = "hover:bg-red-600 hover:text-white";
                   break;
                 default:
                   hoverStyles = "hover:bg-accent hover:text-primary";
@@ -207,19 +207,20 @@ export default function Footer() {
               }
 
               return (
-              <motion.a
-                key={idx}
-                target="_blank"
-                href={href}
-                className={`w-9 h-9 bg-primary-foreground/15 rounded-full flex items-center justify-center transition-all shadow-lg ${hoverStyles}`}
-                whileHover={{ scale: 1.2, y: -4 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label={label}
-              >
-                {/* The Icon component is rendered here */}
-                <Icon size={16} /> 
-              </motion.a>
-            )})}
+                <motion.a
+                  key={idx}
+                  target="_blank"
+                  href={href}
+                  className={`w-9 h-9 bg-primary-foreground/15 rounded-full flex items-center justify-center transition-all shadow-lg ${hoverStyles}`}
+                  whileHover={{ scale: 1.2, y: -4 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label={label}
+                >
+                  {/* The Icon component is rendered here */}
+                  <Icon size={16} />
+                </motion.a>
+              )
+            })}
           </motion.div>
         </div>
       </div>

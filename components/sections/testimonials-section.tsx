@@ -102,7 +102,7 @@ const TestimonialCard = ({ testimonial, isActive, inView, starVariants, index }:
       transition={{ type: "spring", stiffness: 300, damping: 35 }}
       className={`
         w-4/5 max-w-md lg:w-[400px] shrink-0 transition-all duration-500 ease-out
-        bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 shadow-xl mx-2 
+        bg-black/10 backdrop-blur-sm border border-black/20 rounded-xl p-3 shadow-xl mx-2 
         ${isActive ? 'z-10' : 'z-0 cursor-pointer'}
       `}
       key={testimonial.id * 100 + index}
@@ -127,13 +127,13 @@ const TestimonialCard = ({ testimonial, isActive, inView, starVariants, index }:
             <QuoteIcon className="h-7 w-7 text-accent/20 opacity-60" />
           </div>
 
-          <p className={`text-white leading-snug italic grow ${isActive ? 'text-md font-semibold' : 'text-sm font-medium'}`}>
+          <p className={`text-black leading-snug italic grow ${isActive ? 'text-md font-600' : 'text-sm font-medium'}`}>
             "{testimonial.message}"
           </p>
         </div>
 
         {/* Author Info */}
-        <div className="border-t border-white/30 pt-3 flex flex-row justify-between mx-auto gap-10 items-center">
+        <div className="border-t border-black/30 pt-1 flex flex-row justify-between mx-auto gap-10 items-center">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: isActive ? 1 : 0.8 }}
@@ -144,9 +144,9 @@ const TestimonialCard = ({ testimonial, isActive, inView, starVariants, index }:
           </motion.div>
 
           <div className="space-y-1">
-            <p className="font-bold text-white text-sm leading-tight">{testimonial.name}</p>
+            <p className="font-500 text-black text-sm leading-tight">{testimonial.name}</p>
             <p className="text-accent font-medium text-xs mt-0">{testimonial.role}</p>
-            <p className="text-white/70 text-xs mt-0.5">{testimonial.company}</p>
+            <p className="text-black/70 text-xs mt-0.5">{testimonial.company}</p>
           </div>
         </div>
       </div>
@@ -311,39 +311,35 @@ export default function TestimonialsSection() {
     <section
       id="testimonials"
       ref={ref}
-      style={{ "--tw-accent-color": "hsl(var(--accent))" } as React.CSSProperties}
-      className="relative py-12 md:py-20 px-4 overflow-hidden"
+      // style={{ "--tw-accent-color": "hsl(var(--accent))" } as React.CSSProperties}
+      className="relative py-12 md:py-20 px-4 bg-background overflow-hidden"
     >
       {/* 2. Fixed Background Image Layer */}
-      <div
+      {/* <div
         className="absolute inset-0 bg-fixed bg-cover bg-center"
         style={{ backgroundImage: "url('/paralled.png')" }}
       >
-        {/* Dark overlay for contrast */}
         <div className="absolute inset-0 bg-black opacity-70"></div>
-      </div>
+      </div> */}
 
       {/* 3. The Animated Pattern and Content need to be above the image, so adjust 'z-index' */}
       <AnimatedPattern />
 
       <div className="container mx-auto max-w-5xl relative z-20">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-8 md:mb-10"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2 md:mb-3 text-white">Trusted by <span className="text-accent">Industry Innovators</span></h2>
-          <p className="text-sm md:text-base text-white/75 max-w-2xl mx-auto">
-                        Hear from partners and clients who have experienced measurable results with ADWI.
+        <div className="text-center mb-8 md:mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-black mb-2">
+            Trusted by <span className="text-accent">Industry Innovators</span>
+          </h2>
+          <p className="text-sm text-black/75 leading-relaxed">
+            Hear from partners and clients who have experienced measurable results with ADWI.
           </p>
-        </motion.div>
+        </div>
 
         {/* --- CAROUSEL CONTAINER --- */}
         <div className="relative overflow-hidden">
           <motion.div
             ref={carouselTrackRef}
-            className="flex py-6"
+            className="flex py-2"
             animate={{ x: CAROUSEL_OFFSET }}
             transition={{
               // Transition should only run if activeIndex is valid (not -1)
@@ -356,7 +352,6 @@ export default function TestimonialsSection() {
               <TestimonialCard
                 key={testimonial.id * 100 + index}
                 testimonial={testimonial}
-                // 🟢 FIX: Only set isActive if activeIndex is a valid index
                 isActive={index === activeIndex && activeIndex !== -1}
                 inView={inView}
                 starVariants={starVariants}
@@ -367,10 +362,10 @@ export default function TestimonialsSection() {
         </div>
 
         {/* --- Navigation Controls --- */}
-        <div className="flex justify-center items-center mt-6">
+        <div className="flex justify-center items-center mt-4">
           <motion.button
             onClick={handlePrev}
-            className="p-2 bg-white/10 text-white rounded-full shadow-md hover:shadow-lg transition-all border border-white/30 mr-4 disabled:opacity-50"
+            className="p-2 bg-black/10 text-black rounded-full shadow-md hover:shadow-lg transition-all border border-black/30 mr-4 disabled:opacity-50"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -383,7 +378,7 @@ export default function TestimonialsSection() {
               <motion.button
                 key={index}
                 onClick={() => handleManualAction(index)}
-                className={`h-1.5 rounded-full transition-all duration-300 ease-out ${index === realIndex ? "bg-accent w-6 shadow-sm" : "bg-white/30 w-1.5 hover:bg-accent/40"
+                className={`h-1.5 rounded-full transition-all duration-300 ease-out ${index === realIndex ? "bg-accent w-6 shadow-sm" : "bg-black/30 w-1.5 hover:bg-accent/40"
                   }`}
                 whileHover={{ scale: 1.15 }}
                 whileTap={{ scale: 0.9 }}
@@ -393,7 +388,7 @@ export default function TestimonialsSection() {
 
           <motion.button
             onClick={handleNext}
-            className="p-2 bg-white/10 text-white rounded-full shadow-md hover:shadow-lg transition-all border border-white/30 ml-4 disabled:opacity-50"
+            className="p-2 bg-black/10 text-black rounded-full shadow-md hover:shadow-lg transition-all border border-black/30 ml-4 disabled:opacity-50"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >

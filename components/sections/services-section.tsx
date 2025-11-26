@@ -233,25 +233,20 @@ export default function ServicesSection() {
   return (
     <section id="services" ref={sectionRef} className="py-12 md:py-20 px-4 bg-background overflow-hidden">
       <div className="container mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-10 md:mb-12"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-2 md:mb-3">
+        <div className="text-center mb-10 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
             Comprehensive <span className="text-accent">Solutions</span>
           </h2>
-          <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm text-muted-foreground leading-relaxed">
             High-impact IT and staffing services designed to accelerate your growth.
           </p>
-        </motion.div>
+        </div>
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="relative grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-8 md:mb-10"
+          className="relative grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-6"
           onMouseEnter={() => setAutoPlay(false)}
           onMouseLeave={() => setAutoPlay(true)}
         >
@@ -274,9 +269,8 @@ export default function ServicesSection() {
 
                 <div className={`relative z-10`}>
                   <service.IconComponent
-                    className={`h-5 w-5 md:h-6 md:w-6 mb-2 transition-colors duration-300 ${
-                      isActive ? "text-primary" : "text-muted-foreground"
-                    }`}
+                    className={`h-5 w-5 md:h-6 md:w-6 mb-2 transition-colors duration-300 ${isActive ? "text-primary" : "text-muted-foreground"
+                      }`}
                   />
                   <h3
                     className={`text-xs md:text-sm font-bold mb-0.5 transition-colors duration-300 ${isActive ? "text-primary" : "text-foreground"}`}
@@ -284,9 +278,8 @@ export default function ServicesSection() {
                     {service.title}
                   </h3>
                   <p
-                    className={`text-xs transition-colors duration-300 ${
-                      isActive ? "text-primary/70" : "text-muted-foreground"
-                    }`}
+                    className={`text-xs transition-colors duration-300 ${isActive ? "text-primary/70" : "text-muted-foreground"
+                      }`}
                   >
                     {service.subtitle}
                   </p>
@@ -305,17 +298,17 @@ export default function ServicesSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="bg-card border-2 border-primary/20 rounded-2xl p-6 md:p-8 shadow-md"
+              className="bg-card border-2 border-primary/20 rounded-lg p-4 md:p-6 shadow-sm"
             >
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8 items-start">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-start">
                 {/* Left */}
                 <div className="md:col-span-2">
-                  <h3 className="text-2xl md:text-3xl font-extrabold text-primary mb-3">{currentService.title}</h3>
-                  <p className="text-sm md:text-base text-foreground mb-4 leading-relaxed border-l-4 border-accent pl-3">
+                  <h3 className="text-xl md:text-2xl font-bold text-primary mb-2">{currentService.title}</h3>
+                  <p className="text-xs md:text-sm text-foreground mb-3 leading-relaxed border-l-4 border-accent pl-3">
                     {currentService.description}
                   </p>
                   <motion.button
-                    className="px-4 py-2 bg-accent text-accent-foreground rounded-lg font-semibold hover:opacity-90 transition-all text-sm"
+                    className="px-4 py-2 bg-accent text-accent-foreground rounded-lg font-semibold text-xs hover:opacity-90"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -338,8 +331,8 @@ export default function ServicesSection() {
                       transition={{ delay: 0.04 * idx + 0.4 }}
                       className="flex items-start gap-2 p-2.5 bg-background rounded-md border border-border/70 hover:border-primary/50 transition-colors"
                     >
-                      <CheckCircleIcon className="flex-shrink-0 h-4 w-4 mt-0.5 text-accent" />
-                      <span className="text-foreground font-medium text-xs md:text-sm">{detail}</span>
+                      <CheckCircleIcon className="flex-shrink-0 h-3 w-3 mt-0.5 text-accent" />
+                      <span className="text-foreground font-medium text-xs">{detail}</span>
                     </motion.div>
                   ))}
                 </motion.div>
