@@ -78,10 +78,12 @@ export const allServicesData = [
         title: "Recruitment and Staffing",
         icon: "👥",
         imageSrc: "/Recruitment.png",
-                description: "Strategic talent acquisition and staffing solutions for finding the best IT professionals.",
+        description: "Strategic talent acquisition and staffing solutions for finding the best IT professionals.",
         badge: "Executive Recruitment & Staffing",
         heroTitle: "Empowering Organizations with",
         heroHighlight: "Proven Leadership",
+        mail: "cvadwitech@gmail.com",
+        mailText: "Send your Profile",
         heroDescription:
             "We specialize in identifying and placing experienced, high-impact leaders who drive immediate results and long-term transformation. Our candidates are not just qualified—they're proven performers ready to elevate your organization.",
         details: [

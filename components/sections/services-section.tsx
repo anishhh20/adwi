@@ -308,7 +308,7 @@ export default function ServicesSection() {
                     {currentService.description}
                   </p>
                   <motion.button
-                    className="px-4 py-2 bg-accent text-accent-foreground rounded-lg font-semibold text-xs hover:opacity-90"
+                    className="px-4 py-2 bg-accent text-white/95 rounded-lg font-semibold text-xs hover:opacity-90"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >

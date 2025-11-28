@@ -13,21 +13,13 @@ export default function Header() {
   const pathname = usePathname()
   const menuRef = useRef<HTMLDivElement>(null)
 
-  // --- START OF REMOVED HOME PAGE LOGIC ---
+  // --- HOME PAGE LOGIC (Kept for initial transparent state on /) ---
+  const isHomePage = pathname === "/"
+  const isInitialDarkBg = isHomePage
 
-  // // Determine Initial State Based on Page Path
-  // const isHomePage = pathname === "/" // REMOVED: This is no longer needed
-  // const isInitialDarkBg = isHomePage // REMOVED: This is no longer needed
-
-  // LOGO SOURCE LOGIC: Always show the dark logo, regardless of initial state.
-  // The 'showLightLogo' logic is removed, and 'showDarkLogo' is simplified.
-  const showDarkLogo = true // Always show dark logo
-  // const showLightLogo = false // Always false
-
-  // Initial text color when not scrolled: ALWAYS default to dark background text
-  const initialTextColor = "text-foreground/80" // Previously: isInitialDarkBg ? "text-white/80" : "text-foreground/80"
-
-  // --- END OF REMOVED HOME PAGE LOGIC ---
+  // LOGO SOURCE LOGIC: Show dark logo unless it's the transparent home page state.
+  const showDarkLogo = !isHomePage || hasScrolled
+  const showWhiteLogo = isHomePage && !hasScrolled
 
   // Scroll effect (UNCHANGED)
   useEffect(() => {
@@ -54,11 +46,8 @@ export default function Header() {
 
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside)
-
       const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
-
       document.body.style.overflow = "hidden"
-
       if (scrollBarWidth > 0) {
         document.body.style.paddingRight = `${scrollBarWidth}px`
       }
@@ -66,14 +55,12 @@ export default function Header() {
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
-
       document.body.style.overflow = originalBodyOverflow
       document.body.style.paddingRight = originalBodyPaddingRight
     }
   }, [isOpen])
 
   const navLinks = [
-    // { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Contact Us", href: "/contact" },
@@ -88,19 +75,20 @@ export default function Header() {
     initial: { scale: 1, y: 0 }
   }
 
-  // --- Dynamic Color Variables (MODIFIED TO REMOVE isInitialDarkBg LOGIC) ---
-  // Always use dark text/colors when not scrolled, matching the new "white header" look.
-  const dynamicTextColor = hasScrolled ? "text-foreground" : initialTextColor
+  // --- Dynamic Color Variables (REVISED) ---
+  const isTransparent = isHomePage && !hasScrolled
 
-  const menuHoverBg = hasScrolled
-    ? "hover:bg-secondary/50"
-    : "hover:bg-secondary/50" // Previously checked isInitialDarkBg
+  const dynamicTextColor = "text-foreground/80"
+  const iconColor = isTransparent ? "text-white" : "text-foreground"
+  const buttonBgColor = "bg-accent text-white/95 hover:bg-primary/90"
+  
+  const menuHoverBg = isTransparent
+    ? "hover:bg-white/10"
+    : "hover:bg-secondary/50"
 
-  const buttonBgColor = hasScrolled
-    ? "bg-primary text-primary-foreground hover:bg-primary/90"
-    : "bg-primary text-primary-foreground hover:bg-primary/90" // Previously checked isInitialDarkBg
-
-  const iconColor = hasScrolled ? "text-foreground" : "text-foreground" // Previously checked isInitialDarkBg
+  const activeLinkColor = isTransparent
+    ? "text-white font-semibold underline underline-offset-4 decoration-white"
+    : "text-primary font-semibold bg-primary/10"
 
 
   return (
@@ -109,37 +97,32 @@ export default function Header() {
     >
       <div className="mx-auto max-w-7xl">
         <motion.div
-          className={`h-14 md:h-16 flex items-center justify-between px-4 md:px-6 rounded-[2rem] transition-all duration-500 border border-transparent pointer-events-auto
-            ${
-            // NEW LOGIC: Always use the white, glassy-effect header style.
-            // We'll use the 'scrolled' appearance for consistency, slightly modified.
-            "bg-card/70 backdrop-blur-xl shadow-xl border-border/50"
-            }`}
+          className={`h-14 md:h-16 flex items-center justify-between px-4 md:px-6 rounded-[2rem] transition-all duration-500 border pointer-events-auto bg-white`}
           initial={false}
         >
           {/* Logo/Brand Link */}
           <Link href="/" className="block">
             <div className="relative h-8 w-40 md:h-10 md:w-48 cursor-pointer">
 
-              {/* Dark Logo (Always visible as per request) */}
+              {/* Dark Logo */}
               <Image
                 src="/adwi_logo.png"
                 alt="ADWI Logo"
                 fill
                 style={{ objectFit: "contain" }}
                 sizes="(max-width: 768px) 40vw, 20vw"
-                className={`transition-opacity duration-500 opacity-100`} // Always opacity-100
+                className={`transition-opacity duration-500 ${showDarkLogo ? 'opacity-100' : 'opacity-0'}`}
                 priority
               />
 
-              {/* White Logo (REMOVED: Keeping the tag but setting opacity to 0) */}
+              {/* White Logo */}
               <Image
-                src="/adwi_logo_white.png"
+                src="/adwi_logo.png"
                 alt="ADWI Logo White"
                 fill
                 style={{ objectFit: "contain" }}
                 sizes="(max-width: 768px) 40vw, 20vw"
-                className={`absolute top-0 left-0 transition-opacity duration-500 opacity-0`} // Always opacity-0
+                className={`absolute top-0 left-0 transition-opacity duration-500 ${showWhiteLogo ? 'opacity-100' : 'opacity-0'}`}
               />
             </div>
           </Link>
@@ -155,21 +138,15 @@ export default function Header() {
               >
                 <Link
                   href={link.href}
-                  // Text color logic simplified
                   className={`text-sm py-2 px-3 rounded-xl transition-colors duration-300 ${dynamicTextColor} ${menuHoverBg}
-                    ${isActive(link.href)
-                      ? hasScrolled
-                        ? "text-primary font-semibold bg-primary/10"
-                        : "text-foreground font-semibold underline underline-offset-4 decoration-primary" // Simplified active state
-                      : ""
-                    }
+                    ${isActive(link.href) ? "text-black font-semibold underline underline decoration-black" : ""}
                   `}
                 >
                   {link.label}
                 </Link>
               </motion.div>
             ))}
-            {/* Animated 'Get Quote' Button (Color logic simplified) */}
+            {/* Animated 'Get Quote' Button */}
             <motion.a
               href="/contact"
               className={`flex items-center text-sm font-semibold px-5 py-2.5 rounded-full transition-all shadow-lg ml-4 ${buttonBgColor}`}
@@ -181,10 +158,10 @@ export default function Header() {
             </motion.a>
           </nav>
 
-          {/* Mobile Menu Toggle & Icon (Color logic simplified) */}
+          {/* Mobile Menu Toggle & Icon */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden p-2 rounded-full transition-colors ${hasScrolled ? "hover:bg-secondary" : "hover:bg-secondary"}`}
+            className={`md:hidden p-2 rounded-full transition-colors hover:bg-secondary`}
             aria-label={isOpen ? "Close Menu" : "Open Menu"}
           >
             <motion.div
@@ -200,7 +177,7 @@ export default function Header() {
         </motion.div>
       </div>
 
-      {/* Mobile Menu (UNCHANGED: Keeps dark background for contrast) */}
+      {/* Mobile Menu (CORRECTED: White background with dark text) */}
       <AnimatePresence>
         {isOpen && (
           <motion.nav
@@ -209,16 +186,18 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden mx-auto max-w-[calc(100vw-2rem)] mt-2 bg-black/30 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl pointer-events-auto"
+            className="md:hidden mx-auto max-w-[calc(100vw-2rem)] mt-2 bg-white border border-border/50 rounded-xl overflow-hidden shadow-lg pointer-events-auto z-90"
           >
             <div className="p-4 space-y-2 flex flex-col">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-sm p-3 rounded-lg transition-all font-medium ${isActive(link.href)
-                      ? "bg-primary/10 text-primary-foreground shadow-md"
-                      : "text-white hover:bg-white/10"
+                  // Dark text on white background
+                  className={`text-sm p-3 rounded-lg transition-all font-medium 
+                    ${isActive(link.href)
+                      ? "text-black font-semibold underline underline decoration-black"
+                      : "text-foreground/80 hover:bg-secondary"
                     }`}
                   onClick={() => setIsOpen(false)}
                 >
@@ -227,7 +206,7 @@ export default function Header() {
               ))}
               <motion.a
                 href="/contact"
-                className="w-full text-center px-4 py-2 bg-primary/30 text-primary-foreground rounded-lg font-semibold transition-all mt-4 text-sm shadow-md"
+                className="w-full text-center px-4 py-2 bg-accent text-white/95 rounded-lg font-semibold transition-all mt-4 text-sm shadow-md"
                 onClick={() => setIsOpen(false)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

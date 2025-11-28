@@ -71,6 +71,29 @@ function ProcessCard({ step, isLast }: { step: (typeof processSteps)[0], isLast:
   }
 
   const IconComponent = step.icon;
+  // Determine a secondary, illustrative icon based on the step's primary icon/purpose
+  let BackgroundIcon = Layout; // Default
+
+  switch (step.title) {
+    case "Understanding & Scoping":
+      // Target/Goal
+      BackgroundIcon = Target;
+      break;
+    case "Tailored Strategy & Planning":
+      // Branching/Strategy
+      BackgroundIcon = GitBranch;
+      break;
+    case "Collaborative Implementation":
+      // Code/Development/Teamwork
+      BackgroundIcon = Code;
+      break;
+    case "Results & Ongoing Support":
+      // Rocket/Launch/Growth
+      BackgroundIcon = Rocket;
+      break;
+    default:
+      BackgroundIcon = Layout;
+  }
 
   return (
     <motion.div variants={itemVariants} className="relative z-10 h-full">
@@ -82,6 +105,11 @@ function ProcessCard({ step, isLast }: { step: (typeof processSteps)[0], isLast:
         }}
         transition={spring}
       >
+
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.04] pointer-events-none">
+          <BackgroundIcon className="w-48 h-48 text-primary/80 rotate-12 transition-transform duration-500 group-hover:rotate-0" />
+        </div>
+
         <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl font-mono font-extrabold mb-5 shadow-xl bg-accent text-accent-foreground border-4 border-accent/30 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
           <IconComponent className="w-6 h-6 absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <span className="opacity-100 group-hover:opacity-0 transition-opacity duration-300">{step.number}</span>

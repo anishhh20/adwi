@@ -67,7 +67,6 @@ export default function Footer() {
           {/* Brand Column - Occupies more space on small screens */}
           <motion.div
             variants={itemVariants}
-            // MODIFIED: col-span-1 to col-span-2 to ensure it spans full width on mobile
             className="col-span-2 sm:col-span-2 md:col-span-1 lg:col-span-1"
           >
             <Link href="/" className="block my-4">
@@ -82,7 +81,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-xs md:text-sm leading-relaxed text-primary-foreground/70 max-w-xs">
-              Privately owned company specializing in IT solutions, recruitment & staffing, and CSR activities.
+              Privately owned company specializing in IT solutions, recruitment & staffing, and foreign language courses.
             </p>
           </motion.div>
 
@@ -113,10 +112,10 @@ export default function Footer() {
             <h4 className="font-bold text-sm md:text-base text-white border-b border-accent/30 pb-1 w-fit">Key Services</h4>
             <ul className="space-y-3 text-xs md:text-sm">
               {[
-                { label: "Software Development", href: "/services/software-development" },
-                { label: "Recruitment and Staffing", href: "/services/recruitment-staffing" },
-                { label: "IT Training and Certification", href: "/services/training-certification" },
-                { label: "Foreign Language", href: "/services/foreign-language" },
+                { label: "Software Development", href: "/services/#software-development" },
+                { label: "Recruitment and Staffing", href: "/services/#recruitment-staffing" },
+                { label: "IT Training and Certification", href: "/services/#training-certification" },
+                { label: "Foreign Language", href: "/services/#foreign-language" },
               ].map((service) => (
                 <li key={service.href}>
                   <Link

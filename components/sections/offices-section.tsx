@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { MapPin, Phone, Mail, Globe, ArrowRight } from 'lucide-react'
+import { MapPin, Mail, Globe } from 'lucide-react'
 import GlareHover from "../GlareHover"
 
 const officeLocations = [
@@ -10,28 +10,28 @@ const officeLocations = [
     city: "Pune, India (HQ)",
     address: "Warje, Pune, India, Maharashtra 411014",
     phone: "+91 7720077514",
-    email: "adwitechnologies@gmail.com",
+    email: "info@adwitechnologies.com",
     country: "🇮🇳",
   },
   {
     city: "Mumbai, India",
     address: "Vidyavihar East, Mumbai, 400077.",
     phone: "",
-    email: "adwitechnologies@gmail.com",
+    email: "info@adwitechnologies.com",
     country: "🇮🇳",
   },
   {
     city: "Dubai, UAE",
     address: "M1010 Al Wadi Building, Sheikh Zayed Road, Dubai, United Arab Emirates",
     phone: "",
-    email: "adwitechnologies@gmail.com",
+    email: "info@adwitechnologies.com",
     country: "🇦🇪",
   },
   {
     city: "Germany",
     address: "Steglitzer damm, 12169 Berlin, Germany",
     phone: "",
-    email: "adwitechnologies@gmail.com",
+    email: "info@adwitechnologies.com",
     country: "🇩🇪",
   },
 ]
@@ -57,7 +57,7 @@ const itemVariants = {
   },
 }
 
-function OfficeCard({ office, index }: { office: (typeof officeLocations)[0], index: number }) {
+export function OfficeCard({ office, index }: { office: (typeof officeLocations)[0], index: number }) {
   const colors = [
     "from-blue-500 to-cyan-500",
     "from-emerald-500 to-teal-500",
@@ -65,6 +65,8 @@ function OfficeCard({ office, index }: { office: (typeof officeLocations)[0], in
     "from-orange-500 to-red-500",
   ]
   const color = colors[index]
+
+  const primaryColorClass = color.split(' ')[0].replace('from-', 'text-'); // e.g., 'from-blue-500' -> 'text-blue-500'
 
   return (
     <motion.div variants={itemVariants} whileHover={{ y: -8 }} className="group relative">
@@ -84,6 +86,17 @@ function OfficeCard({ office, index }: { office: (typeof officeLocations)[0], in
       >
         {/* The original card content is now the child of GlareHover */}
         <div className="relative border border-primary/20 rounded-2xl p-6 md:p-8 h-full group-hover:border-primary/50 transition-all duration-300 shadow-xl w-full">
+          <div
+            className={`absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 select-none opacity-[0.03] text-[10rem] md:text-[12rem] z-0 pointer-events-none font-extrabold ${primaryColorClass}`}
+            style={{
+              lineHeight: '1',
+            }}
+          >
+            {/* You can use a single character, or a shape, but using the emoji maintains context. 
+                Now the emoji's color will be determined by the text color class */}
+            {office.country}
+          </div>
+
           <div className="flex items-start justify-between mb-3">
             <div>
               <div className="text-xl mb-2">{office.country}</div>
@@ -103,25 +116,16 @@ function OfficeCard({ office, index }: { office: (typeof officeLocations)[0], in
               <span className="text-muted-foreground ">{office.address}</span>
             </motion.div>
 
-            <motion.a href={`tel:${office.phone}`} className="flex items-center gap-3 text-xs hover:text-primary transition-colors group-hover:translate-x-1">
+            {/* <motion.a href={`tel:${office.phone}`} className="flex items-center gap-3 text-xs hover:text-primary transition-colors group-hover:translate-x-1">
               <Phone className="w-3 h-3 text-primary flex-shrink-0" />
               <span className="text-muted-foreground">{office.phone}</span>
-            </motion.a>
+            </motion.a> */}
 
             <motion.a href={`mailto:${office.email}`} className="flex items-center gap-3 text-xs hover:text-primary transition-colors group-hover:translate-x-1">
               <Mail className="w-3 h-3 text-primary flex-shrink-0" />
               <span className="text-muted-foreground truncate">{office.email}</span>
             </motion.a>
           </div>
-
-          <motion.button
-            whileHover={{ scale: 1.05, x: 5 }}
-            whileTap={{ scale: 0.95 }}
-            className="mt-6 w-full inline-flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-primary to-secondary text-background rounded-lg font-semibold text-sm hover:shadow-lg transition-all"
-          >
-            Get in Touch
-            <ArrowRight className="w-3 h-3" />
-          </motion.button>
         </div>
       </GlareHover>
     </motion.div>
@@ -155,12 +159,24 @@ export default function OfficesSection() {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-10" // Added margin bottom for spacing
         >
           {officeLocations.map((office, idx) => (
             <OfficeCard key={office.city} office={office} index={idx} />
           ))}
         </motion.div>
+
+        {/* ✨ MODIFICATION: Centering Container and Button Width ✨ */}
+        <div className="flex justify-center mt-8">
+          <motion.a
+            href="/contact"
+            className="px-4 py-2 bg-accent flex items-center justify-center text-white/95 rounded-lg font-semibold text-sm shadow-lg hover:opacity-90 transition-opacity"
+            whileHover={{ scale: 1.05 }} // Increased hover scale slightly
+            whileTap={{ scale: 0.98 }}
+          >
+            Get In Touch
+          </motion.a>
+        </div>
       </div>
     </section>
   )

@@ -6,7 +6,7 @@ import Footer from "@/components/footer"
 import Header from "@/components/header"
 import CTA from "@/components/CTA"
 import AnimatedVectorPattern from "@/components/services/animated-vector-pattern"
-import { ServiceCard } from "@/components/services/service-card"
+import { ServiceWithStickyText } from "@/components/services/service-with-sticky-text"
 import { allServicesData } from "@/lib/services-data"
 import { motion } from "framer-motion"
 
@@ -21,14 +21,14 @@ const MinimalAbstractPattern: React.FC<PatternProps> = ({
   colorClass = "text-primary/30",
   initialRotation = 0,
 }) => {
-  const rotation = initialRotation % 360 // Ensure initial rotation is valid
+  const rotation = initialRotation % 360
 
   const patternVariants = {
     animate: {
-      rotate: [rotation, 360 + rotation], // Subtle 360 rotation loop
-      x: [0, 8, -8, 0], // Subtle horizontal sway
-      y: [0, -5, 5, 0], // Subtle vertical float
-      pathOffset: [0, 0.5, 1, 0.5, 0], // Advanced 'drawing' effect
+      rotate: [rotation, 360 + rotation],
+      x: [0, 8, -8, 0],
+      y: [0, -5, 5, 0],
+      pathOffset: [0, 0.5, 1, 0.5, 0],
       transition: {
         rotate: {
           duration: 90,
@@ -63,7 +63,6 @@ const MinimalAbstractPattern: React.FC<PatternProps> = ({
       className={`absolute h-48 w-48 md:h-72 md:w-72 opacity-20 pointer-events-none ${className}`}
       style={{ transformOrigin: "50% 50%" }}
     >
-      {/* Abstract Grid/Line SVG for a modern look */}
       <svg
         width="100%"
         height="100%"
@@ -77,8 +76,7 @@ const MinimalAbstractPattern: React.FC<PatternProps> = ({
           stroke="currentColor"
           strokeWidth="1"
           strokeLinecap="round"
-          strokeDasharray="100" // Required for path animation
-          // Framer motion uses 'style' to apply animated properties
+          strokeDasharray="100"
           style={{ pathLength: 1, pathOffset: 0 }}
         />
         <circle cx="50" cy="50" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
@@ -89,9 +87,6 @@ const MinimalAbstractPattern: React.FC<PatternProps> = ({
 }
 
 export default function ServicesPage() {
-  // REMOVED: const [expandedService, setExpandedService] = useState<string | null>(null)
-  // The services will now display all details by default
-
   const whyChooseUs = [
     {
       title: "Expert Team",
@@ -138,7 +133,8 @@ export default function ServicesPage() {
                 Our <span className="text-accent">Services</span>
               </h1>
               <p className="text-sm md:text-base text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium mt-4">
-                Comprehensive IT solutions and staffing designed to accelerate your growth. See how we can transform your business.
+                Comprehensive IT solutions and staffing designed to accelerate your growth. See how we can transform
+                your business.
               </p>
             </motion.div>
           </div>
@@ -160,9 +156,9 @@ export default function ServicesPage() {
           />
 
           <div className="container mx-auto max-w-6xl relative z-10">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">Why Choose ADWI</h2>
-              <p className="text-base text-muted-foreground max-w-3xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-8">Why Choose ADWI</h2>
+              <p className="text-xs md:text-sm text-muted-foreground mt-2">
                 Industry-leading expertise with a proven track record of success and client satisfaction.
               </p>
             </div>
@@ -174,7 +170,7 @@ export default function ServicesPage() {
                   className="p-8 bg-background rounded-xl border border-border hover:border-accent/50 transition-all shadow-lg group relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">{item.icon}</div>
+                  <div className="text-2xl sm:text-4xl mb-4 group-hover:scale-110 transition-transform">{item.icon}</div>
                   <h3 className="font-extrabold text-lg text-foreground mb-2 group-hover:text-accent transition-colors">
                     {item.title}
                   </h3>
@@ -185,24 +181,20 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* Services Section - ALWAYS EXPANDED */}
-        <section id="services" className="py-16 md:py-28 px-4 bg-background">
-          <div className="container mx-auto max-w-6xl">
-            <div className="mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">Our Comprehensive Services</h2>
-              <p className="text-base text-muted-foreground">
-                Tailored solutions designed to drive innovation and accelerate your business growth. All our offerings are detailed below.
+        {/* Services Section with Sticky Text */}
+        <section id="services" className="py-16 md:py-28 px-4 bg-background relative">
+          <div className="container mx-auto max-w-7xl">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-8">Our Comprehensive Services</h2>
+              <p className="text-xs md:text-sm text-muted-foreground mt-2">
+                Tailored solutions designed to drive innovation and accelerate your business growth. All our offerings
+                are detailed below.
               </p>
             </div>
 
-            <div className="space-y-12"> {/* Increased space-y for better visual separation */}
-              {allServicesData.map((service) => (
-                <ServiceCard
-                  key={service.id}
-                  service={service}
-                  isExpanded={true} // FORCED TO TRUE for always-expanded view
-                  onToggle={() => {}} // Empty function as toggle is no longer needed
-                />
+            <div className="space-y-12 md:space-y-16 lg:space-y-20">
+              {allServicesData.map((service, index) => (
+                <ServiceWithStickyText key={service.id} service={service} index={index} isExpanded={true} />
               ))}
             </div>
           </div>

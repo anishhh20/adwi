@@ -167,11 +167,11 @@ export default function Home() {
             >
               {/* Title */}
               <motion.div variants={titleVariants} className="mb-6 sm:mb-8 md:mb-10 flex items-center justify-center gap-4">
-                <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tighter">
+                <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tighter">
                   ADWI
                 </h1>
                 <motion.h2
-                  className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-lime-300 via-lime-400 to-green-400 bg-clip-text text-transparent leading-tight tracking-tighter"
+                  className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-lime-300 via-lime-400 to-green-400 bg-clip-text text-transparent leading-tight tracking-tighter"
                   animate={{ opacity: [0.8, 1, 0.8] }}
                   transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
                 >
@@ -182,10 +182,10 @@ export default function Home() {
               {/* Subtitle */}
               <motion.div variants={subtitleVariants} className="space-y-4 sm:space-y-6 mb-8 sm:mb-12">
                 <div className="space-y-2">
-                  <p className="text-sm sm:text-md md:text-lg text-gray-300 font-light tracking-wide">
+                  <p className="text-md sm:text-md md:text-lg text-gray-300 font-light tracking-wide">
                     Empowering Your Success Through
                   </p>
-                  <p className="text-md sm:text-xl md:text-2xl font-bold text-white">Strategic Talent & Innovation</p>
+                  <p className="text-lg sm:text-xl md:text-2xl font-bold text-white">Strategic Talent & Innovation</p>
                 </div>
 
                 {/* Value proposition */}

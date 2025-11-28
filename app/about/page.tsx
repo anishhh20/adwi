@@ -213,38 +213,50 @@ export default function AboutPage() {
                   whileHover="hovered"
                   transition={{ duration: 0.5, delay: sectionIdx * 0.15 }}
                   viewport={{ once: false, margin: "-50px" }}
-                  className="p-4 bg-card rounded-lg border border-border space-y-3 shadow-lg transition-all duration-300 relative group"
+                  className="p-4 bg-card rounded-lg border border-border space-y-3 shadow-lg transition-all duration-300 relative group overflow-hidden"
                 >
-                  <h3 className="text-base font-bold text-foreground flex flex-col items-start gap-2">
-                    <motion.span
-                      className="text-3xl text-accent p-2 rounded-lg bg-accent/10"
-                      variants={{
-                        initial: { scale: 1, rotate: 0 },
-                        hovered: { scale: 1.15, rotate: 5 },
-                      }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    >
-                      {section.icon}
-                    </motion.span>
-                    {section.title}
-                  </h3>
-
-                  <motion.div className="space-y-2 pt-2" variants={listContainerVariants}>
-                    {section.items.map((item, itemIdx) => (
-                      <motion.div
-                        key={itemIdx}
-                        className="flex gap-2 text-xs md:text-sm text-muted-foreground items-start"
-                        variants={checkmarkItemVariants}
-                      >
-                        <MotionCheckIcon
-                          className="w-3 h-3 mt-1 flex-shrink-0"
-                          initialColor="text-muted-foreground/50"
-                          activeColor="text-primary"
-                        />
-                        <span className="leading-relaxed">{item}</span>
-                      </motion.div>
-                    ))}
+                  {/* Faded Background Icon (using section.icon) */}
+                  <motion.div
+                    className="absolute text-[6rem] opacity-10 text-accent/50 pointer-events-none bottom-0 left-0 transform -translate-x-1/4 translate-y-1/4 rotate-6"
+                    initial={{ scale: 0.9, rotate: 6 }}
+                    whileHover={{ scale: 1.05, rotate: 10 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    {section.icon}
                   </motion.div>
+
+                  <div className="relative z-10">
+                    <h3 className="text-base font-bold text-foreground flex flex-col items-start gap-2">
+                      <motion.span
+                        className="text-3xl text-accent p-2 rounded-lg bg-accent/10"
+                        variants={{
+                          initial: { scale: 1, rotate: 0 },
+                          hovered: { scale: 1.15, rotate: 5 },
+                        }}
+                        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      >
+                        {section.icon}
+                      </motion.span>
+                      {section.title}
+                    </h3>
+
+                    <motion.div className="space-y-2 pt-2" variants={listContainerVariants}>
+                      {section.items.map((item, itemIdx) => (
+                        <motion.div
+                          key={itemIdx}
+                          className="flex gap-2 text-xs md:text-sm text-muted-foreground items-start"
+                          variants={checkmarkItemVariants}
+                        >
+                          <MotionCheckIcon
+                            className="w-3 h-3 mt-1 flex-shrink-0"
+                            initialColor="text-muted-foreground/50"
+                            activeColor="text-primary"
+                          />
+                          <span className="leading-relaxed">{item}</span>
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -266,19 +278,32 @@ export default function AboutPage() {
                     translateY: -6,
                     boxShadow: "0 10px 20px -6px rgba(0, 0, 0, 0.1)",
                   }}
-                  className="flex-1 p-6 bg-background rounded-lg border border-border shadow-md hover:border-primary/50 transition-all text-center"
+                  className="flex-1 p-6 bg-background rounded-lg border border-border shadow-md hover:border-primary/50 transition-all text-center relative overflow-hidden"
                 >
+                  {/* Faded Background Icon */}
                   <motion.div
-                    className="text-4xl mb-3 leading-none"
-                    whileHover={{ scale: 1.15 }}
+                    className="absolute text-[8rem] opacity-5 text-accent/50 pointer-events-none top-0 right-0 transform translate-x-1/4 -translate-y-1/4"
+                    initial={{ scale: 0.9, rotate: 0 }}
+                    // You can add a subtle animation on hover to the background icon as well
+                    whileHover={{ scale: 1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                   >
                     {item.icon}
                   </motion.div>
-                  <h3 className="text-lg font-bold text-foreground mb-2 border-b border-accent/30 pb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{item.content}</p>
+                  {/* Original content - ensure it has a higher z-index if needed, or rely on default flow */}
+                  <div className="relative z-10">
+                    <motion.div
+                      className="text-4xl mb-3 leading-none"
+                      whileHover={{ scale: 1.15 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      {item.icon}
+                    </motion.div>
+                    <h3 className="text-lg font-bold text-foreground mb-2 border-b border-accent/30 pb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{item.content}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -311,10 +336,21 @@ export default function AboutPage() {
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   viewport={{ once: false, margin: "-50px" }}
                   whileHover={{ scale: 1.05 }}
-                  className="text-center p-4 bg-card rounded-lg border border-border shadow-md hover:border-accent/50 transition-all"
+                  className="text-center p-4 bg-card/40 rounded-lg border border-border shadow-md hover:border-accent/50 transition-all relative overflow-hidden"
                 >
-                  <div className="text-2xl md:text-3xl font-bold text-accent mb-1">{stat.number}</div>
-                  <div className="text-xs md:text-sm text-muted-foreground font-medium">{stat.label}</div>
+                  {/* Faded Background Icon (using a generic diamond icon) */}
+                  <motion.div
+                    className="absolute text-7xl opacity-25 text-primary/40 pointer-events-none top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                    initial={{ scale: 0.8 }}
+                    whileHover={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    💎
+                  </motion.div>
+                  <div className="relative z-10">
+                    <div className="text-2xl md:text-3xl font-bold text-accent mb-1">{stat.number}</div>
+                    <div className="text-xs md:text-sm text-muted-foreground font-medium">{stat.label}</div>
+                  </div>
                 </motion.div>
               ))}
             </div>

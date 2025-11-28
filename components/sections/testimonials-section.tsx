@@ -6,7 +6,7 @@ import type React from "react"
 import { useState, useMemo, useEffect, useRef, useCallback } from "react"
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { Star, ChevronLeft, ChevronRight } from "lucide-react"
+import { Star, ChevronLeft, ChevronRight, Code, Users, Paintbrush, Leaf } from "lucide-react"
 
 // ... (QuoteIcon, Testimonial interface, and testimonials array remain the same) ...
 const QuoteIcon = ({ className }: { className?: string }) => (
@@ -14,6 +14,37 @@ const QuoteIcon = ({ className }: { className?: string }) => (
     <path d="M4 14.5C4 17.5376 6.46243 20 9.5 20H10C10.5523 20 11 19.5523 11 19V17C11 16.4477 10.5523 16 10 16H9.5C7.567 16 6 14.433 6 12.5C6 10.567 7.567 9 9.5 9H10C10.5523 9 11 8.55228 11 8V5C11 4.44772 10.5523 4 10 4H9.5C5.35786 4 2 7.35786 2 11.5V14.5H4ZM14 14.5C14 17.5376 16.4624 20 19.5 20H20C20.5523 20 21 19.5523 21 19V17C21 16.4477 20.5523 16 20 16H19.5C17.567 16 16 14.433 16 12.5C16 10.567 17.567 9 19.5 9H20C20.5523 9 21 8.55228 21 8V5C21 4.44772 20.5523 4 20 4H19.5C15.3579 4 12 7.35786 12 11.5V14.5H14Z" />
   </svg>
 )
+
+// --- UTILITY ICONS (Simplified SVGs for subtle backgrounds) ---
+const CodeIcon = ({ className }: { className?: string }) => (
+  <Code className={className} />
+)
+const TeamIcon = ({ className }: { className?: string }) => (
+  <Users className={className} />
+)
+const CreativeIcon = ({ className }: { className?: string }) => (
+  <Paintbrush className={className} />
+)
+const CsrIcon = ({ className }: { className?: string }) => (
+  <Leaf className={className} />
+)
+// --- Testimonial to Background Visual Mapping ---
+const getBackgroundVisual = (testimonial: Testimonial): React.ReactElement => {
+  const message = testimonial.message.toLowerCase()
+  if (message.includes("team members") || message.includes("hiring")) {
+    return <TeamIcon className="w-full h-full " />
+  }
+  if (message.includes("software development") || message.includes("delivered")) {
+    return <CodeIcon className="w-full h-full " />
+  }
+  if (message.includes("animation") || message.includes("vision")) {
+    return <CreativeIcon className="w-full h-full " />
+  }
+  if (message.includes("csr strategy") || message.includes("social impact")) {
+    return <CsrIcon className="w-full h-full " />
+  }
+  return <div className="w-full h-full bg-transparent" />
+}
 
 interface Testimonial {
   id: number
@@ -95,6 +126,7 @@ const TestimonialCard = ({ testimonial, isActive, inView, starVariants, index }:
   const cardScale = isActive ? 1 : 0.9;
   const cardOpacity = isActive ? 1 : 0.45;
   const cardFilter = isActive ? "blur(0px)" : "blur(2px)";
+  const backgroundVisual = getBackgroundVisual(testimonial)
 
   return (
     <motion.div
@@ -102,11 +134,17 @@ const TestimonialCard = ({ testimonial, isActive, inView, starVariants, index }:
       transition={{ type: "spring", stiffness: 300, damping: 35 }}
       className={`
         w-4/5 max-w-md lg:w-[400px] shrink-0 transition-all duration-500 ease-out
-        bg-black/10 backdrop-blur-sm border border-black/20 rounded-xl p-3 shadow-xl mx-2 
+        bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-3 shadow-xl mx-2 
         ${isActive ? 'z-10' : 'z-0 cursor-pointer'}
       `}
       key={testimonial.id * 100 + index}
     >
+      <div className="absolute inset-0 z-0 transition-opacity opacity-[0.04] duration-500 ease-in-out">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-64 sm:h-64  text-primary/80 rotate-12 transition-transform duration-500 group-hover:rotate-0">
+          {backgroundVisual}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 gap-4 items-start">
         {/* Quote & Rating */}
         <div className="flex flex-col">
@@ -133,7 +171,7 @@ const TestimonialCard = ({ testimonial, isActive, inView, starVariants, index }:
         </div>
 
         {/* Author Info */}
-        <div className="border-t border-black/30 pt-1 flex flex-row justify-between mx-auto gap-10 items-center">
+        <div className="border-t border-white/30 pt-1 flex flex-row justify-between mx-auto gap-10 items-center">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: isActive ? 1 : 0.8 }}
@@ -365,7 +403,7 @@ export default function TestimonialsSection() {
         <div className="flex justify-center items-center mt-4">
           <motion.button
             onClick={handlePrev}
-            className="p-2 bg-black/10 text-black rounded-full shadow-md hover:shadow-lg transition-all border border-black/30 mr-4 disabled:opacity-50"
+            className="p-2 bg-white/10 text-black rounded-full shadow-md hover:shadow-lg transition-all border border-white/30 mr-4 disabled:opacity-50"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -388,7 +426,7 @@ export default function TestimonialsSection() {
 
           <motion.button
             onClick={handleNext}
-            className="p-2 bg-black/10 text-black rounded-full shadow-md hover:shadow-lg transition-all border border-black/30 ml-4 disabled:opacity-50"
+            className="p-2 bg-white/10 text-black rounded-full shadow-md hover:shadow-lg transition-all border border-white/30 ml-4 disabled:opacity-50"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >

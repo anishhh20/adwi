@@ -7,7 +7,7 @@ import { Metadata } from "next"
 export const metadata: Metadata = {
   title: "ADWI Technologies - Software Development & Staffing",
   description:
-    "ADWI Technologies provides software development, recruitment & staffing, animation services, and CSR activities.",
+    "ADWI Technologies provides software development, recruitment & staffing, and foreign language courses.",
   icons: {
     icon: [
       { url: "/favicon.jpg", sizes: "any" },
@@ -108,9 +108,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      
+
       <body className={`font-sans antialiased`}>
-      <Header />
+        <Header />
         {children}
         <Analytics />
       </body>

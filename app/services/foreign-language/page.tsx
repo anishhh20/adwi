@@ -61,7 +61,7 @@ export default function ForeignLanguagePage() {
           titleHighlight="Global Opportunities"
           description="Language is the bridge between thought and expression. At ADWI Technologies, we offer comprehensive training in key foreign languages—a gateway to personal and professional growth in today's interconnected world."
           ctaText="Enroll Today"
-          ctaHref="/contact"
+          ctaHref="/contact?flQuery=true"
         />
 
         {/* Core Language Programs */}
