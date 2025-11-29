@@ -37,10 +37,8 @@ export function ServiceCard({ service, isExpanded }: ServiceCardProps) {
             id={service.id}
             className="border border-border rounded-xl overflow-hidden  shadow-lg scroll-mt-24" // Enhanced base style
         >
-
             {/* New Prominent Header Area with Image */}
-            <div className="p-4 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-start bg-accent/45 ">
-
+            <div className="p-4 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-8 items-start bg-accent/45">
                 {/* Text Content Column */}
                 <div className="md:col-span-2">
                     <div className="flex items-center gap-4 mb-4">
@@ -59,51 +57,33 @@ export function ServiceCard({ service, isExpanded }: ServiceCardProps) {
                         </p>
                     )}
                 </div>
-
-                {/* Image Column */}
-                {/* <div className="md:col-span-1 flex justify-center items-start">
-                    {service.imageSrc && (
-                        // Container for the image, visible on all screens, but styled to be a secondary element on mobile.
-                        <div className="w-full h-40 md:h-52 rounded-lg overflow-hidden border border-border/50 shadow-lg relative">
-
-                            <img
-                                src={service.imageSrc}
-                                alt={`Hero image for ${service.title}`}
-                                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-accent/10 to-transparent"></div>
-                            <div className="absolute inset-0 bg-gradient-to-l from-accent/10 to-transparent opacity-50"></div>
-                        </div>
-                    )}
-                </div> */}
             </div>
 
             {/* Detailed Sections Area (Always visible) */}
             {isExpanded && (
-                <div className="p-4 sm:p-8 bg-background/40 space-y-10 border-t border-border">
+                <div className="p-4 sm:p-8 bg-background/40 space-y-6 border-t border-border">
                     {/* Details Grid */}
                     {service.details && (
                         <div>
                             <h4 className="text-md font-bold text-accent mb-4 border-b border-accent/30 pb-2">
                                 {isForeignLanguage ? "Languages Offered & Proficiency Levels" : "Key Offerings"}
                             </h4>
-                            
+
                             {/* Conditional Grid Layout */}
                             <div className={`grid gap-4 ${isForeignLanguage ? "grid-cols-2 lg:grid-cols-3" : "grid-cols-1 md:grid-cols-3"}`}>
                                 {service.details.map((detail, idx) => (
-                                    <div 
-                                        key={idx} 
+                                    <div
+                                        key={idx}
                                         // Make the card position relative to hold the absolute background
-                                        className={`p-4 rounded-lg border border-border/50 transition-all duration-300 relative overflow-hidden group ${
-                                            isForeignLanguage 
-                                                ? "bg-primary/5 hover:bg-primary/10 shadow-md hover:shadow-lg" 
-                                                : "bg-card hover:shadow-xl"
-                                        }`}
+                                        className={`p-4 rounded-lg border border-border/50 transition-all duration-300 relative overflow-hidden group ${isForeignLanguage
+                                            ? "bg-primary/5 hover:bg-primary/10 shadow-md hover:shadow-lg"
+                                            : "bg-card hover:shadow-xl"
+                                            }`}
                                     >
-                                        
+
                                         {/* ✨ ABSOLUTE FADED FLAG BACKGROUND (Foreign Language Only) ✨ */}
                                         {isForeignLanguage && detail.icon && (
-                                            <div 
+                                            <div
                                                 className="absolute inset-0 flex justify-end items-end p-2 opacity-5 transition-opacity duration-300 group-hover:opacity-10"
                                             >
                                                 <span className="text-[8rem] leading-none select-none pointer-events-none transform translate-x-4 translate-y-4">
@@ -119,17 +99,17 @@ export function ServiceCard({ service, isExpanded }: ServiceCardProps) {
                                                 <div className={`${isForeignLanguage ? "text-3xl sm:text-4xl" : "text-xl"} mb-2 text-primary flex-shrink-0`}>
                                                     {detail.icon || detail.name?.split(" ")[0] || "•"}
                                                 </div>
-                                                
+
                                                 {/* Language Name (Title) */}
                                                 <h5 className="font-semibold text-foreground text-sm pt-1">
                                                     {detail.title || detail.name}
                                                 </h5>
                                             </div>
-                                            
+
                                             {/* Proficiency Level (Description) */}
-                                            <p className="text-xs text-muted-foreground mt-1 ml-[48px] sm:ml-[56px] leading-relaxed">
-                                                {isForeignLanguage 
-                                                    ? `Proficiency: ${detail.level}` 
+                                            <p className="text-xs text-muted-foreground mt-1  leading-relaxed">
+                                                {isForeignLanguage
+                                                    ? `Proficiency: ${detail.level}`
                                                     : detail.description || detail.level}
                                             </p>
                                         </div>
@@ -191,14 +171,12 @@ export function ServiceCard({ service, isExpanded }: ServiceCardProps) {
 
                     {/* Contact Mail */}
                     {service.mail && (
-                        <div className="mt-6 pt-6 border-t border-gray-200">
+                        <div >
                             <h4 className="text-md font-bold text-accent mb-4 border-b border-accent/30 pb-2">
-                                {/* Dynamic text or a clear call-to-action */}
                                 {service.mailText || "Ready to Start? Send Us a Mail:"}
                             </h4>
 
                             <div className="flex items-center gap-4">
-
                                 {/* Stylish Icon Container */}
                                 <span className="flex-shrink-0 p-2 rounded-full bg-accent/10 text-accent transition-colors duration-300">
                                     <Mail className="w-4 h-4" />
@@ -207,8 +185,7 @@ export function ServiceCard({ service, isExpanded }: ServiceCardProps) {
                                 {/* Email Link (Clickable and prominent) */}
                                 <a
                                     href={`mailto:${service.mail.replace(/<[^>]*>?/gm, '')}`} // Clean HTML tags for the href
-                                    className="text-sm font-semibold text-accent hover:text-accent/80 transition-colors duration-300 underline underline-offset-4"
-                                    // Use dangerouslySetInnerHTML for the displayed text if it contains formatting
+                                    className="text-sm font-semibold text-accent hover:text-black/80 transition-colors duration-300 hover:underline underline-offset-4"
                                     dangerouslySetInnerHTML={{ __html: service.mail }}
                                 />
 

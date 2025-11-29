@@ -134,13 +134,13 @@ const TestimonialCard = ({ testimonial, isActive, inView, starVariants, index }:
       transition={{ type: "spring", stiffness: 300, damping: 35 }}
       className={`
         w-4/5 max-w-md lg:w-[400px] shrink-0 transition-all duration-500 ease-out
-        bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-3 shadow-xl mx-2 
+        bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-3 shadow-sm mx-2 
         ${isActive ? 'z-10' : 'z-0 cursor-pointer'}
       `}
       key={testimonial.id * 100 + index}
     >
       <div className="absolute inset-0 z-0 transition-opacity opacity-[0.04] duration-500 ease-in-out">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-64 sm:h-64  text-primary/80 rotate-12 transition-transform duration-500 group-hover:rotate-0">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-42 h-42 sm:w-50 sm:h-50  text-primary/80 rotate-12 transition-transform duration-500 group-hover:rotate-0">
           {backgroundVisual}
         </div>
       </div>
@@ -350,7 +350,7 @@ export default function TestimonialsSection() {
       id="testimonials"
       ref={ref}
       // style={{ "--tw-accent-color": "hsl(var(--accent))" } as React.CSSProperties}
-      className="relative py-12 md:py-20 px-4 bg-background overflow-hidden"
+      className="relative py-8 md:py-12 px-4 bg-background overflow-hidden"
     >
       {/* 2. Fixed Background Image Layer */}
       {/* <div
@@ -380,7 +380,6 @@ export default function TestimonialsSection() {
             className="flex py-2"
             animate={{ x: CAROUSEL_OFFSET }}
             transition={{
-              // Transition should only run if activeIndex is valid (not -1)
               type: (activeIndex === -1 || activeIndex >= REAL_COUNT + CLONE_COUNT || activeIndex < CLONE_COUNT) ? false : "spring",
               stiffness: 300,
               damping: 35

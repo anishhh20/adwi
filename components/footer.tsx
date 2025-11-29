@@ -62,24 +62,26 @@ export default function Footer() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           // MODIFIED: Changed grid-cols-1 to grid-cols-2 for smallest screens
-          className="pb-8 md:pb-16 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1.5fr] gap-x-8 gap-y-8 border-b border-primary-foreground/20"
+          className="pb-8  grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1.5fr] gap-x-8 gap-y-8 border-b border-primary-foreground/20"
         >
           {/* Brand Column - Occupies more space on small screens */}
           <motion.div
             variants={itemVariants}
             className="col-span-2 sm:col-span-2 md:col-span-1 lg:col-span-1"
           >
+            {/* MODIFICATION START: Replaced Image component with styled text for a cleaner look 
+              on the dark background.
+            */}
             <Link href="/" className="block my-4">
-              <div className="relative p-4 h-14 w-32 md:h-16 md:w-40 cursor-pointer">
-                <Image
-                  src="/adwi_logo1.jpg"
-                  alt="ADWI Logo"
-                  fill
-                  style={{ objectFit: "contain" }}
-                  sizes="100vw"
-                />
-              </div>
+              <span className="text-2xl md:text-3xl font-extrabold tracking-tight text-white inline-block">
+                <span className="text-accent">A</span>DWI
+                <span className="text-accent">.</span>
+              </span>
+              <span className="block text-xs uppercase tracking-widest text-primary-foreground/70">
+                Technologies
+              </span>
             </Link>
+            {/* MODIFICATION END */}
             <p className="text-xs md:text-sm leading-relaxed text-primary-foreground/70 max-w-xs">
               Privately owned company specializing in IT solutions, recruitment & staffing, and foreign language courses.
             </p>
@@ -139,7 +141,7 @@ export default function Footer() {
             <div className="space-y-3 text-xs md:text-sm">
               <p className="flex items-start gap-3 text-primary-foreground/70">
                 <MapPin size={16} className="text-accent flex-shrink-0 mt-0.5" />
-                <span>Warje, <br />Pune - 411058, India</span>
+                <span>Warje, Pune - 411058, India</span>
               </p>
               <a
                 href="tel:+917720077514"
@@ -191,7 +193,6 @@ export default function Footer() {
                   hoverStyles = "hover:bg-[#0077B5] hover:text-white";
                   break;
                 case "x": // Key changed to 'x'
-                  // --- New styles for 'X' (Black Background, White Text) ---
                   hoverStyles = "hover:bg-black hover:text-white";
                   break;
                 case "facebook":
@@ -210,13 +211,12 @@ export default function Footer() {
                   key={idx}
                   target="_blank"
                   href={href}
-                  className={`w-9 h-9 bg-primary-foreground/15 rounded-full flex items-center justify-center transition-all shadow-lg ${hoverStyles}`}
+                  className={`w-8 h-8 sm:w-9 sm:h-9 bg-primary-foreground/15 rounded-full flex items-center justify-center transition-all shadow-lg ${hoverStyles}`}
                   whileHover={{ scale: 1.2, y: -4 }}
                   whileTap={{ scale: 0.9 }}
                   aria-label={label}
                 >
-                  {/* The Icon component is rendered here */}
-                  <Icon size={16} />
+                  <Icon size={15} />
                 </motion.a>
               )
             })}

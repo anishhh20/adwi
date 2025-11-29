@@ -92,8 +92,6 @@ export function OfficeCard({ office, index }: { office: (typeof officeLocations)
               lineHeight: '1',
             }}
           >
-            {/* You can use a single character, or a shape, but using the emoji maintains context. 
-                Now the emoji's color will be determined by the text color class */}
             {office.country}
           </div>
 
@@ -139,7 +137,7 @@ export default function OfficesSection() {
   })
 
   return (
-    <section id="offices" ref={ref} className="relative py-8 md:py-12 px-4 bg-background overflow-hidden">
+    <section id="offices" ref={ref} className="relative py-8 md:py-10 px-4 bg-background overflow-hidden">
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
 

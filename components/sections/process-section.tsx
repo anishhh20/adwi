@@ -141,7 +141,7 @@ export default function ProcessSection() {
   })
 
   const lineDuration = 2.5
-  const cardDelay = lineDuration - 0.9
+  const cardDelay = lineDuration - 0.2
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -155,7 +155,7 @@ export default function ProcessSection() {
   }
 
   return (
-    <section id="process" ref={ref} className="relative py-20 md:py-32 px-4 bg-background overflow-hidden">
+    <section id="process" ref={ref} className="relative py-8 md:py-12 px-4 bg-background overflow-hidden">
       <BackgroundFlow />
 
       <div className="container mx-auto max-w-7xl relative z-20">

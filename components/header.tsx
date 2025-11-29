@@ -13,13 +13,11 @@ export default function Header() {
   const pathname = usePathname()
   const menuRef = useRef<HTMLDivElement>(null)
 
-  // --- HOME PAGE LOGIC (Kept for initial transparent state on /) ---
-  const isHomePage = pathname === "/"
-  const isInitialDarkBg = isHomePage
-
-  // LOGO SOURCE LOGIC: Show dark logo unless it's the transparent home page state.
-  const showDarkLogo = !isHomePage || hasScrolled
-  const showWhiteLogo = isHomePage && !hasScrolled
+  const navLinks = [
+    { label: "About", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Contact Us", href: "/contact" },
+  ]
 
   // Scroll effect (UNCHANGED)
   useEffect(() => {
@@ -60,12 +58,6 @@ export default function Header() {
     }
   }, [isOpen])
 
-  const navLinks = [
-    { label: "About", href: "/about" },
-    { label: "Services", href: "/services" },
-    { label: "Contact Us", href: "/contact" },
-  ]
-
   const isActive = (href: string) => {
     return pathname === href || (href !== "/" && pathname.startsWith(href))
   }
@@ -75,20 +67,9 @@ export default function Header() {
     initial: { scale: 1, y: 0 }
   }
 
-  // --- Dynamic Color Variables (REVISED) ---
-  const isTransparent = isHomePage && !hasScrolled
-
   const dynamicTextColor = "text-foreground/80"
-  const iconColor = isTransparent ? "text-white" : "text-foreground"
-  const buttonBgColor = "bg-accent text-white/95 hover:bg-primary/90"
-  
-  const menuHoverBg = isTransparent
-    ? "hover:bg-white/10"
-    : "hover:bg-secondary/50"
 
-  const activeLinkColor = isTransparent
-    ? "text-white font-semibold underline underline-offset-4 decoration-white"
-    : "text-primary font-semibold bg-primary/10"
+  const menuHoverBg = "hover:bg-white/10"
 
 
   return (
@@ -97,7 +78,7 @@ export default function Header() {
     >
       <div className="mx-auto max-w-7xl">
         <motion.div
-          className={`h-14 md:h-16 flex items-center justify-between px-4 md:px-6 rounded-[2rem] transition-all duration-500 border pointer-events-auto bg-white`}
+          className={`h-14 md:h-16 flex items-center justify-between px-4 md:px-6 rounded-4xl transition-all duration-500 border pointer-events-auto bg-white shadow-xl`}
           initial={false}
         >
           {/* Logo/Brand Link */}
@@ -111,18 +92,8 @@ export default function Header() {
                 fill
                 style={{ objectFit: "contain" }}
                 sizes="(max-width: 768px) 40vw, 20vw"
-                className={`transition-opacity duration-500 ${showDarkLogo ? 'opacity-100' : 'opacity-0'}`}
+                className={`transition-opacity duration-500 opacity-100`}
                 priority
-              />
-
-              {/* White Logo */}
-              <Image
-                src="/adwi_logo.png"
-                alt="ADWI Logo White"
-                fill
-                style={{ objectFit: "contain" }}
-                sizes="(max-width: 768px) 40vw, 20vw"
-                className={`absolute top-0 left-0 transition-opacity duration-500 ${showWhiteLogo ? 'opacity-100' : 'opacity-0'}`}
               />
             </div>
           </Link>
@@ -139,7 +110,7 @@ export default function Header() {
                 <Link
                   href={link.href}
                   className={`text-sm py-2 px-3 rounded-xl transition-colors duration-300 ${dynamicTextColor} ${menuHoverBg}
-                    ${isActive(link.href) ? "text-black font-semibold underline underline decoration-black" : ""}
+                    ${isActive(link.href) ? "text-black font-semibold underline underline-offset-4 decoration-black" : ""}
                   `}
                 >
                   {link.label}
@@ -149,7 +120,7 @@ export default function Header() {
             {/* Animated 'Get Quote' Button */}
             <motion.a
               href="/contact"
-              className={`flex items-center text-sm font-semibold px-5 py-2.5 rounded-full transition-all shadow-lg ml-4 ${buttonBgColor}`}
+              className="px-4 py-2 bg-accent flex items-center justify-center text-white/95 rounded-xl font-semibold text-sm shadow-lg hover:opacity-90 transition-opacity"
               whileHover={{ scale: 1.05, boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)" }}
               whileTap={{ scale: 0.95 }}
             >
@@ -169,7 +140,7 @@ export default function Header() {
               initial={{ rotate: isOpen ? -90 : 90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               transition={{ duration: 0.2 }}
-              className={iconColor}
+              className="text-black"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
             </motion.div>
@@ -196,7 +167,7 @@ export default function Header() {
                   // Dark text on white background
                   className={`text-sm p-3 rounded-lg transition-all font-medium 
                     ${isActive(link.href)
-                      ? "text-black font-semibold underline underline decoration-black"
+                      ? "text-black font-semibold underline underline-offset-4 decoration-black"
                       : "text-foreground/80 hover:bg-secondary"
                     }`}
                   onClick={() => setIsOpen(false)}

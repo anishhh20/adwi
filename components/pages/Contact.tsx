@@ -465,7 +465,18 @@ export default function ContactPage() {
         {/* --- DEDICATED OFFICE LOCATIONS SECTION --- */}
         <section className="pt-0 pb-10- px-4 bg-background">
           <div className="container mx-auto max-w-6xl">
-            <h2 className="text-xl font-bold text-foreground mb-6">Our Office Locations</h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: false, margin: "-100px" }}
+              className="text-center my-8"
+            >
+              <h2 className="text-2xl text-center md:text-3xl font-bold text-primary">
+                Our <span className="text-accent">Office Locations</span>
+              </h2>
+            </motion.div>
+
             {/* Responsive grid: 1-col, 2-col on small/medium, 4-col on large */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {officeLocations.map((item, idx) => (
