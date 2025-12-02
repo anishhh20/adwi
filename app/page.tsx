@@ -180,7 +180,7 @@ export default function Home() {
           {/* Main content - Apply Parallax Transforms to this container */}
           <motion.div
             style={{ y: contentY, opacity: contentOpacity }} // <--- PARALLAX ADDED
-            className="relative z-10 flex-1 flex items-center justify-center w-full px-8 sm:px-6 lg:px-8 pt-20"
+            className="relative z-10 flex-1 flex items-center justify-center w-full px-8 sm:px-6 lg:px-8 pt-0 sm:pt-20"
           >
             <motion.div
               className="w-full max-w-4xl text-center"
@@ -208,7 +208,7 @@ export default function Home() {
               </motion.div>
 
               {/* Subtitle / Dynamic Text Rotator (Unchanged) */}
-              <motion.div variants={subtitleVariants} className="space-y-4 sm:space-y-6 mb-8 sm:mb-12">
+              <motion.div variants={subtitleVariants} className="space-y-4 sm:space-y-6 mb-2 sm:mb-12">
 
                 {/* DYNAMIC ROTATING TEXT */}
                 <AnimatePresence mode="wait">
@@ -350,7 +350,7 @@ export default function Home() {
         <ServicesSection />
         <OfficesSection />
         <ProcessSection />
-        <Loop />
+        {/* <Loop /> */}
         <TestimonialsSection />
         {/* <ContactSection /> */}
         <CTA />

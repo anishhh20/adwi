@@ -307,13 +307,13 @@ export default function ServicesSection() {
                   <p className="text-xs md:text-sm text-foreground mb-3 leading-relaxed border-l-4 border-accent pl-3">
                     {currentService.description}
                   </p>
-                  <motion.button
+                  {/* <motion.button
                     className="px-4 py-2 bg-accent text-white/95 rounded-lg font-semibold text-xs hover:opacity-90"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     Get Consultation
-                  </motion.button>
+                  </motion.button> */}
                 </div>
 
                 {/* Right */}

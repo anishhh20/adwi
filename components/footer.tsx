@@ -1,6 +1,6 @@
 "use client"
 
-import { Facebook, Linkedin, Twitter, Mail, Phone, MapPin, X } from "lucide-react"
+import { Facebook, Linkedin, Twitter, Mail, Phone, MapPin, X, Instagram } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
@@ -181,8 +181,7 @@ export default function Footer() {
           >
             {[
               { Icon: Linkedin, href: "https://www.linkedin.com/in/rasshmi-thakur-94a986398/", label: "LinkedIn", key: "linkedin" },
-              // --- Use the new XIcon component here ---
-              { Icon: XIcon, href: "#", label: "X (Twitter)", key: "x" },
+              { Icon: Instagram, href: "https://www.instagram.com/adwi.technologies/", label: "Instagram", key: "instagram" },
               { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=100068307975578", label: "Facebook", key: "facebook" },
               { Icon: Mail, href: "mailto:adwitechnologies@gmail.com", label: "Email", key: "mail" },
             ].map(({ Icon, href, label, key }, idx) => {
@@ -192,8 +191,8 @@ export default function Footer() {
                 case "linkedin":
                   hoverStyles = "hover:bg-[#0077B5] hover:text-white";
                   break;
-                case "x": // Key changed to 'x'
-                  hoverStyles = "hover:bg-black hover:text-white";
+                case "instagram":
+                  hoverStyles = "bg-insta-global hover:text-white";
                   break;
                 case "facebook":
                   hoverStyles = "hover:bg-[#1877F2] hover:text-white";

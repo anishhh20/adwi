@@ -38,6 +38,15 @@
   --sidebar-accent-foreground: #231f20;
   --sidebar-border: #e5e8ed;
   --sidebar-ring: #231f20;
+
+  --color-instagram-gradient: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
 }
 
 /* --- ADWI TECHNOLOGIES - DARK MODE (Full Logo Theme) --- */
@@ -247,4 +256,8 @@ html {
 
 .header-blur.dark {
   background: rgba(15, 20, 25, 0.85);
+}
+
+.bg-insta-global:hover {
+  background-image: var(--color-instagram-gradient);
 }
