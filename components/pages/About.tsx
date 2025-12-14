@@ -135,8 +135,8 @@ export default function AboutPage() {
 
   return (
     <>
-      <main className="w-full">
-        <section className="py-12 md:py-20 px-4 bg-gradient-to-br from-primary/15 via-background to-accent/5 relative overflow-hidden">
+      <main className="w-full bg-linear-to-br from-accent/15 via-background to-primary/5">
+        <section className="py-12 md:py-20 px-4 bg-linear-to-br from-card to-accent/10 relative overflow-hidden">
           <MinimalAbstractPattern
             className="top-0 right-0 translate-x-1/2 -translate-y-1/2"
             colorClass="text-accent/50"
@@ -155,7 +155,7 @@ export default function AboutPage() {
               transition={{ duration: 0.8 }}
               className="text-center"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground mb-3 leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-foreground mb-3 leading-tight">
                 Add <span className="text-accent">Value</span> To Your Business
               </h1>
               <p className="text-sm md:text-base text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium mt-4">
@@ -166,7 +166,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="py-10 md:py-16 px-4 bg-background">
+        <section className="py-10 md:py-16 px-4">
           <div className="container mx-auto max-w-6xl space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <motion.div
@@ -180,7 +180,7 @@ export default function AboutPage() {
               >
                 <motion.img
                   style={{ rotateX, rotateY }}
-                  src="/about.png"
+                  src="/abt.png"
                   alt="ADWI Team"
                   className="relative w-full h-full object-cover"
                   transition={{ type: "spring", stiffness: 80 }}
@@ -259,7 +259,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="py-10 md:py-16 px-4 bg-card/30">
+        <section className="py-10 md:py-16 px-4">
           <div className="container mx-auto space-y-4 max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -285,7 +285,7 @@ export default function AboutPage() {
                     translateY: -6,
                     boxShadow: "0 10px 20px -6px rgba(0, 0, 0, 0.1)",
                   }}
-                  className="flex-1 p-6 bg-background rounded-lg border border-border shadow-md hover:border-primary/50 transition-all text-center relative overflow-hidden"
+                  className="flex-1 p-6 rounded-lg border border-border shadow-md hover:border-primary/50 transition-all text-center relative overflow-hidden"
                 >
                   {/* Faded Background Icon */}
                   <motion.div
@@ -317,7 +317,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="py-10 md:py-16 px-4 bg-background">
+        <section className="py-10 md:py-16 px-4">
           <div className="container mx-auto max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -366,7 +366,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="py-10 md:py-16 px-4 bg-card/30">
+        <section className="py-10 md:py-16 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
@@ -387,7 +387,7 @@ export default function AboutPage() {
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   viewport={{ once: false, margin: "-50px" }}
                   whileHover={{ y: -4 }}
-                  className="p-4 bg-background border border-border hover:border-accent/50 rounded-lg text-center transition-all cursor-pointer shadow-md"
+                  className="p-4 border border-border hover:border-accent/50 rounded-lg text-center transition-all cursor-pointer shadow-md"
                 >
                   <div className="text-4xl mb-2">{service.icon}</div>
                   <h3 className="text-sm font-bold text-foreground">{service.title}</h3>

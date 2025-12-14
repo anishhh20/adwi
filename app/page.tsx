@@ -1,26 +1,24 @@
 // fileName: page.tsx
 "use client"
 
-import HeroSection from "@/components/sections/hero-section"
 import AboutSection from "@/components/sections/about-section"
 import StatsSection from "@/components/sections/stats-section"
 import ServicesSection from "@/components/sections/services-section"
 import ProcessSection from "@/components/sections/process-section"
 import TestimonialsSection from "@/components/sections/testimonials-section"
-import ContactSection from "@/components/sections/contact-section"
 import Footer from "@/components/footer"
 import OfficesSection from "@/components/sections/offices-section"
 import LightRays from "@/components/LightRays"
 import Loop from "@/components/sections/loop-section"
-import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from "framer-motion"
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import CTA from "@/components/CTA"
 
 export default function Home() {
-  const stickyHeightClass = "h-screen";
   const [isLoaded, setIsLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+  const stickyHeightClass = "h-screen";
 
   // 1. FRAMER MOTION SCROLL SETUP
   // Track scroll progress within the sticky section
@@ -180,7 +178,7 @@ export default function Home() {
           {/* Main content - Apply Parallax Transforms to this container */}
           <motion.div
             style={{ y: contentY, opacity: contentOpacity }} // <--- PARALLAX ADDED
-            className="relative z-10 flex-1 flex items-center justify-center w-full px-8 sm:px-6 lg:px-8 pt-0 sm:pt-20"
+            className="relative z-10 flex-1 flex items-center justify-center w-full px-8 sm:px-6 lg:px-8 pt-10 sm:pt-20"
           >
             <motion.div
               className="w-full max-w-4xl text-center"
@@ -191,11 +189,11 @@ export default function Home() {
               {/* Title (Unchanged) */}
               <motion.div variants={titleVariants} className="mb-8 ">
                 <div className="flex items-center flex-wrap justify-center gap-2">
-                  <h1 className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight tracking-tighter">
+                  <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tighter">
                     ADWI
                   </h1>
                   <motion.h2
-                    className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-lime-300 via-lime-400 to-green-400 bg-clip-text text-transparent leading-tight tracking-tighter"
+                    className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-lime-300 via-lime-400 to-green-400 bg-clip-text text-transparent leading-tight tracking-tighter"
                     animate={{ opacity: [0.8, 1, 0.8] }}
                     transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
                   >
@@ -208,7 +206,7 @@ export default function Home() {
               </motion.div>
 
               {/* Subtitle / Dynamic Text Rotator (Unchanged) */}
-              <motion.div variants={subtitleVariants} className="space-y-4 sm:space-y-6 mb-2 sm:mb-12">
+              <motion.div variants={subtitleVariants} className="space-y-4 sm:space-y-6 mb-8 sm:mb-12">
 
                 {/* DYNAMIC ROTATING TEXT */}
                 <AnimatePresence mode="wait">
@@ -220,7 +218,7 @@ export default function Home() {
                     exit="exit"
                     className="h-8 sm:h-10 flex items-center justify-center my-12"
                   >
-                    <p className="text-2xl font-700 text-white inline-block px-2">
+                    <p className="text-xl font-700 text-white inline-block px-2">
                       {rotatingTexts[currentTextIndex]}
                     </p>
                   </motion.div>
@@ -258,7 +256,7 @@ export default function Home() {
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 400, damping: 20 }}
                     >
-                      <div className="text-xl sm:text-2xl text-lime-400">
+                      <div className="text-2xl sm:text-3xl text-lime-400">
                         {item.icon}
                       </div>
                       <p className="text-xs font-medium text-gray-200 uppercase tracking-wider">
@@ -284,7 +282,7 @@ export default function Home() {
               repeat: Number.POSITIVE_INFINITY,
               ease: "easeInOut",
             }}
-            className="relative z-10 pb-6 sm:pb-8 flex flex-col items-center gap-3"
+            className="fixed bottom-0 left-0 right-0 z-50 pb-6 sm:pb-8 flex flex-col items-center gap-3"
           >
             {/* Subtly styled text */}
             <p className="text-sm  text-gray-300 font-medium tracking-widest uppercase">

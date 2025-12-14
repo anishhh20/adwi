@@ -5,6 +5,69 @@ import { useInView } from "react-intersection-observer"
 import { MapPin, Mail, Globe } from 'lucide-react'
 import GlareHover from "../GlareHover"
 
+// --- RECTANGULAR FLAG SVGS (Assuming these are the ones from the previous step) ---
+
+const IndiaFlagSVG = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+    {/* Saffron band (Top third) */}
+    <rect x="0" y="0" width="100" height="33.33" fill="#FF9933" />
+    {/* White band (Middle third) */}
+    <rect x="0" y="33.33" width="100" height="33.33" fill="#FFFFFF" />
+    {/* Green band (Bottom third) */}
+    <rect x="0" y="66.66" width="100" height="33.34" fill="#138808" />
+
+    {/* Ashoka Chakra (Circle and Spokes) - Centered in the middle third */}
+    <g transform="translate(50, 50)">
+      {/* Chakra Circle */}
+      <circle r="12" fill="none" stroke="#000080" strokeWidth="2" />
+      {/* Chakra Center Dot */}
+      <circle r="2" fill="#000080" />
+      {/* Chakra Spokes (simplified 12 spokes for visibility) */}
+      {Array.from({ length: 12 }).map((_, i) => (
+        <line
+          key={i}
+          x1="0"
+          y1="0"
+          x2="10"
+          y2="0"
+          stroke="#000080"
+          strokeWidth="1"
+          transform={`rotate(${i * (360 / 12)})`}
+        />
+      ))}
+    </g>
+  </svg>
+);
+
+const UAEFlagSVG = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+    {/* Vertical Red Stripe (Left) - Roughly 1/4th width */}
+    <rect x="0" y="0" width="25" height="100" fill="#FF0000" />
+
+    {/* Horizontal Green Stripe (Top) - Right side of the red stripe */}
+    <rect x="25" y="0" width="75" height="33.33" fill="#00732F" />
+
+    {/* Horizontal White Stripe (Middle) - Right side of the red stripe */}
+    <rect x="25" y="33.33" width="75" height="33.34" fill="#FFFFFF" />
+
+    {/* Horizontal Black Stripe (Bottom) - Right side of the red stripe */}
+    <rect x="25" y="66.67" width="75" height="33.33" fill="#000000" />
+  </svg>
+);
+
+const GermanyFlagSVG = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+    {/* Black band (Top third) */}
+    <rect x="0" y="0" width="100" height="33.33" fill="#000000" />
+    {/* Red band (Middle third) */}
+    <rect x="0" y="33.33" width="100" height="33.34" fill="#FF0000" />
+    {/* Gold band (Bottom third) */}
+    <rect x="0" y="66.67" width="100" height="33.33" fill="#FFCC00" />
+  </svg>
+);
+
+// ------------------------------------
+
 const officeLocations = [
   {
     city: "Pune, India (HQ)",
@@ -57,6 +120,66 @@ const itemVariants = {
   },
 }
 
+// ------------------------------------
+// NEW COMPONENT: Icon for the spinning button
+// ------------------------------------
+
+const SmallFlagIcon = ({ countryCode }: { countryCode: string }) => {
+  const flagMap: { [key: string]: React.ElementType } = {
+    '🇮🇳': IndiaFlagSVG,
+    '🇦🇪': UAEFlagSVG,
+    '🇩🇪': GermanyFlagSVG,
+  };
+
+  const FlagComponent = flagMap[countryCode];
+
+  const className = "w-5 h-5";
+
+  if (FlagComponent) {
+    // Render the SVG
+    return <FlagComponent className={className} />;
+  }
+
+  // Fallback to Globe icon if no SVG is mapped
+  return <Globe className={className} />;
+};
+
+
+// ------------------------------------
+// Existing FlagBackground for large subtle image
+// ------------------------------------
+
+const FlagBackground = ({ countryCode }: { countryCode: string }) => {
+  const flagMap: { [key: string]: React.ElementType } = {
+    '🇮🇳': IndiaFlagSVG,
+    '🇦🇪': UAEFlagSVG,
+    '🇩🇪': GermanyFlagSVG,
+    // Add more mappings here for other countries
+  };
+
+  const FlagComponent = flagMap[countryCode];
+
+  if (!FlagComponent) {
+    // Fallback if no SVG is available for the emoji (using the original large emoji text)
+    return (
+      <div
+        className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 select-none opacity-[0.03] text-[10rem] md:text-[12rem] z-0 pointer-events-none font-extrabold text-muted-foreground"
+        style={{ lineHeight: '1' }}
+      >
+        {countryCode}
+      </div>
+    );
+  }
+
+  // Render the SVG component with subtle styling
+  return (
+    <FlagComponent
+      className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 select-none w-[12rem] h-[12rem] md:w-[15rem] md:h-[15rem] z-0 pointer-events-none opacity-[0.03] transition-opacity group-hover:opacity-[0.05]"
+    />
+  );
+};
+
+
 export function OfficeCard({ office, index }: { office: (typeof officeLocations)[0], index: number }) {
   const colors = [
     "from-blue-500 to-cyan-500",
@@ -64,9 +187,7 @@ export function OfficeCard({ office, index }: { office: (typeof officeLocations)
     "from-purple-500 to-pink-500",
     "from-orange-500 to-red-500",
   ]
-  const color = colors[index]
-
-  const primaryColorClass = color.split(' ')[0].replace('from-', 'text-'); // e.g., 'from-blue-500' -> 'text-blue-500'
+  const color = colors[index % colors.length] // Use modulo for safety if more offices are added
 
   return (
     <motion.div variants={itemVariants} whileHover={{ y: -8 }} className="group relative">
@@ -79,33 +200,31 @@ export function OfficeCard({ office, index }: { office: (typeof officeLocations)
         playOnce={false}
         width="100%"
         height="100%"
-        background="transparent" // Will be overridden by child div's gradient
-        borderRadius="1rem" // 2xl is 1rem (16px)
-        borderColor="transparent" // Border is applied to the child div
-        className="!p-0 !border-0" // Remove default GlareHover padding/border
+        background="transparent"
+        borderRadius="1rem"
+        borderColor="transparent"
+        className="!p-0 !border-0"
       >
         {/* The original card content is now the child of GlareHover */}
         <div className="relative border border-primary/20 rounded-2xl p-6 md:p-8 h-full group-hover:border-primary/50 transition-all duration-300 shadow-xl w-full">
-          <div
-            className={`absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 select-none opacity-[0.03] text-[10rem] md:text-[12rem] z-0 pointer-events-none font-extrabold ${primaryColorClass}`}
-            style={{
-              lineHeight: '1',
-            }}
-          >
-            {office.country}
-          </div>
+
+          {/* RENDER THE FLAG BACKGROUND */}
+          <FlagBackground countryCode={office.country} />
 
           <div className="flex items-start justify-between mb-3">
             <div>
               <div className="text-xl mb-2">{office.country}</div>
               <h3 className="text-sm md:text-base font-bold text-foreground">{office.city}</h3>
             </div>
+
+            {/* ✨ MODIFICATION: Use the SmallFlagIcon component here ✨ */}
             <motion.div
               whileHover={{ rotate: 180, scale: 1.1 }}
-              className={`p-2.5 rounded-xl bg-gradient-to-br ${color} text-white`}
+              className={`p-2.5 rounded-xl ${color} text-white`}
             >
-              <Globe className="w-4 h-4" />
+              <SmallFlagIcon countryCode={office.country} />
             </motion.div>
+
           </div>
 
           <div className="space-y-3">
@@ -113,11 +232,6 @@ export function OfficeCard({ office, index }: { office: (typeof officeLocations)
               <MapPin className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" />
               <span className="text-muted-foreground ">{office.address}</span>
             </motion.div>
-
-            {/* <motion.a href={`tel:${office.phone}`} className="flex items-center gap-3 text-xs hover:text-primary transition-colors group-hover:translate-x-1">
-              <Phone className="w-3 h-3 text-primary flex-shrink-0" />
-              <span className="text-muted-foreground">{office.phone}</span>
-            </motion.a> */}
 
             <motion.a href={`mailto:${office.email}`} className="flex items-center gap-3 text-xs hover:text-primary transition-colors group-hover:translate-x-1">
               <Mail className="w-3 h-3 text-primary flex-shrink-0" />

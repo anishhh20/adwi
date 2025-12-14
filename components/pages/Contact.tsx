@@ -402,7 +402,7 @@ const FormToggle = ({ isFlForm, setIsFlForm }: { isFlForm: boolean, setIsFlForm:
         onClick={() => setIsFlForm(true)}
         className={`${commonClasses} ${isFlForm ? activeClasses : inactiveClasses} flex-1`}
       >
-        Course & Enrollment (FL)
+        Course & Enrollment
       </button>
     </motion.div>
   )
@@ -450,7 +450,7 @@ export default function ContactPage() {
               transition={{ duration: 0.8 }}
               className="text-center"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground mb-3 leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-foreground mb-3 leading-tight">
                 Contact <span className="text-accent">Us</span>
               </h1>
               <p className="text-sm md:text-base text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium mt-4">
@@ -473,7 +473,7 @@ export default function ContactPage() {
               className="text-center my-8"
             >
               <h2 className="text-2xl text-center md:text-3xl font-bold text-primary">
-                Our <span className="text-accent">Office Locations</span>
+                Our <span className="text-accent">Global Offices</span>
               </h2>
             </motion.div>
 

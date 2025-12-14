@@ -73,7 +73,7 @@ export default function Footer() {
               on the dark background.
             */}
             <Link href="/" className="block my-4">
-              <span className="text-2xl md:text-3xl font-extrabold tracking-tight text-white inline-block">
+              <span className="text-xl md:text-2xl font-extrabold tracking-tight text-white inline-block">
                 <span className="text-accent">A</span>DWI
                 <span className="text-accent">.</span>
               </span>
@@ -83,7 +83,8 @@ export default function Footer() {
             </Link>
             {/* MODIFICATION END */}
             <p className="text-xs md:text-sm leading-relaxed text-primary-foreground/70 max-w-xs">
-              Privately owned company specializing in IT solutions, recruitment & staffing, and foreign language courses.
+              Privately owned company specializing in software development solutions, recruitment & staffing, IT training and certification
+              and foreign language courses.
             </p>
           </motion.div>
 

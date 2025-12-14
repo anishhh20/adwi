@@ -108,9 +108,9 @@ export default function ServicesPage() {
   return (
     <>
       <Header />
-      <main className="w-full">
-        {/* Hero Section */}
-        <section className="py-12 md:py-20 px-4 bg-gradient-to-br from-primary/15 via-background to-accent/5 relative overflow-hidden">
+      <main className="w-full bg-linear-to-br from-primary/5 via-background to-accent/5">
+
+        <section className="py-12 md:py-20 px-4 bg-linear-to-br from-card to-primary/5 relative overflow-hidden">
           <MinimalAbstractPattern
             className="top-0 right-0 translate-x-1/2 -translate-y-1/2"
             colorClass="text-accent/50"
@@ -129,7 +129,7 @@ export default function ServicesPage() {
               transition={{ duration: 0.8 }}
               className="text-center"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground mb-3 leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-foreground mb-3 leading-tight">
                 Our <span className="text-accent">Services</span>
               </h1>
               <p className="text-sm md:text-base text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium mt-4">
@@ -141,7 +141,7 @@ export default function ServicesPage() {
         </section>
 
         {/* Why Choose Us Section */}
-        <section className="py-16 md:py-28 px-4 bg-card/30 relative overflow-hidden">
+        <section className="py-16 md:py-28 px-4 /30 relative overflow-hidden">
           <AnimatedVectorPattern
             className="top-10 right-10 md:top-20 md:right-20 w-48 h-48 md:w-64 md:h-64"
             colorClass="text-accent/40"
@@ -169,7 +169,7 @@ export default function ServicesPage() {
               {whyChooseUs.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-8 bg-background rounded-xl border border-border hover:border-accent/50 transition-all shadow-lg group relative overflow-hidden"
+                  className="p-8 rounded-xl border border-border hover:border-accent/50 transition-all shadow-lg group relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="text-2xl sm:text-4xl mb-4 group-hover:scale-110 transition-transform">{item.icon}</div>
@@ -184,7 +184,7 @@ export default function ServicesPage() {
         </section>
 
         {/* Services Section with Sticky Text */}
-        <section id="services" className="py-16 md:py-28 px-4 bg-background relative">
+        <section id="services" className="py-16 md:py-28 px-4 relative">
           <div className="container mx-auto max-w-7xl">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">

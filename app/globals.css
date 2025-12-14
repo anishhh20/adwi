@@ -261,3 +261,15 @@ html {
 .bg-insta-global:hover {
   background-image: var(--color-instagram-gradient);
 }
+
+/* Ensure the emoji is displayed in full color */
+.emoji-flag-bg {
+  /* Critical resets */
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji", sans-serif;
+  color: transparent !important; /* Forces the browser to rely on the graphic representation */
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important;
+  font-weight: normal !important;
+  font-size: 1em; /* or whatever size */
+}

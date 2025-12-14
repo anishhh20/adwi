@@ -83,7 +83,7 @@ export default function Header() {
         >
           {/* Logo/Brand Link */}
           <Link href="/" className="block">
-            <div className="relative h-8 w-40 md:h-10 md:w-48 cursor-pointer">
+            <div className="relative h-11 w-53 md:h-13 md:w-65 cursor-pointer">
 
               {/* Dark Logo */}
               <Image

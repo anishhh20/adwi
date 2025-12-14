@@ -137,10 +137,10 @@ function ProcessCard({ step, isLast }: { step: (typeof processSteps)[0], isLast:
 export default function ProcessSection() {
   const { ref, inView } = useInView({
     triggerOnce: true,
-    threshold: 0.15,
+    threshold: 0.10,
   })
 
-  const lineDuration = 2.5
+  const lineDuration = 2.0
   const cardDelay = lineDuration - 0.2
 
   const containerVariants = {
