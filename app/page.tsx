@@ -67,6 +67,7 @@ export default function Home() {
     { title: "Software Development", icon: "💻" }, // From Services
     { title: "Results Driven", icon: "🏆" }, // From About/Services
     { title: "Global Network", icon: "🌐" }, // From About
+    { title: "Digital Marketing and Promotions", icon: "🚀" }, // From About
   ]
   // -------------------------------------------------------------------
 
@@ -129,7 +130,6 @@ export default function Home() {
   }
   // ---------------------------------------------------
 
-
   return (
     <main className="w-full relative">
       {/* Apply ref to the sticky container and use motion.div */}
@@ -189,11 +189,11 @@ export default function Home() {
               {/* Title (Unchanged) */}
               <motion.div variants={titleVariants} className="mb-8 ">
                 <div className="flex items-center flex-wrap justify-center gap-2">
-                  <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tighter">
+                  <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tighter">
                     ADWI
                   </h1>
                   <motion.h2
-                    className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-lime-300 via-lime-400 to-green-400 bg-clip-text text-transparent leading-tight tracking-tighter"
+                    className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-black bg-gradient-to-r from-lime-300 via-lime-400 to-green-400 bg-clip-text text-transparent leading-tight tracking-tighter"
                     animate={{ opacity: [0.8, 1, 0.8] }}
                     transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
                   >

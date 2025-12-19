@@ -241,4 +241,62 @@ export const allServicesData = [
             "<strong>Personal Growth:</strong> Boost confidence and expand personal horizons",
         ],
     },
+    {
+        id: "digital-marketing",
+        title: "Digital Marketing and Promotions",
+        icon: "🚀",
+        imageSrc: "/marketing.png", // Ensure you have a corresponding image or update path
+        description: "Driving growth through strategic social management, high-impact content, and cinematic storytelling.",
+        badge: "Digital Marketing & Content",
+        heroTitle: "Elevate Your",
+        heroHighlight: "Brand Presence",
+        heroDescription:
+            "We combine data-driven marketing strategies with cinematic creativity to tell your brand's story. From paid ads to short films, we create digital experiences that convert.",
+        details: [
+            {
+                title: "Social Management",
+                description: "End-to-end management of your social profiles to build community and brand loyalty.",
+                icon: "📱",
+            },
+            {
+                title: "Paid Ads Management",
+                description: "Targeted advertising campaigns across Google, Meta, and LinkedIn to maximize ROI.",
+                icon: "🎯",
+            },
+            {
+                title: "Landing Page Creation",
+                description: "High-converting, optimized landing pages designed to turn visitors into customers.",
+                icon: "📄",
+            },
+            {
+                title: "Post & Reel Creation",
+                description: "Engaging visual content and short-form video optimized for viral reach and engagement.",
+                icon: "✨",
+            },
+            {
+                title: "Cinematic Conceptual Videos",
+                description: "Short films and high-end conceptual videos that capture your brand's unique essence.",
+                icon: "🎬",
+            },
+            {
+                title: "Documentaries",
+                description: "Professional documentary storytelling to showcase your journey, impact, and corporate values.",
+                icon: "🎥",
+            },
+        ],
+        features: [
+            "Focus on <strong>ROI-Driven</strong> marketing strategies",
+            "High-quality cinematic production values",
+            "Data-backed audience targeting and insights",
+            "Seamless integration with your sales funnel",
+            "Consistent brand voice across all digital channels",
+        ],
+        benefits: [
+            "Increased brand visibility and market authority",
+            "Higher conversion rates through optimized landing pages",
+            "Engaging storytelling that resonates with your audience",
+            "Transparent reporting and performance tracking",
+            "Access to professional-grade video production",
+        ],
+    }
 ]

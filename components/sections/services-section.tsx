@@ -5,6 +5,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "react-intersection-observer"
+import { RocketIcon } from "lucide-react"
 
 // --- Icons (Keeping original icons and adding new ones) ---
 // Note: Using existing icons where appropriate and keeping original names for consistency.
@@ -184,6 +185,22 @@ const services: Service[] = [
       "Boosting Career and Enabling Study Abroad Opportunities ",
     ],
   },
+  // {
+  //   id: "marketing",
+  //   title: "Digital Marketing and Promotions",
+  //   subtitle: "Elevate Your Brand with Data-Driven and Cinematic Storytelling",
+  //   IconComponent: RocketIcon, // Assuming a RocketIcon or MegaphoneIcon exists in your library
+  //   description:
+  //     "We combine strategic digital marketing with high-end cinematic production to build your brand’s presence and drive measurable growth. From social management to conceptual short films, we create content that resonates.",
+  //   details: [
+  //     "Strategic Social Media Management & Growth",
+  //     "High-Converting Landing Page Design & Creation",
+  //     "Engaging Post & Viral Reel Creation",
+  //     "ROI-Focused Paid Ads Management (Meta, Google, LinkedIn)",
+  //     "Professional Documentary Storytelling",
+  //     "Cinematic Conceptual Videos & Short Films",
+  //   ],
+  // },
 ]
 
 export default function ServicesSection() {

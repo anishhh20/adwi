@@ -148,26 +148,26 @@ const FLForm = ({
       {props.as === 'select' ? (
         <select
           {...(props as React.ComponentPropsWithoutRef<'select'>)}
-          className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent"
+          className="w-full px-3 py-2  border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent"
         >
           {props.children}
         </select>
       ) : props.as === 'textarea' ? (
         <textarea
           {...(props as React.ComponentPropsWithoutRef<'textarea'>)}
-          className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent resize-none"
+          className="w-full px-3 py-2  border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent resize-none"
         />
       ) : (
         <input
           {...(props as React.ComponentPropsWithoutRef<'input'>)}
-          className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent"
+          className="w-full px-3 py-2  border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent"
         />
       )}
     </div>
   )
 
   return (
-    <div className="space-y-5 p-5 bg-card border border-border rounded-lg shadow-md relative overflow-hidden"> {/* Added relative and overflow-hidden */}
+    <div className="space-y-5 p-5  border border-border rounded-lg shadow-md relative overflow-hidden"> {/* Added relative and overflow-hidden */}
       {/* Subtle Background Icon */}
       <ClipboardOutlineIcon
         className="absolute top-0 right-0 h-40 w-40 translate-x-1/4 -translate-y-1/4 text-accent/5 opacity-10"
@@ -255,7 +255,7 @@ const FLForm = ({
             id="agreement"
             type="checkbox"
             required
-            className="w-3 h-3 text-accent bg-background border-border rounded focus:ring-accent/50 mt-1"
+            className="w-3 h-3 text-accent  border-border rounded focus:ring-accent/50 mt-1"
           />
           <label htmlFor="agreement" className="ml-2 text-xs text-muted-foreground">
             I hereby declare that the information given by me in this form is true, correct, and complete in all respects.
@@ -296,19 +296,19 @@ const GeneralContactForm = ({
       {props.as === 'select' ? (
         <select
           {...(props as React.ComponentPropsWithoutRef<'select'>)}
-          className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent"
+          className="w-full px-3 py-2  border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent"
         >
           {props.children}
         </select>
       ) : props.as === 'textarea' ? (
         <textarea
           {...(props as React.ComponentPropsWithoutRef<'textarea'>)}
-          className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent resize-none"
+          className="w-full px-3 py-2  border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent resize-none"
         />
       ) : (
         <input
           {...(props as React.ComponentPropsWithoutRef<'input'>)}
-          className="w-full px-3 py-2 bg-background border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent"
+          className="w-full px-3 py-2  border border-border rounded-lg text-xs transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent"
         />
       )}
     </div>
@@ -316,7 +316,7 @@ const GeneralContactForm = ({
 
   return (
 
-    <div className="space-y-5 p-5 bg-card border border-border rounded-lg shadow-md relative overflow-hidden">
+    <div className="space-y-5 p-5  border border-border rounded-lg shadow-md relative overflow-hidden">
       <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
         {/* Subtle Background Icon */}
         <EnvelopeOutlineIcon
@@ -381,14 +381,14 @@ const GeneralContactForm = ({
 const FormToggle = ({ isFlForm, setIsFlForm }: { isFlForm: boolean, setIsFlForm: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const commonClasses = "px-4 py-2 text-sm font-semibold rounded-lg transition-colors duration-200 ease-in-out"
   const activeClasses = "bg-accent text-accent-foreground shadow-lg"
-  const inactiveClasses = "bg-card text-muted-foreground hover:bg-border/50 border border-border"
+  const inactiveClasses = " text-muted-foreground hover:bg-border/50 border border-border"
 
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="flex p-1 bg-card border border-border rounded-xl shadow-inner max-w-lg mx-auto md:mx-0 mb-8"
+      className="flex p-1  border border-border rounded-xl shadow-inner max-w-lg mx-auto md:mx-0 mb-8"
     >
       <button
         type="button"
@@ -439,7 +439,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <main className="w-full">
+      <main className="w-full bg-gradient-to-bl from-card via-background/90 to-primary/15">
         {/* Contact Header Section */}
         <section className="py-12 md:py-20 px-4 bg-gradient-to-br from-primary/15 via-background to-accent/5 relative overflow-hidden">
           {/* Removed MinimalAbstractPattern as requested */}
@@ -463,7 +463,7 @@ export default function ContactPage() {
 
 
         {/* --- DEDICATED OFFICE LOCATIONS SECTION --- */}
-        <section className="pt-0 pb-10- px-4 bg-background">
+        <section className="pt-0 pb-10- px-4 ">
           <div className="container mx-auto max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -473,7 +473,7 @@ export default function ContactPage() {
               className="text-center my-8"
             >
               <h2 className="text-2xl text-center md:text-3xl font-bold text-primary">
-                Our <span className="text-accent">Global Offices</span>
+                Our <span className="text-accent">Offices</span>
               </h2>
             </motion.div>
 
@@ -494,7 +494,7 @@ export default function ContactPage() {
 
 
         {/* --- Main Form and General Contact Section --- */}
-        <section className="py-10 md:py-16 pb-10 px-4 bg-background">
+        <section className="py-10 md:py-16 pb-10 px-4 ">
           <div className="container mx-auto max-w-6xl">
 
             {/* 3. Add the Form Toggle Component Here */}
@@ -528,7 +528,7 @@ export default function ContactPage() {
               </div>
 
               {/* General Contact Section (Right side - takes 1/3 of the space on medium screens) */}
-              <div className="space-y-5 p-5 bg-card border border-border rounded-lg shadow-md md:col-span-1">
+              <div className="space-y-5 p-5  border border-border rounded-lg shadow-md md:col-span-1">
                 <h2 className="text-xl font-bold text-foreground mb-4">General Contact</h2>
 
                 {/* Phone Contact (using HQ data) */}
@@ -574,9 +574,9 @@ export default function ContactPage() {
 
 
         {/* Map Section (Unchanged) */}
-        <section className="py-8 md:py-12 px-4 bg-card/30">
+        <section className="py-8 md:py-12 px-4 ">
           <div className="container mx-auto max-w-6xl">
-            <div className="w-full h-48 bg-card rounded-lg overflow-hidden border border-border shadow-sm">
+            <div className="w-full h-48  rounded-lg overflow-hidden border border-border shadow-sm">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.6841482843486!2d73.8369869!3d18.52!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2cf2c2c2c2c2d%3A0x3c3c3c3c3c3c3c3c!2sWarje%2C%20Pune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890"
                 width="100%"

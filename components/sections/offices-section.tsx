@@ -7,7 +7,7 @@ import GlareHover from "../GlareHover"
 
 // --- RECTANGULAR FLAG SVGS (Assuming these are the ones from the previous step) ---
 
-const IndiaFlagSVG = ({ className }: { className?: string }) => (
+export const IndiaFlagSVG = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
     {/* Saffron band (Top third) */}
     <rect x="0" y="0" width="100" height="33.33" fill="#FF9933" />
@@ -39,7 +39,7 @@ const IndiaFlagSVG = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const UAEFlagSVG = ({ className }: { className?: string }) => (
+export const UAEFlagSVG = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
     {/* Vertical Red Stripe (Left) - Roughly 1/4th width */}
     <rect x="0" y="0" width="25" height="100" fill="#FF0000" />
@@ -55,7 +55,7 @@ const UAEFlagSVG = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const GermanyFlagSVG = ({ className }: { className?: string }) => (
+export const GermanyFlagSVG = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
     {/* Black band (Top third) */}
     <rect x="0" y="0" width="100" height="33.33" fill="#000000" />
@@ -133,7 +133,7 @@ const SmallFlagIcon = ({ countryCode }: { countryCode: string }) => {
 
   const FlagComponent = flagMap[countryCode];
 
-  const className = "w-5 h-5";
+  const className = "w-8 h-8";
 
   if (FlagComponent) {
     // Render the SVG
@@ -211,9 +211,9 @@ export function OfficeCard({ office, index }: { office: (typeof officeLocations)
           {/* RENDER THE FLAG BACKGROUND */}
           <FlagBackground countryCode={office.country} />
 
-          <div className="flex items-start justify-between mb-3">
+          <div className="flex items-center justify-between mb-3">
             <div>
-              <div className="text-xl mb-2">{office.country}</div>
+              {/* <div className="text-xl mb-2">{office.country}</div> */}
               <h3 className="text-sm md:text-base font-bold text-foreground">{office.city}</h3>
             </div>
 
@@ -260,7 +260,7 @@ export default function OfficesSection() {
           className="text-center mb-10 md:mb-12"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
-            Our Global <span className="text-accent">Offices</span>
+            Our <span className="text-accent">Offices</span>
           </h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
             A network of strategic locations to deliver high-impact IT and staffing services across the globe.

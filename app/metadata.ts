@@ -1,7 +1,8 @@
 export const metadata = {
   metadataBase: new URL("https://www.adwitechnologies.com/"),
 
-  title: "ADWI Technologies — Software Development, Staffing & IT Training Solutions",
+  title:
+    "ADWI Technologies — Software Development, Staffing & IT Training Solutions",
   description:
     "ADWI Technologies delivers software development, recruitment & staffing, IT training, and foreign language learning solutions. Empowering businesses and individuals with modern digital and career-driven services.",
 
@@ -15,19 +16,16 @@ export const metadata = {
     "Best Staffing Company Pune",
     "Custom Software Development",
     "Cloud & IT Certification",
+    "Digital Marketing and Promotions",
   ],
 
-  authors: [{ name: "ADWI Technologies", url: "https://www.adwitechnologies.com/" }],
+  authors: [
+    { name: "ADWI Technologies", url: "https://www.adwitechnologies.com/" },
+  ],
 
   icons: {
-    icon: [
-      "/favicon.jpg",
-      "/logo.png",
-      "/adwi_logo.png",
-    ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180" },
-    ],
+    icon: ["/favicon.jpg", "/logo.png", "/adwi_logo.png"],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
 
   robots: {

@@ -83,8 +83,8 @@ export default function Footer() {
             </Link>
             {/* MODIFICATION END */}
             <p className="text-xs md:text-sm leading-relaxed text-primary-foreground/70 max-w-xs">
-              Privately owned company specializing in software development solutions, recruitment & staffing, IT training and certification
-              and foreign language courses.
+              Privately owned company specializing in software development, recruitment & staffing,
+              IT training, foreign language courses, and digital marketing & cinematic promotions.
             </p>
           </motion.div>
 
@@ -119,6 +119,7 @@ export default function Footer() {
                 { label: "Recruitment and Staffing", href: "/services/#recruitment-staffing" },
                 { label: "IT Training and Certification", href: "/services/#training-certification" },
                 { label: "Foreign Language", href: "/services/#foreign-language" },
+                { label: "Digital Marketing and Promotions", href: "/services/#digital-marketing" },
               ].map((service) => (
                 <li key={service.href}>
                   <Link

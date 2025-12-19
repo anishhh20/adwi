@@ -2,7 +2,7 @@ import type React from "react"
 import { Metadata } from "next"
 import Script from "next/script";
 
-export const metadata : Metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL("https://www.adwitechnologies.com/"),
 
   title: "Services  | ADWI Technologies",
@@ -18,7 +18,8 @@ export const metadata : Metadata = {
     "Custom Software Solutions",
     "Hiring Solutions India",
     "IT Certification Programs",
-    "Web Development Company Pune"
+    "Web Development Company Pune",
+    "Digital Marketing and Promotions"
   ],
 
   authors: [{ name: "ADWI Technologies", url: "https://www.adwitechnologies.com/" }],
@@ -76,7 +77,7 @@ export default function RootLayout({
 
       <head>
         <Script id="services-org-schema" type="application/ld+json">
-{`
+          {`
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -93,9 +94,9 @@ export default function RootLayout({
   }]
 }
 `}
-</Script>
-<Script id="services-website-schema" type="application/ld+json">
-{`
+        </Script>
+        <Script id="services-website-schema" type="application/ld+json">
+          {`
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -103,10 +104,10 @@ export default function RootLayout({
   "url": "https://www.adwitechnologies.com/"
 }
 `}
-</Script>
+        </Script>
 
-<Script id="services-webpage-schema" type="application/ld+json">
-{`
+        <Script id="services-webpage-schema" type="application/ld+json">
+          {`
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -122,10 +123,10 @@ export default function RootLayout({
   }
 }
 `}
-</Script>
+        </Script>
 
-<Script id="schema-software-development" type="application/ld+json">
-{`
+        <Script id="schema-software-development" type="application/ld+json">
+          {`
 {
   "@context":"https://schema.org",
   "@type":"Service",
@@ -135,11 +136,11 @@ export default function RootLayout({
   "areaServed":"Worldwide"
 }
 `}
-</Script>
+        </Script>
 
 
-<Script id="schema-staffing" type="application/ld+json">
-{`
+        <Script id="schema-staffing" type="application/ld+json">
+          {`
 {
   "@context":"https://schema.org",
   "@type":"Service",
@@ -149,10 +150,10 @@ export default function RootLayout({
   "areaServed":"India, Global"
 }
 `}
-</Script>
+        </Script>
 
-<Script id="schema-it-training" type="application/ld+json">
-{`
+        <Script id="schema-it-training" type="application/ld+json">
+          {`
 {
   "@context":"https://schema.org",
   "@type":"Service",
@@ -162,10 +163,10 @@ export default function RootLayout({
   "areaServed":"Worldwide"
 }
 `}
-</Script>
+        </Script>
 
-<Script id="schema-language-training" type="application/ld+json">
-{`
+        <Script id="schema-language-training" type="application/ld+json">
+          {`
 {
   "@context":"https://schema.org",
   "@type":"Service",
@@ -175,11 +176,11 @@ export default function RootLayout({
   "areaServed":"India, Global"
 }
 `}
-</Script>
+        </Script>
 
 
       </head>
-      
+
       <body className={`font-sans antialiased`}>
         {children}
       </body>

@@ -101,6 +101,7 @@ export default function AboutPage() {
     { title: "Recruitment & Staffing", icon: "👥", href: "/services/#recruitment-staffing" },
     { title: "IT Training & Certification", icon: "🎓", href: "/services/#it-training" },
     { title: "Foreign Language", icon: "🌐", href: "/services/#foreign-language" },
+    { title: "Digital Marketing and Promotions", icon: "📢", href: "/services/#digital-marketing" },
   ]
 
   const aboutSections = [
@@ -135,7 +136,7 @@ export default function AboutPage() {
 
   return (
     <>
-      <main className="w-full bg-linear-to-br from-accent/15 via-background to-primary/5">
+      <main className="w-full bg-gradient-to-br from-accent/30 via-background to-primary/20">
         <section className="py-12 md:py-20 px-4 bg-linear-to-br from-card to-accent/10 relative overflow-hidden">
           <MinimalAbstractPattern
             className="top-0 right-0 translate-x-1/2 -translate-y-1/2"
@@ -209,7 +210,7 @@ export default function AboutPage() {
                   whileHover="hovered"
                   transition={{ duration: 0.5, delay: sectionIdx * 0.15 }}
                   viewport={{ once: false, margin: "-50px" }}
-                  className="p-4 bg-card rounded-lg border border-border space-y-3 shadow-lg transition-all duration-300 relative group overflow-hidden"
+                  className="p-4  rounded-lg border border-border space-y-3 shadow-lg transition-all duration-300 relative group overflow-hidden"
                 >
                   {/* Faded Background Icon (using section.icon) */}
                   <motion.div
@@ -345,7 +346,7 @@ export default function AboutPage() {
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   viewport={{ once: false, margin: "-50px" }}
                   whileHover={{ scale: 1.05 }}
-                  className="text-center p-4 bg-card/40 rounded-lg border border-border shadow-md hover:border-accent/50 transition-all relative overflow-hidden"
+                  className="text-center p-4 /40 rounded-lg border border-border shadow-md hover:border-accent/50 transition-all relative overflow-hidden"
                 >
                   {/* Faded Background Icon (using a generic diamond icon) */}
                   <motion.div
@@ -377,7 +378,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
               {coreServices.map((service, idx) => (
                 <motion.a
                   href={service.href}

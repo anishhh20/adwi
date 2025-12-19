@@ -8,11 +8,12 @@ const CARD_DATA = [
   { id: "recruitment-staffing", title: "Recruitment and Staffing", href: "/services/recruitment-staffing", icon: "🤝", description: "Strategic talent acquisition and staffing solutions for finding the best IT professionals." },
   { id: "it-training-certification", title: "IT Training and Certification", href: "/services/training-certification", icon: "🎓", description: "Industry-recognized training and certification programs to upskill your team." },
   { id: "foreign-language", title: "Foreign Language", href: "/services/foreign-language", icon: "🌍", description: "Professional courses in various foreign languages for business and personal growth." },
+  { id: "digital-marketing", title: "Digital Marketing and Promotions", href: "/services/digital-marketing", icon: "🚀", description: "Driving growth through strategic social management, high-impact content, and cinematic storytelling." },
 ];
 
 const SPRING_CONFIG = { type: "spring", stiffness: 150, damping: 20, mass: 1 };
-const STACK_GAP_REM = 5; 
-const SCROLL_DURATION_VH = 120; 
+const STACK_GAP_REM = 5;
+const SCROLL_DURATION_VH = 120;
 const TOTAL_SCROLL_VH = CARD_DATA.length * SCROLL_DURATION_VH;
 
 // CARD VARIANTS (Less Animated)
@@ -26,7 +27,7 @@ const cardVariants = {
   },
   previous: (offsetCount) => ({
     y: `${offsetCount * -STACK_GAP_REM}rem`,
-    height: "6rem", 
+    height: "6rem",
     opacity: 1,
     zIndex: 10 - offsetCount,
     transition: SPRING_CONFIG,
@@ -57,39 +58,39 @@ const contentVariants = {
 
 // 🌟 FLOW TRACKING: SCROLL-CONNECTED SVG LINE COMPONENT (Optimized)
 const ScrollLineSVG = ({ scrollContainerRef, activeIndex }) => {
-  
+
   // Use scrollYProgress tied to the container, offset to align perfectly with the sticky center.
   const { scrollYProgress } = useScroll({
     target: scrollContainerRef,
     // Start drawing when the top of the container hits the center of the viewport (sticky point)
     offset: ["start center", "end center"],
   });
-  
+
   const MAX_PATH_LENGTH = 1000;
   const animatedOffset = useTransform(scrollYProgress, [0, 1], [MAX_PATH_LENGTH, 0]);
 
   const numCards = CARD_DATA.length;
 
   return (
-    <div 
-      className="absolute inset-0 pointer-events-none" 
+    <div
+      className="absolute inset-0 pointer-events-none"
     >
-      <svg 
+      <svg
         className="absolute top-1/2 " // Vertically center the SVG's drawing area
-        style={{ 
-          left: '50%', 
+        style={{
+          left: '50%',
           // Aligns the line to the left edge of the content column (max-w-4xl is ~896px)
-          transform: 'translateX(calc(-50% - 350px))', 
+          transform: 'translateX(calc(-50% - 350px))',
           height: `100%`, // SVG height spans the full scroll container height
-          width: '50px', 
+          width: '50px',
           overflow: 'visible',
           zIndex: 10,
         }}
-        viewBox={`0 0 10 ${numCards * 10}`} 
+        viewBox={`0 0 10 ${numCards * 10}`}
       >
         {/* Static Base Line (Gray) */}
-        <line x1="5" y1="0" x2="5" y2={numCards * 10} stroke="#e0e0e0" strokeWidth="1"/>
-        
+        <line x1="5" y1="0" x2="5" y2={numCards * 10} stroke="#e0e0e0" strokeWidth="1" />
+
         {/* Animated Drawing Line (Blue) - Flow Tracking */}
         <motion.line
           x1="5" x2="5" y1="0" y2={numCards * 10}
@@ -102,9 +103,9 @@ const ScrollLineSVG = ({ scrollContainerRef, activeIndex }) => {
 
         {/* Nodes (Circles) - Aligned with trigger points */}
         {CARD_DATA.map((_, index) => {
-          const yPosition = index * 10; 
+          const yPosition = index * 10;
           const isActive = index <= activeIndex;
-          
+
           return (
             <motion.circle
               key={index}
@@ -127,13 +128,13 @@ const ScrollLineSVG = ({ scrollContainerRef, activeIndex }) => {
 export default function StackingCardComponent() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const stickyRef = useRef(null);
-  const scrollContainerRef = useRef(null); 
+  const scrollContainerRef = useRef(null);
 
   // Observer logic: Triggers card state changes
   const observerRefs = CARD_DATA.map((_, index) => {
     const { ref, inView } = useInView({
       // Stable threshold for full-height triggers
-      threshold: 0.5, 
+      threshold: 0.5,
     });
 
     useEffect(() => {
@@ -145,20 +146,20 @@ export default function StackingCardComponent() {
 
   return (
     <div className="relative">
-      
+
       {/* MAIN SCROLL AREA - Reference for scroll boundaries */}
-      <div 
-        className="relative my-20" 
+      <div
+        className="relative my-20"
         style={{ minHeight: `${TOTAL_SCROLL_VH}vh` }}
         ref={scrollContainerRef}
       >
-        
+
         {/* FLOW TRACKING: SVG Timeline */}
-        <ScrollLineSVG 
-          scrollContainerRef={scrollContainerRef} 
+        <ScrollLineSVG
+          scrollContainerRef={scrollContainerRef}
           activeIndex={currentCardIndex}
         />
-        
+
         {/* SCROLL TRIGGERS */}
         {CARD_DATA.map((_, index) => (
           <div
@@ -166,7 +167,7 @@ export default function StackingCardComponent() {
             ref={observerRefs[index]}
             className="absolute left-0 w-full pointer-events-none"
             style={{
-              top: `${index * SCROLL_DURATION_VH}vh`, 
+              top: `${index * SCROLL_DURATION_VH}vh`,
               height: `${SCROLL_DURATION_VH}vh`, // Full height of section for stable threshold
               zIndex: -1,
             }}
@@ -194,8 +195,8 @@ export default function StackingCardComponent() {
                     ${isActive
                       ? "bg-white/95 border-blue-600/90 shadow-blue-500/30"
                       : isPrevious
-                      ? "bg-gray-100/90 border-gray-300 shadow-lg"
-                      : "bg-gray-200/60 border-gray-300/50 shadow-md"}
+                        ? "bg-gray-100/90 border-gray-300 shadow-lg"
+                        : "bg-gray-200/60 border-gray-300/50 shadow-md"}
                   `}
                   variants={cardVariants}
                   animate={state}

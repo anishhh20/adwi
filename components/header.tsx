@@ -83,8 +83,7 @@ export default function Header() {
         >
           {/* Logo/Brand Link */}
           <Link href="/" className="block">
-            <div className="relative h-11 w-53 md:h-13 md:w-65 cursor-pointer">
-
+            <div className="relative h-11 w-30 md:h-13 md:w-40 cursor-pointer">
               {/* Dark Logo */}
               <Image
                 src="/adwi_logo.png"

@@ -108,8 +108,7 @@ export default function ServicesPage() {
   return (
     <>
       <Header />
-      <main className="w-full bg-linear-to-br from-primary/5 via-background to-accent/5">
-
+      <main className="w-full bg-gradient-to-tr from-primary/20 via-background to-accent/20">
         <section className="py-12 md:py-20 px-4 bg-linear-to-br from-card to-primary/5 relative overflow-hidden">
           <MinimalAbstractPattern
             className="top-0 right-0 translate-x-1/2 -translate-y-1/2"

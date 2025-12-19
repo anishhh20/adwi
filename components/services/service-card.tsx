@@ -4,6 +4,7 @@
 import { motion } from "framer-motion"
 import { Mail } from "lucide-react"
 import type React from "react"
+import { GermanyFlagSVG, IndiaFlagSVG, UAEFlagSVG } from "../sections/offices-section"
 
 // --- REVISED COMPONENT: Service-specific Animated Pattern (Thematic Match) ---
 
@@ -23,21 +24,6 @@ const ServiceAbstractPattern: React.FC<PatternProps> = ({
     duration = 80,
     serviceId,
 }) => {
-    const rotation = initialRotation % 360
-
-    const patternVariants = {
-        animate: {
-            rotate: [rotation, 360 + rotation],
-            transition: {
-                rotate: {
-                    duration,
-                    ease: "linear",
-                    repeat: Infinity,
-                },
-            },
-        },
-    }
-
     const drawVariants = {
         hidden: { strokeDashoffset: 1 },
         visible: {
@@ -49,9 +35,6 @@ const ServiceAbstractPattern: React.FC<PatternProps> = ({
         },
     }
 
-
-
-    // --- Dynamic SVG Content based on Service ID (Thematic Match) ---
     let svgContent = null
     const strokeProps = {
         stroke: "currentColor",
@@ -85,8 +68,6 @@ const ServiceAbstractPattern: React.FC<PatternProps> = ({
         )
     }
 
-
-
     else if (serviceId === "recruitment-staffing") {
         svgContent = (
             <>
@@ -110,8 +91,6 @@ const ServiceAbstractPattern: React.FC<PatternProps> = ({
         )
     }
 
-
-
     else if (serviceId === "it-training-certification") {
         svgContent = (
             <>
@@ -132,7 +111,6 @@ const ServiceAbstractPattern: React.FC<PatternProps> = ({
             </>
         )
     }
-
 
     else if (serviceId === "foreign-language") {
         svgContent = (
@@ -155,10 +133,25 @@ const ServiceAbstractPattern: React.FC<PatternProps> = ({
         )
     }
 
+    else if (serviceId === "digital-marketing") {
+        svgContent = (
+            <>
+                {/* Social & Ads (The Megaphone/Broadcast) */}
+                <motion.path d="M10 50 L30 40 V60 Z" {...strokeProps} variants={drawVariants} />
+                <motion.path d="M30 45 Q45 35 60 45" {...strokeProps} variants={drawVariants} />
 
+                {/* Content/Video (The Play Button) */}
+                <motion.rect x="65" y="35" width="25" height="18" rx="2" {...strokeProps} variants={drawVariants} />
+                <motion.path d="M75 40 L82 44 L75 48 Z" {...strokeProps} variants={drawVariants} />
+
+                {/* Growth Arrow */}
+                <motion.path d="M10 80 Q50 80 85 20" {...strokeProps} variants={drawVariants} />
+                <motion.path d="M75 22 L85 20 L83 30" {...strokeProps} variants={drawVariants} />
+            </>
+        )
+    }
 
     else {
-        // Fallback
         svgContent = (
             <>
                 <path d="M 10 10 L 90 90 M 10 90 L 90 10" {...strokeProps} />
@@ -166,7 +159,6 @@ const ServiceAbstractPattern: React.FC<PatternProps> = ({
             </>
         )
     }
-    // --- End Dynamic SVG Content ---
 
     if (!svgContent) return null
 
@@ -214,6 +206,127 @@ interface ServiceCardProps {
     index: number
 }
 
+const UKFlagSVG = ({ className }: { className?: string }) => (
+    <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <rect width="100" height="100" fill="#012169" />
+        <path d="M0 0 L100 100 M100 0 L0 100" stroke="#fff" strokeWidth="20" />
+        <path d="M0 0 L100 100 M100 0 L0 100" stroke="#C8102E" strokeWidth="12" />
+        <path d="M50 0 V100 M0 50 H100" stroke="#fff" strokeWidth="28" />
+        <path d="M50 0 V100 M0 50 H100" stroke="#C8102E" strokeWidth="20" />
+    </svg>
+);
+
+const FranceFlagSVG = ({ className }: { className?: string }) => (
+    <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <rect width="33.3" height="100" fill="#002395" />
+        <rect x="33.3" width="33.4" height="100" fill="#fff" />
+        <rect x="66.7" width="33.3" height="100" fill="#ED2939" />
+    </svg>
+);
+
+const SpainFlagSVG = ({ className }: { className?: string }) => (
+    <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <rect width="100" height="25" fill="#AA151B" />
+        <rect y="25" width="100" height="50" fill="#F1BF00" />
+        <rect y="75" width="100" height="25" fill="#AA151B" />
+        <circle cx="25" cy="50" r="8" fill="#AA151B" opacity="0.5" /> {/* Simplified Crest */}
+    </svg>
+);
+
+const JapanFlagSVG = ({ className }: { className?: string }) => (
+    <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <rect width="100" height="100" fill="#fff" />
+        <circle cx="50" cy="50" r="30" fill="#BC002D" />
+    </svg>
+);
+
+const ChinaFlagSVG = ({ className }: { className?: string }) => (
+    <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <rect width="100" height="100" fill="#EE1C25" />
+        <path d="M15 25 L18 35 L28 35 L20 42 L23 52 L15 45 L7 52 L10 42 L2 35 L12 35 Z" fill="#FFFF00" /> {/* Main Star */}
+    </svg>
+);
+
+const KoreaFlagSVG = ({ className }: { className?: string }) => (
+    <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <rect width="100" height="100" fill="#fff" />
+        <circle cx="50" cy="50" r="25" fill="#CD2E3A" />
+        <path d="M25 50 A25 25 0 0 1 75 50" fill="#0047A0" />
+    </svg>
+);
+
+const ItalyFlagSVG = ({ className }: { className?: string }) => (
+    <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <rect width="33.3" height="100" fill="#009246" />
+        <rect x="33.3" width="33.4" height="100" fill="#fff" />
+        <rect x="66.7" width="33.3" height="100" fill="#ce2b37" />
+    </svg>
+);
+
+const PortugalFlagSVG = ({ className }: { className?: string }) => (
+    <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <rect width="40" height="100" fill="#006600" />
+        <rect x="40" width="60" height="100" fill="#FF0000" />
+        <circle cx="40" cy="50" r="15" fill="#FFFF00" opacity="0.6" />
+    </svg>
+);
+
+const LanguageFlagBackground = ({ name, icon }: { name: string, icon: string }) => {
+    const flagMap: { [key: string]: React.ElementType } = {
+        'English': UKFlagSVG,
+        'German': GermanyFlagSVG,
+        'French': FranceFlagSVG,
+        'Spanish': SpainFlagSVG,
+        'Japanese': JapanFlagSVG,
+        'Chinese': ChinaFlagSVG,
+        'Korean': KoreaFlagSVG,
+        'Italian': ItalyFlagSVG,
+        'Portuguese': PortugalFlagSVG,
+    };
+
+    const FlagComponent = flagMap[name];
+
+    if (!FlagComponent) {
+        return (
+            <div className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 select-none opacity-[0.04] text-[10rem] z-0 pointer-events-none font-extrabold">
+                {icon}
+            </div>
+        );
+    }
+
+    return (
+        <FlagComponent
+            className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 select-none w-48 h-48 z-0 pointer-events-none opacity-[0.07] transition-opacity group-hover:opacity-[0.08]"
+        />
+    );
+};
+
+const SmallFlagIcon = ({ iconCode }: { iconCode: string }) => {
+    const flagMap: { [key: string]: React.ElementType } = {
+        '🇮🇳': IndiaFlagSVG,
+        '🇦🇪': UAEFlagSVG,
+        '🇩🇪': GermanyFlagSVG,
+        '🇬🇧': UKFlagSVG,
+        '🇫🇷': FranceFlagSVG,
+        '🇪🇸': SpainFlagSVG,
+        '🇯🇵': JapanFlagSVG,
+        '🇨🇳': ChinaFlagSVG,
+        '🇰🇷': KoreaFlagSVG,
+        '🇮🇹': ItalyFlagSVG,
+        '🇵🇹': PortugalFlagSVG,
+    };
+
+    const FlagComponent = flagMap[iconCode];
+    const className = "w-8 h-8 md:w-10 md:h-10 object-cover rounded-sm shadow-sm";
+
+    if (FlagComponent) {
+        return <FlagComponent className={className} />;
+    }
+
+    // Fallback if no SVG is found
+    return <span className="text-3xl">{iconCode}</span>;
+};
+
 export function ServiceCard({ service, isExpanded, index }: ServiceCardProps) {
     const isForeignLanguage = service.id === "foreign-language"
 
@@ -222,7 +335,6 @@ export function ServiceCard({ service, isExpanded, index }: ServiceCardProps) {
         initialRotation: index * 40,
         duration: 80 + (index * 10),
         colorClass: "text-white",
-        // Position it on the top right corner relative to its PARENT (the header div)
         className: "top-10 right-20 translate-x-1/4 -translate-y-1/4",
     };
 
@@ -287,21 +399,19 @@ export function ServiceCard({ service, isExpanded, index }: ServiceCardProps) {
                                     >
 
                                         {/* Faded Flag Background (Foreign Language Only) */}
-                                        {isForeignLanguage && detail.icon && (
-                                            <div
-                                                className="absolute inset-0 flex justify-end items-end p-2 opacity-5 transition-opacity duration-300 group-hover:opacity-10"
-                                            >
-                                                <span className="text-[8rem] leading-none select-none pointer-events-none transform translate-x-4 translate-y-4">
-                                                    {detail.icon}
-                                                </span>
-                                            </div>
+                                        {isForeignLanguage && (
+                                            <LanguageFlagBackground name={detail.name} icon={detail.icon} />
                                         )}
 
                                         {/* Content Wrapper */}
                                         <div className="relative z-10">
                                             <div className="flex items-start gap-2">
-                                                <div className={`${isForeignLanguage ? "text-3xl sm:text-4xl" : "text-xl"} mb-2 text-primary flex-shrink-0`}>
-                                                    {detail.icon || detail.name?.split(" ")[0] || "•"}
+                                                <div className={`${isForeignLanguage ? "mb-3" : "text-xl mb-2"} text-primary shrink-0`}>
+                                                    {isForeignLanguage ? (
+                                                        <SmallFlagIcon iconCode={detail.icon || ""} />
+                                                    ) : (
+                                                        detail.icon || detail.name?.split(" ")[0] || "•"
+                                                    )}
                                                 </div>
 
                                                 <h5 className="font-semibold text-foreground text-sm pt-1">
