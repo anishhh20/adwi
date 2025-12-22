@@ -4,7 +4,7 @@
 import { motion } from "framer-motion"
 import { Mail } from "lucide-react"
 import type React from "react"
-import { GermanyFlagSVG, IndiaFlagSVG, UAEFlagSVG } from "../sections/offices-section"
+import { GermanyFlagSVG } from "../sections/offices-section"
 
 // --- REVISED COMPONENT: Service-specific Animated Pattern (Thematic Match) ---
 
@@ -271,61 +271,40 @@ const PortugalFlagSVG = ({ className }: { className?: string }) => (
     </svg>
 );
 
-const LanguageFlagBackground = ({ name, icon }: { name: string, icon: string }) => {
+const CourseFlagItem = ({ name, icon }: { name: string; icon: string }) => {
     const flagMap: { [key: string]: React.ElementType } = {
-        'English': UKFlagSVG,
-        'German': GermanyFlagSVG,
-        'French': FranceFlagSVG,
-        'Spanish': SpainFlagSVG,
-        'Japanese': JapanFlagSVG,
-        'Chinese': ChinaFlagSVG,
-        'Korean': KoreaFlagSVG,
-        'Italian': ItalyFlagSVG,
-        'Portuguese': PortugalFlagSVG,
+        English: UKFlagSVG,
+        German: GermanyFlagSVG,
+        French: FranceFlagSVG,
+        Spanish: SpainFlagSVG,
+        Japanese: JapanFlagSVG,
+        Chinese: ChinaFlagSVG,
+        Korean: KoreaFlagSVG,
+        Italian: ItalyFlagSVG,
+        Portuguese: PortugalFlagSVG,
     };
 
     const FlagComponent = flagMap[name];
 
-    if (!FlagComponent) {
-        return (
-            <div className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 select-none opacity-[0.04] text-[10rem] z-0 pointer-events-none font-extrabold">
-                {icon}
-            </div>
-        );
-    }
-
     return (
-        <FlagComponent
-            className="absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4 select-none w-48 h-48 z-0 pointer-events-none opacity-[0.07] transition-opacity group-hover:opacity-[0.08]"
-        />
+        <div className="flex flex-col items-center gap-2 sm:gap-4 w-[100px] sm:w-[150px] p-2 py-1 group sm:m-2">
+            <div className="w-full aspect-[3/2] overflow-hidden rounded-sm shadow-md transition-transform group-hover:scale-105">
+                {FlagComponent ? (
+                    <FlagComponent className="w-full h-full object-cover" />
+                ) : (
+                    <div className="w-full h-full bg-muted flex items-center justify-center text-2xl">
+                        {icon}
+                    </div>
+                )}
+            </div>
+
+            <span className="text-muted-foreground font-semibold text-xs tracking-wide text-center">
+                {name}
+            </span>
+        </div>
     );
 };
 
-const SmallFlagIcon = ({ iconCode }: { iconCode: string }) => {
-    const flagMap: { [key: string]: React.ElementType } = {
-        '🇮🇳': IndiaFlagSVG,
-        '🇦🇪': UAEFlagSVG,
-        '🇩🇪': GermanyFlagSVG,
-        '🇬🇧': UKFlagSVG,
-        '🇫🇷': FranceFlagSVG,
-        '🇪🇸': SpainFlagSVG,
-        '🇯🇵': JapanFlagSVG,
-        '🇨🇳': ChinaFlagSVG,
-        '🇰🇷': KoreaFlagSVG,
-        '🇮🇹': ItalyFlagSVG,
-        '🇵🇹': PortugalFlagSVG,
-    };
-
-    const FlagComponent = flagMap[iconCode];
-    const className = "w-8 h-8 md:w-10 md:h-10 object-cover rounded-sm shadow-sm";
-
-    if (FlagComponent) {
-        return <FlagComponent className={className} />;
-    }
-
-    // Fallback if no SVG is found
-    return <span className="text-3xl">{iconCode}</span>;
-};
 
 export function ServiceCard({ service, isExpanded, index }: ServiceCardProps) {
     const isForeignLanguage = service.id === "foreign-language"
@@ -377,57 +356,46 @@ export function ServiceCard({ service, isExpanded, index }: ServiceCardProps) {
                 </div>
             </div>
 
-            {/* ... rest of the ServiceCard content (unchanged) ... */}
             {isExpanded && (
                 <div className="p-4 sm:p-8 bg-background/40 space-y-6 border-t border-border">
                     {/* Details Grid */}
                     {service.details && (
                         <div>
-                            <h4 className="text-md font-bold text-accent mb-4 border-b border-accent/30 pb-2">
-                                {isForeignLanguage ? "Languages Offered & Proficiency Levels" : "Key Offerings"}
+                            <h4 className="text-md font-bold text-accent mb-6 border-b border-accent/30 pb-2">
+                                {isForeignLanguage ? "COURSES" : "Key Offerings"}
                             </h4>
 
-                            {/* Conditional Grid Layout */}
-                            <div className={`grid gap-4 ${isForeignLanguage ? "grid-cols-2 lg:grid-cols-3" : "grid-cols-1 md:grid-cols-3"}`}>
-                                {service.details.map((detail, idx) => (
-                                    <div
-                                        key={idx}
-                                        className={`p-4 rounded-lg border border-border/50 transition-all duration-300 relative overflow-hidden group ${isForeignLanguage
-                                            ? "bg-primary/5 hover:bg-primary/10 shadow-md hover:shadow-lg"
-                                            : "bg-card hover:shadow-xl"
-                                            }`}
-                                    >
+                            {isForeignLanguage ? (
+                                <div className="flex flex-wrap justify-center gap-2 sm:gap-4 p-1 sm:p-2">
+                                    {service.details.map((detail, idx) => (
+                                        <CourseFlagItem
+                                            key={idx}
+                                            name={detail.name || detail.title || ""}
+                                            icon={detail.icon || ""}
+                                        />
+                                    ))}
+                                </div>
 
-                                        {/* Faded Flag Background (Foreign Language Only) */}
-                                        {isForeignLanguage && (
-                                            <LanguageFlagBackground name={detail.name} icon={detail.icon} />
-                                        )}
-
-                                        {/* Content Wrapper */}
-                                        <div className="relative z-10">
+                            ) : (
+                                /* Original Grid for other services */
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    {service.details.map((detail, idx) => (
+                                        <div key={idx} className="p-4 rounded-lg border border-border/50 bg-card hover:shadow-xl transition-all">
                                             <div className="flex items-start gap-2">
-                                                <div className={`${isForeignLanguage ? "mb-3" : "text-xl mb-2"} text-primary shrink-0`}>
-                                                    {isForeignLanguage ? (
-                                                        <SmallFlagIcon iconCode={detail.icon || ""} />
-                                                    ) : (
-                                                        detail.icon || detail.name?.split(" ")[0] || "•"
-                                                    )}
+                                                <div className="text-xl mb-2 text-primary shrink-0">
+                                                    {detail.icon || "•"}
                                                 </div>
-
                                                 <h5 className="font-semibold text-foreground text-sm pt-1">
                                                     {detail.title || detail.name}
                                                 </h5>
                                             </div>
-
-                                            <p className="text-xs text-muted-foreground mt-1  leading-relaxed">
-                                                {isForeignLanguage
-                                                    ? `Proficiency: ${detail.level}`
-                                                    : detail.description || detail.level}
+                                            <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                                                {detail.description || detail.level}
                                             </p>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     )}
 
