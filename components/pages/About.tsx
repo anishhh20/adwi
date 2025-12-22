@@ -379,22 +379,54 @@ export default function AboutPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-              {coreServices.map((service, idx) => (
-                <motion.a
-                  href={service.href}
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  viewport={{ once: false, margin: "-50px" }}
-                  whileHover={{ y: -4 }}
-                  className="p-4 border border-border hover:border-accent/50 rounded-lg text-center transition-all cursor-pointer shadow-md"
-                >
-                  <div className="text-4xl mb-2">{service.icon}</div>
-                  <h3 className="text-sm font-bold text-foreground">{service.title}</h3>
-                </motion.a>
-              ))}
+              {/* Normal rows */}
+              {coreServices.slice(0, Math.floor(coreServices.length / 3) * 3).map(
+                (service, idx) => (
+                  <motion.a
+                    href={service.href}
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    viewport={{ once: false, margin: "-50px" }}
+                    whileHover={{ y: -4 }}
+                    className="p-4 border border-border hover:border-accent/50 rounded-lg text-center transition-all cursor-pointer shadow-md"
+                  >
+                    <div className="text-4xl mb-2">{service.icon}</div>
+                    <h3 className="text-sm font-bold text-foreground">{service.title}</h3>
+                  </motion.a>
+                )
+              )}
+
+              {/* Centered last row with correct widths */}
+              {coreServices.length % 3 !== 0 && (
+                <div className="col-span-full flex justify-center gap-3 md:gap-4">
+                  {coreServices
+                    .slice(Math.floor(coreServices.length / 3) * 3)
+                    .map((service, idx) => (
+                      <motion.a
+                        href={service.href}
+                        key={`last-${idx}`}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: idx * 0.1 }}
+                        viewport={{ once: false, margin: "-50px" }}
+                        whileHover={{ y: -4 }}
+                        className="
+              p-4 border border-border hover:border-accent/50 rounded-lg text-center transition-all cursor-pointer shadow-md
+              w-full
+              sm:w-[calc(50%-0.5rem)]
+              lg:w-[calc(33.333%-0.75rem)]
+            "
+                      >
+                        <div className="text-4xl mb-2">{service.icon}</div>
+                        <h3 className="text-sm font-bold text-foreground">{service.title}</h3>
+                      </motion.a>
+                    ))}
+                </div>
+              )}
             </div>
+
           </div>
         </section>
 

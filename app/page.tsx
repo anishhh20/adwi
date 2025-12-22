@@ -67,7 +67,7 @@ export default function Home() {
     { title: "Software Development", icon: "💻" }, // From Services
     { title: "Results Driven", icon: "🏆" }, // From About/Services
     { title: "Global Network", icon: "🌐" }, // From About
-    { title: "Digital Marketing and Promotions", icon: "🚀" }, // From About
+    { title: "Digital Marketing", icon: "🚀" }, // From About
   ]
   // -------------------------------------------------------------------
 
@@ -152,7 +152,7 @@ export default function Home() {
           {/* Left accent - HIDDEN ON MOBILE */}
           {!isMobile && (
             <motion.div
-              style={{ y: leftAccentY }} // <--- PARALLAX ADDED
+              style={{ y: leftAccentY }}
               className="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-96 -ml-48 z-0"
               animate={{ x: [-30, 30, -30], y: [-20, 20, -20] }}
               transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
@@ -165,7 +165,7 @@ export default function Home() {
           {/* Right accent - HIDDEN ON MOBILE */}
           {!isMobile && (
             <motion.div
-              style={{ y: rightAccentY }} // <--- PARALLAX ADDED
+              style={{ y: rightAccentY }}
               className="absolute right-0 top-1/3 w-1/2 h-1/2 -mr-52 z-0"
               animate={{ x: [30, -30, 30], y: [20, -20, 20] }}
               transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
@@ -177,8 +177,8 @@ export default function Home() {
 
           {/* Main content - Apply Parallax Transforms to this container */}
           <motion.div
-            style={{ y: contentY, opacity: contentOpacity }} // <--- PARALLAX ADDED
-            className="relative z-10 flex-1 flex items-center justify-center w-full px-8 sm:px-6 lg:px-8 pt-10 sm:pt-20"
+            style={{ y: contentY, opacity: contentOpacity }}
+            className="relative z-10 flex-1 flex items-center justify-center w-full px-8 sm:px-6 lg:px-8 pt-0 sm:pt-20"
           >
             <motion.div
               className="w-full max-w-4xl text-center"
@@ -246,15 +246,14 @@ export default function Home() {
                 initial="hidden"
                 animate={isLoaded ? "visible" : "hidden"}
               >
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-3">
-                  {keyHighlights.map((item, index) => (
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-4 sm:gap-6 pt-3">
+                  {keyHighlights.slice(0, 3).map((item, index) => (
                     <motion.div
                       key={index}
                       variants={highlightItemVariants}
-                      style={{ originY: 0 }} // Ensures smooth animation start
-                      className="flex flex-col items-center justify-center space-y-2 p-2 rounded-lg  transition-colors cursor-default"
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                      className="flex flex-col items-center justify-center space-y-2 p-2 rounded-lg cursor-default"
                     >
                       <div className="text-2xl sm:text-3xl text-lime-400">
                         {item.icon}
@@ -264,7 +263,28 @@ export default function Home() {
                       </p>
                     </motion.div>
                   ))}
+
+                  {/* Centered second row */}
+                  <div className="col-span-3 sm:col-span-2 flex justify-center gap-4 sm:gap-6">
+                    {keyHighlights.slice(3).map((item, index) => (
+                      <motion.div
+                        key={index}
+                        variants={highlightItemVariants}
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                        className="flex flex-col items-center justify-center space-y-2 p-2 rounded-lg cursor-default"
+                      >
+                        <div className="text-2xl sm:text-3xl text-lime-400">
+                          {item.icon}
+                        </div>
+                        <p className="text-xs font-medium text-gray-200 uppercase tracking-wider">
+                          {item.title}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
+
               </motion.div>
               {/* --- END NEW SECTION --- */}
             </motion.div>
