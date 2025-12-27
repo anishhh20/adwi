@@ -66,6 +66,39 @@ export const GermanyFlagSVG = ({ className }: { className?: string }) => (
   </svg>
 );
 
+export const USAFlagSVG = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+    {/* 13 Stripes (Red and White) */}
+    {Array.from({ length: 13 }).map((_, i) => (
+      <rect
+        key={i}
+        x="0"
+        y={(100 / 13) * i}
+        width="100%"
+        height={100 / 13}
+        fill={i % 2 === 0 ? "#B22234" : "#FFFFFF"}
+      />
+    ))}
+
+    {/* Blue Canton (Union) */}
+    <rect x="0" y="0" width="45" height="53.8" fill="#3C3B6E" />
+
+    {/* Simplified Stars (Grid of dots for clarity at small scales) */}
+    <g fill="#FFFFFF">
+      {Array.from({ length: 5 }).map((_, row) => (
+        Array.from({ length: 6 }).map((_, col) => (
+          <circle
+            key={`${row}-${col}`}
+            cx={col * 7 + 5}
+            cy={row * 10 + 7}
+            r="1.2"
+          />
+        ))
+      ))}
+    </g>
+  </svg>
+);
+
 // ------------------------------------
 
 const officeLocations = [
@@ -96,6 +129,13 @@ const officeLocations = [
     phone: "",
     email: "info@adwitechnologies.com",
     country: "🇩🇪",
+  },
+  {
+    city: "USA",
+    address: "Tracy, California, United States",
+    phone: "",
+    email: "info@adwitechnologies.com",
+    country: "🇺🇸",
   },
 ]
 
@@ -129,6 +169,7 @@ const SmallFlagIcon = ({ countryCode }: { countryCode: string }) => {
     '🇮🇳': IndiaFlagSVG,
     '🇦🇪': UAEFlagSVG,
     '🇩🇪': GermanyFlagSVG,
+    '🇺🇸': USAFlagSVG,
   };
 
   const FlagComponent = flagMap[countryCode];
@@ -154,7 +195,7 @@ const FlagBackground = ({ countryCode }: { countryCode: string }) => {
     '🇮🇳': IndiaFlagSVG,
     '🇦🇪': UAEFlagSVG,
     '🇩🇪': GermanyFlagSVG,
-    // Add more mappings here for other countries
+    '🇺🇸': USAFlagSVG,
   };
 
   const FlagComponent = flagMap[countryCode];
@@ -271,10 +312,17 @@ export default function OfficesSection() {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-10" // Added margin bottom for spacing
+          // Use flex-wrap and justify-center to center the last row
+          className="flex flex-wrap justify-center gap-6 md:gap-8 mb-10"
         >
           {officeLocations.map((office, idx) => (
-            <OfficeCard key={office.city} office={office} index={idx} />
+            <div
+              key={office.city}
+              // Set widths to mimic a 3-column layout on large screens (approx 30%)
+              className="w-full md:w-[calc(45%-1rem)] lg:w-[calc(30%-1rem)]"
+            >
+              <OfficeCard office={office} index={idx} />
+            </div>
           ))}
         </motion.div>
 

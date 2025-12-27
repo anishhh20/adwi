@@ -85,6 +85,13 @@ const officeLocations = [
     email: "adwitechnologies@gmail.com",
     country: "🇩🇪",
   },
+  {
+    city: "USA",
+    address: "Tracy, California, United States",
+    phone: "",
+    email: "info@adwitechnologies.com",
+    country: "🇺🇸",
+  },
 ]
 // ------------------------------------------
 
@@ -463,7 +470,7 @@ export default function ContactPage() {
 
 
         {/* --- DEDICATED OFFICE LOCATIONS SECTION --- */}
-        <section className="pt-0 pb-10- px-4 ">
+        <section className="pt-0 pb-10 px-4">
           <div className="container mx-auto max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -477,15 +484,19 @@ export default function ContactPage() {
               </h2>
             </motion.div>
 
-            {/* Responsive grid: 1-col, 2-col on small/medium, 4-col on large */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Flex container to allow centering the second row */}
+            <div className="flex flex-wrap justify-center gap-6">
               {officeLocations.map((item, idx) => (
-                // OfficeCard is assumed to be unchanged/already handles its own motion/style
-                <OfficeCard
+                <div
                   key={idx}
-                  office={item}
-                  index={idx}
-                />
+                  // Mobile: 100%, Tablet: 2 columns, Desktop: 3 columns
+                  className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)]"
+                >
+                  <OfficeCard
+                    office={item}
+                    index={idx}
+                  />
+                </div>
               ))}
             </div>
           </div>
