@@ -167,7 +167,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="py-10 md:py-16 px-4">
+        <section className="py-10 px-4">
           <div className="container mx-auto max-w-6xl space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <motion.div
@@ -260,7 +260,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="py-10 md:py-16 px-4">
+        <section className="py-10 px-4">
           <div className="container mx-auto space-y-4 max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -318,7 +318,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="py-10 md:py-16 px-4">
+        <section className="py-10 px-4">
           <div className="container mx-auto max-w-6xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -367,7 +367,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="py-10 md:py-16 px-4">
+        <section className="py-10 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">

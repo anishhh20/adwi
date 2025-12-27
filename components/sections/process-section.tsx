@@ -155,7 +155,7 @@ export default function ProcessSection() {
   }
 
   return (
-    <section id="process" ref={ref} className="relative py-8 md:py-12 px-4 bg-background overflow-hidden">
+    <section id="process" ref={ref} className="relative py-10 px-4 bg-background overflow-hidden">
       <BackgroundFlow />
 
       <div className="container mx-auto max-w-7xl relative z-20">

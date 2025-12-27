@@ -101,7 +101,7 @@ export default function StatsSection() {
 
   return (
     // Add relative positioning to the section to ensure the fixed background is contained and the content is above it
-    <section id="stats" ref={ref} className="relative py-10 md:py-16 px-4 overflow-hidden">
+    <section id="stats" ref={ref} className="relative py-10 px-4 overflow-hidden">
       <div
         className="absolute inset-0 bg-fixed bg-cover bg-center"
         style={{ backgroundImage: "url('/paralled.png')" }} // <-- CHANGE THIS PATH TO YOUR IMAGE

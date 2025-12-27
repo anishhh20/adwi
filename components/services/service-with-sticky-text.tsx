@@ -28,7 +28,7 @@ export function ServiceWithStickyText({ service, index, isExpanded = true }: Ser
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="relative w-full py-8 md:py-16"
+            className="relative w-full py-10"
         >
             {/* ✨ MODIFIED IMAGE BACKGROUND LAYER - HIGHER OPACITY ✨ */}
             {service.imageSrc && (
@@ -47,7 +47,7 @@ export function ServiceWithStickyText({ service, index, isExpanded = true }: Ser
 
             <div
                 // Main Content Grid - Still relative (z-10)
-                className={`relative z-10 grid gap-6 md:gap-8 lg:gap-12 items-start ${isLeftLayout
+                className={`relative z-10 grid gap-6 md:gap-8 lg:gap-8 items-start ${isLeftLayout
                     ? "grid-cols-1 sm:grid-cols-[100px_1fr] lg:grid-cols-[140px_1fr]"
                     : "grid-cols-1 sm:grid-cols-[1fr_100px] lg:grid-cols-[1fr_140px]"
                     }`}

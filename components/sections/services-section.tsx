@@ -248,7 +248,7 @@ export default function ServicesSection() {
   }
 
   return (
-    <section id="services" ref={sectionRef} className="py-12 md:py-20 px-4 bg-background overflow-hidden">
+    <section id="services" ref={sectionRef} className="py-10 px-4 bg-background overflow-hidden">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-10 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">

@@ -251,7 +251,7 @@ export default function OfficesSection() {
   })
 
   return (
-    <section id="offices" ref={ref} className="relative py-8 md:py-10 px-4 bg-background overflow-hidden">
+    <section id="offices" ref={ref} className="relative py-10 px-4 bg-background overflow-hidden">
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
 
@@ -279,7 +279,7 @@ export default function OfficesSection() {
         </motion.div>
 
         {/* ✨ MODIFICATION: Centering Container and Button Width ✨ */}
-        <div className="flex justify-center mt-8">
+        {/* <div className="flex justify-center mt-8">
           <motion.a
             href="/contact"
             className="px-4 py-2 bg-accent flex items-center justify-center text-white/95 rounded-lg font-semibold text-sm shadow-lg hover:opacity-90 transition-opacity"
@@ -288,7 +288,7 @@ export default function OfficesSection() {
           >
             Get In Touch
           </motion.a>
-        </div>
+        </div> */}
       </div>
     </section>
   )

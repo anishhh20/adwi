@@ -45,7 +45,7 @@ export default function AboutSection() {
   }
 
   return (
-    <section id="about" ref={ref} className="py-8 md:py-12 px-4 bg-background overflow-hidden">
+    <section id="about" ref={ref} className="py-10 px-4 bg-background overflow-hidden">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           variants={containerVariants}

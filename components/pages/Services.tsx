@@ -140,7 +140,7 @@ export default function ServicesPage() {
         </section>
 
         {/* Why Choose Us Section */}
-        <section className="py-16 md:py-28 px-4 /30 relative overflow-hidden">
+        <section className="py-10 px-4 /30 relative overflow-hidden">
           <AnimatedVectorPattern
             className="top-10 right-10 md:top-20 md:right-20 w-48 h-48 md:w-64 md:h-64"
             colorClass="text-accent/40"
@@ -183,7 +183,7 @@ export default function ServicesPage() {
         </section>
 
         {/* Services Section with Sticky Text */}
-        <section id="services" className="py-16 md:py-28 px-4 relative">
+        <section id="services" className="py-10 px-4 relative">
           <div className="container mx-auto max-w-7xl">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
@@ -195,7 +195,7 @@ export default function ServicesPage() {
               </p>
             </div>
 
-            <div className="space-y-12 md:space-y-16 lg:space-y-20">
+            <div className="space-y-10">
               {allServicesData.map((service, index) => (
                 <ServiceWithStickyText key={service.id} service={service} index={index} isExpanded={true} />
               ))}
