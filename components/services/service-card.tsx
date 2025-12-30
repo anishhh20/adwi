@@ -287,7 +287,7 @@ const CourseFlagItem = ({ name, icon }: { name: string; icon: string }) => {
     const FlagComponent = flagMap[name];
 
     return (
-        <div className="flex flex-col items-center gap-2 sm:gap-4 w-[100px] sm:w-[150px] p-2 py-1 group sm:m-2">
+        <div className="flex flex-col items-center gap-2 sm:gap-4 w-[90px] sm:w-[110px] md:w-[130px] lg:w-[150px] p-2 py-1 group sm:m-2">
             <div className="w-full aspect-[3/2] overflow-hidden rounded-sm shadow-md transition-transform group-hover:scale-105">
                 {FlagComponent ? (
                     <FlagComponent className="w-full h-full object-cover" />
