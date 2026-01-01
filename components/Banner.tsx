@@ -1,12 +1,11 @@
 "use client"
 
-import { motion, AnimatePresence, useSpring } from "framer-motion"
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 
 export default function Banner() {
     const [isLoaded, setIsLoaded] = useState(false)
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
     const [cornerVectors, setCornerVectors] = useState({
         topLeft: { x: 0, y: 0 },
         topRight: { x: 0, y: 0 },
@@ -16,43 +15,145 @@ export default function Banner() {
     const containerRef = useRef<HTMLDivElement>(null)
     const bannerRef = useRef<HTMLDivElement>(null)
     const [currentTextIndex, setCurrentTextIndex] = useState(0)
-    const [currentCardIndex, setCurrentCardIndex] = useState(0)
-    const [direction, setDirection] = useState(0)
 
     const rotatingTexts = [
-        "Building Next-Gen Software Solutions.",
+        "Building Software Solutions.",
         "Connecting You with Global IT Talent.",
         "Your Partner for Digital Transformation.",
         "Expert IT Training & Certification.",
         "Foreign Language & Cultural Consulting.",
     ]
 
-    const carouselCards = [
-        {
-            title: "Add Value To Your Business",
-            description: "Our multi-disciplinary approach ensures you get the best of technology, talent, and training.",
-            tags: ["Software", "Recruitment", "IT Training"],
-            icon: "🚀",
-            stat: "Since 2024",
-            statLabel: "Global Impact",
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"],
+    })
+
+    const contentY = useTransform(scrollYProgress, [0, 1], [0, -150])
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            if (bannerRef.current) {
+                const rect = bannerRef.current.getBoundingClientRect()
+                const x = e.clientX - rect.left
+                const y = e.clientY - rect.top
+
+                setMousePosition({ x, y })
+
+                // Calculate influence on corner vectors
+                const centerX = rect.width / 2
+                const centerY = rect.height / 2
+                const maxDistance = Math.sqrt(centerX ** 2 + centerY ** 2)
+
+                // Top-left corner vector
+                const tlDistance = Math.sqrt(x ** 2 + y ** 2)
+                const tlInfluence = Math.max(0, 1 - tlDistance / maxDistance)
+                setCornerVectors((prev) => ({
+                    ...prev,
+                    topLeft: {
+                        x: (x / rect.width) * 30 * tlInfluence,
+                        y: (y / rect.height) * 30 * tlInfluence,
+                    },
+                }))
+
+                // Top-right corner vector
+                const trDistance = Math.sqrt((rect.width - x) ** 2 + y ** 2)
+                const trInfluence = Math.max(0, 1 - trDistance / maxDistance)
+                setCornerVectors((prev) => ({
+                    ...prev,
+                    topRight: {
+                        x: ((rect.width - x) / rect.width) * 30 * trInfluence,
+                        y: (y / rect.height) * 30 * trInfluence,
+                    },
+                }))
+
+                // Bottom-left corner vector
+                const blDistance = Math.sqrt(x ** 2 + (rect.height - y) ** 2)
+                const blInfluence = Math.max(0, 1 - blDistance / maxDistance)
+                setCornerVectors((prev) => ({
+                    ...prev,
+                    bottomLeft: {
+                        x: (x / rect.width) * 30 * blInfluence,
+                        y: ((rect.height - y) / rect.height) * 30 * blInfluence,
+                    },
+                }))
+
+                // Bottom-right corner vector
+                const brDistance = Math.sqrt((rect.width - x) ** 2 + (rect.height - y) ** 2)
+                const brInfluence = Math.max(0, 1 - brDistance / maxDistance)
+                setCornerVectors((prev) => ({
+                    ...prev,
+                    bottomRight: {
+                        x: ((rect.width - x) / rect.width) * 30 * brInfluence,
+                        y: ((rect.height - y) / rect.height) * 30 * brInfluence,
+                    },
+                }))
+            }
+        }
+
+        window.addEventListener("mousemove", handleMouseMove)
+        return () => window.removeEventListener("mousemove", handleMouseMove)
+    }, [])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentTextIndex((prev) => (prev === rotatingTexts.length - 1 ? 0 : prev + 1))
+        }, 4000)
+        return () => clearInterval(interval)
+    }, [])
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoaded(true), 100)
+        return () => clearTimeout(timer)
+    }, [])
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.12, delayChildren: 0.2 },
         },
-        {
-            title: "Scale With Global Talent",
-            description: "Access a worldwide pool of IT professionals vetted for excellence and cultural fit.",
-            tags: ["Staffing", "Remote", "Expertise"],
-            icon: "🌍",
-            stat: "500+",
-            statLabel: "Experts Placed",
+    }
+
+    const titleVariants = {
+        hidden: { opacity: 0, y: 40 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] },
         },
-        {
-            title: "Master New Technologies",
-            description: "Future-proof your team with specialized training programs in cloud, AI, and development.",
-            tags: ["Upskilling", "Cloud", "AI/ML"],
-            icon: "💡",
-            stat: "98%",
-            statLabel: "Success Rate",
+    }
+
+    const subtitleVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
         },
-    ]
+    }
+
+    const rotatingTextVariants = {
+        initial: { opacity: 0, y: 15 },
+        animate: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+        exit: { opacity: 0, y: -15, transition: { duration: 0.3, ease: "easeIn" } },
+    }
+
+    const highlightItemVariants = {
+        hidden: { opacity: 0, y: 20, scale: 0.92 },
+        visible: (index: number) => ({
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: {
+                type: "spring",
+                stiffness: 100,
+                damping: 15,
+                delay: index * 0.08,
+            },
+        }),
+    }
 
     const keyHighlights = [
         { title: "Software Development", icon: "💻" },
@@ -62,190 +163,362 @@ export default function Banner() {
         { title: "Digital Marketing", icon: "🚀" },
     ]
 
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            if (bannerRef.current) {
-                const rect = bannerRef.current.getBoundingClientRect()
-                const x = e.clientX - rect.left
-                const y = e.clientY - rect.top
-                setMousePosition({ x, y })
-                const centerX = rect.width / 2
-                const centerY = rect.height / 2
-                const maxDistance = Math.sqrt(centerX ** 2 + centerY ** 2)
-                const getVector = (cornerX: number, cornerY: number) => {
-                    const dist = Math.sqrt((cornerX - x) ** 2 + (cornerY - y) ** 2)
-                    const influence = Math.max(0, 1 - dist / maxDistance)
-                    return {
-                        x: ((cornerX - x) / rect.width) * -30 * influence,
-                        y: ((cornerY - y) / rect.height) * -30 * influence,
-                    }
-                }
-                setCornerVectors({
-                    topLeft: getVector(0, 0),
-                    topRight: getVector(rect.width, 0),
-                    bottomLeft: getVector(0, rect.height),
-                    bottomRight: getVector(rect.width, rect.height),
-                })
-            }
-        }
-        window.addEventListener("mousemove", handleMouseMove)
-        return () => window.removeEventListener("mousemove", handleMouseMove)
-    }, [])
-
-    useEffect(() => {
-        const textInterval = setInterval(() => {
-            setCurrentTextIndex((prev) => (prev === rotatingTexts.length - 1 ? 0 : prev + 1))
-        }, 4000)
-        const cardInterval = setInterval(() => {
-            setDirection(1)
-            setCurrentCardIndex((prev) => (prev === carouselCards.length - 1 ? 0 : prev + 1))
-        }, 5000)
-        return () => {
-            clearInterval(textInterval)
-            clearInterval(cardInterval)
-        }
-    }, [])
-
-    useEffect(() => {
-        setIsLoaded(true)
-    }, [])
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
-    }
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-    }
-
     return (
-        <motion.div
-            ref={containerRef}
-            className="w-full min-h-screen bg-background relative overflow-hidden flex items-center justify-center py-24 sm:py-24 md:py-28 lg:py-24"
-        >
-            {/* Background Decorative Elements */}
-            <div ref={bannerRef} className="absolute inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-background via-white/20 to-background opacity-40" />
+        <motion.div ref={containerRef} className="w-full h-screen bg-background sticky top-0 z-10 overflow-hidden">
+            <div ref={bannerRef} className="absolute inset-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-background via-white to-background" />
+                <div className="absolute inset-0 bg-gradient-to-tl from-accent/3 via-transparent to-transparent opacity-60" />
 
-                {/* SVG Corner Graphics - Responsive sizing */}
-                <motion.svg className="absolute top-0 left-0 w-40 h-40 md:w-80 md:h-80 overflow-visible opacity-10" viewBox="0 0 200 200" style={{ x: cornerVectors.topLeft.x, y: cornerVectors.topLeft.y }}>
-                    <path d="M 0 0 L 100 0 L 100 20 L 20 20 L 20 100 L 0 100 Z" fill="var(--accent)" className="opacity-25" />
+                <motion.svg
+                    className="absolute inset-0 w-full h-full opacity-[0.03]"
+                    preserveAspectRatio="none"
+                    animate={{ opacity: [0.03, 0.05, 0.03] }}
+                    transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY }}
+                >
+                    <defs>
+                        {/* Fine dotted pattern */}
+                        <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <circle cx="10" cy="10" r="1" fill="currentColor" />
+                        </pattern>
+                        {/* Diagonal lines pattern */}
+                        <pattern
+                            id="diagonalLines"
+                            width="30"
+                            height="30"
+                            patternUnits="userSpaceOnUse"
+                            patternTransform="rotate(45)"
+                        >
+                            <line x1="0" y1="0" x2="0" y2="30" stroke="currentColor" strokeWidth="0.5" />
+                        </pattern>
+                        {/* Mesh gradient effect */}
+                        <linearGradient id="meshGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#69b300" stopOpacity="0.08" />
+                            <stop offset="50%" stopColor="#69b300" stopOpacity="0.02" />
+                            <stop offset="100%" stopColor="#69b300" stopOpacity="0.05" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#meshGradient)" />
+                    <rect width="100%" height="100%" fill="url(#dots)" />
                 </motion.svg>
 
-                <motion.svg className="absolute top-0 right-0 w-40 h-40 md:w-80 md:h-80 overflow-visible opacity-10" viewBox="0 0 200 200" style={{ x: cornerVectors.topRight.x, y: cornerVectors.topRight.y }}>
-                    <path d="M 200 0 L 100 0 L 100 20 L 180 20 L 180 100 L 200 100 Z" fill="var(--accent)" className="opacity-25" />
+                <motion.div
+                    className="absolute top-20 -left-40 w-80 h-80 rounded-full bg-accent/6 blur-3xl"
+                    animate={{
+                        y: [0, 60, 0],
+                        x: [0, 40, 0],
+                        scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                        duration: 18,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "easeInOut",
+                    }}
+                />
+                <motion.div
+                    className="absolute -bottom-40 right-20 w-96 h-96 rounded-full bg-accent/7 blur-3xl"
+                    animate={{
+                        y: [0, -70, 0],
+                        x: [0, -50, 0],
+                        scale: [1, 1.15, 1],
+                    }}
+                    transition={{
+                        duration: 20,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "easeInOut",
+                        delay: 1,
+                    }}
+                />
+                <motion.div
+                    className="absolute top-1/3 right-1/4 w-64 h-64 rounded-full bg-accent/4 blur-3xl"
+                    animate={{
+                        y: [0, 40, 0],
+                        x: [0, -30, 0],
+                        scale: [1, 1.05, 1],
+                    }}
+                    transition={{
+                        duration: 16,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "easeInOut",
+                        delay: 2,
+                    }}
+                />
+
+                {/* Top-left corner vector */}
+                <motion.svg
+                    className="absolute top-0 left-0 w-40 h-40 overflow-visible"
+                    viewBox="0 0 160 160"
+                    preserveAspectRatio="none"
+                    style={{
+                        x: cornerVectors.topLeft.x,
+                        y: cornerVectors.topLeft.y,
+                    }}
+                    transition={{ type: "tween", duration: 0.2 }}
+                >
+                    <defs>
+                        <linearGradient id="cornerGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#69b300" stopOpacity="0.3" />
+                            <stop offset="100%" stopColor="#69b300" stopOpacity="0" />
+                        </linearGradient>
+                    </defs>
+                    <path
+                        d="M 0 0 Q 40 0, 60 20 Q 80 40, 100 60 Q 120 80, 140 100"
+                        stroke="url(#cornerGrad1)"
+                        strokeWidth="2"
+                        fill="none"
+                        strokeLinecap="round"
+                    />
+                    <circle cx="0" cy="0" r="6" fill="#69b300" opacity="0.4" />
                 </motion.svg>
 
-                {/* Background Text Labels */}
-                <motion.div className="absolute bottom-10 left-5 md:left-10 text-6xl md:text-9xl font-black text-foreground/[0.015] select-none" style={{ rotate: -15 }}>ADWI</motion.div>
-                <motion.div className="absolute top-1/4 right-5 md:right-20 text-5xl md:text-7xl font-black text-accent/[0.015] select-none" style={{ rotate: 25 }}>TECHNOLOGIES</motion.div>
+                {/* Top-right corner vector */}
+                <motion.svg
+                    className="absolute top-0 right-0 w-40 h-40 overflow-visible"
+                    viewBox="0 0 160 160"
+                    preserveAspectRatio="none"
+                    style={{
+                        x: -cornerVectors.topRight.x,
+                        y: cornerVectors.topRight.y,
+                    }}
+                    transition={{ type: "tween", duration: 0.2 }}
+                >
+                    <defs>
+                        <linearGradient id="cornerGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#69b300" stopOpacity="0.3" />
+                            <stop offset="100%" stopColor="#69b300" stopOpacity="0" />
+                        </linearGradient>
+                    </defs>
+                    <path
+                        d="M 160 0 Q 120 0, 100 20 Q 80 40, 60 60 Q 40 80, 20 100"
+                        stroke="url(#cornerGrad2)"
+                        strokeWidth="2"
+                        fill="none"
+                        strokeLinecap="round"
+                    />
+                    <circle cx="160" cy="0" r="6" fill="#69b300" opacity="0.4" />
+                </motion.svg>
 
-                {/* Dot Grid */}
-                <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
-                    <svg width="100%" height="100%"><defs><pattern id="dotGrid" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="var(--accent)" /></pattern></defs><rect width="100%" height="100%" fill="url(#dotGrid)" /></svg>
-                </div>
+                {/* Bottom-left corner vector */}
+                <motion.svg
+                    className="absolute bottom-0 left-0 w-40 h-40 overflow-visible"
+                    viewBox="0 0 160 160"
+                    preserveAspectRatio="none"
+                    style={{
+                        x: cornerVectors.bottomLeft.x,
+                        y: -cornerVectors.bottomLeft.y,
+                    }}
+                    transition={{ type: "tween", duration: 0.2 }}
+                >
+                    <defs>
+                        <linearGradient id="cornerGrad3" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stopColor="#69b300" stopOpacity="0.3" />
+                            <stop offset="100%" stopColor="#69b300" stopOpacity="0" />
+                        </linearGradient>
+                    </defs>
+                    <path
+                        d="M 0 160 Q 40 160, 60 140 Q 80 120, 100 100 Q 120 80, 140 60"
+                        stroke="url(#cornerGrad3)"
+                        strokeWidth="2"
+                        fill="none"
+                        strokeLinecap="round"
+                    />
+                    <circle cx="0" cy="160" r="6" fill="#69b300" opacity="0.4" />
+                </motion.svg>
+
+                {/* Bottom-right corner vector */}
+                <motion.svg
+                    className="absolute bottom-0 right-0 w-40 h-40 overflow-visible"
+                    viewBox="0 0 160 160"
+                    preserveAspectRatio="none"
+                    style={{
+                        x: -cornerVectors.bottomRight.x,
+                        y: -cornerVectors.bottomRight.y,
+                    }}
+                    transition={{ type: "tween", duration: 0.2 }}
+                >
+                    <defs>
+                        <linearGradient id="cornerGrad4" x1="100%" y1="100%" x2="0%" y2="0%">
+                            <stop offset="0%" stopColor="#69b300" stopOpacity="0.3" />
+                            <stop offset="100%" stopColor="#69b300" stopOpacity="0" />
+                        </linearGradient>
+                    </defs>
+                    <path
+                        d="M 160 160 Q 120 160, 100 140 Q 80 120, 60 100 Q 40 80, 20 60"
+                        stroke="url(#cornerGrad4)"
+                        strokeWidth="2"
+                        fill="none"
+                        strokeLinecap="round"
+                    />
+                    <circle cx="160" cy="160" r="6" fill="#69b300" opacity="0.4" />
+                </motion.svg>
+
+                <motion.div
+                    className="absolute w-px h-80 bg-gradient-to-b from-accent/0 via-accent/50 to-accent/0 pointer-events-none blur-sm shadow-xl"
+                    style={{
+                        left: mousePosition.x,
+                        top: mousePosition.y - 160,
+                        boxShadow: `0 0 20px rgba(105, 179, 0, 0.4)`,
+                    }}
+                    transition={{ type: "tween", duration: 0.2 }}
+                />
+
+                <motion.div
+                    className="absolute w-96 h-96 rounded-full pointer-events-none"
+                    style={{
+                        left: mousePosition.x - 192,
+                        top: mousePosition.y - 192,
+                        background: "radial-gradient(circle, rgba(105, 179, 0, 0.08) 0%, transparent 70%)",
+                    }}
+                    transition={{ type: "tween", duration: 0.3 }}
+                />
             </div>
 
-            <section className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                <div className="grid lg:grid-cols-12 gap-12 items-center">
-
-                    {/* Left Content Column */}
+            {/* Main content */}
+            <section className="absolute inset-0 w-full h-full flex flex-col">
+                <motion.div
+                    style={{ y: contentY, opacity: contentOpacity }}
+                    className="relative z-10 flex-1 flex items-center justify-center w-full px-6 sm:px-8 lg:px-12"
+                >
                     <motion.div
-                        className="lg:col-span-7"
+                        className="w-full max-w-5xl text-center"
                         variants={containerVariants}
                         initial="hidden"
                         animate={isLoaded ? "visible" : "hidden"}
                     >
-                        <motion.div variants={itemVariants} className="mb-4">
-                            <div className="flex flex-wrap items-baseline gap-x-3">
-                                <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-foreground tracking-tight">ADWI</h1>
-                                <h2 className="text-4xl sm:text-5xl md:text-6xl font-black bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent tracking-tight">Technologies</h2>
+                        {/* Main title */}
+                        <motion.div variants={titleVariants} className="mb-6 sm:mb-8">
+                            <div className="flex items-center flex-wrap justify-center gap-3">
+                                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-foreground leading-tight tracking-tighter">
+                                    ADWI
+                                </h1>
+                                <motion.h2
+                                    className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black bg-gradient-to-r from-accent via-accent to-green-500 bg-clip-text text-transparent leading-tight tracking-tighter"
+                                    animate={{ opacity: [0.8, 1, 0.8] }}
+                                    transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
+                                >
+                                    Technologies
+                                </motion.h2>
                             </div>
-                            <p className="text-[10px] md:text-xs text-muted-foreground font-bold uppercase tracking-widest mt-2 opacity-80">
+                            <p className="text-base text-muted-foreground font-light tracking-wide">
                                 Empowering Your Success Through
                             </p>
                         </motion.div>
 
-                        <motion.div variants={itemVariants} className="mb-6 min-h-[3rem] flex items-center">
+                        {/* Rotating text section */}
+                        <motion.div variants={subtitleVariants} className="space-y-6 sm:space-y-8 mb-10 sm:mb-14">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={currentTextIndex}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    className="relative"
+                                    variants={rotatingTextVariants}
+                                    initial="initial"
+                                    animate="animate"
+                                    exit="exit"
+                                    className="h-10 sm:h-14 flex items-center justify-center"
                                 >
-                                    <p className="text-lg md:text-xl lg:text-2xl font-black text-foreground/90 leading-tight">
+                                    <p className="text-md sm:text-lg md:text-xl font-bold text-foreground px-4">
                                         {rotatingTexts[currentTextIndex]}
                                     </p>
-                                    <motion.div className="absolute -bottom-2 left-0 h-0.5 bg-accent/30" initial={{ width: 0 }} animate={{ width: "100%" }} transition={{ duration: 4, ease: "linear" }} />
                                 </motion.div>
                             </AnimatePresence>
+
+                            {/* Value proposition with animated lines */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={isLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.8, delay: 0.5 }}
+                                className="flex items-center justify-center gap-4 sm:gap-6 pt-8"
+                            >
+                                <motion.div
+                                    className="h-0.5 w-8 sm:w-12 bg-gradient-to-r from-transparent to-accent"
+                                    animate={{ width: ["2rem", "3rem", "2rem"] }}
+                                    transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
+                                />
+                                <p className="text-xs sm:text-sm font-semibold text-accent uppercase tracking-widest whitespace-nowrap">
+                                    Add Value To Your Business
+                                </p>
+                                <motion.div
+                                    className="h-0.5 w-8 sm:w-12 bg-gradient-to-l from-transparent to-accent"
+                                    animate={{ width: ["2rem", "3rem", "2rem"] }}
+                                    transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, delay: 0.5 }}
+                                />
+                            </motion.div>
                         </motion.div>
 
-                        <div className="grid grid-cols-3 sm:grid-cols-3 gap-3 md:gap-4">
-                            {keyHighlights.map((item) => (
-                                <motion.div
-                                    key={item.title}
-                                    variants={itemVariants}
-                                    className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-white/30 border border-black/[0.03] hover:border-accent/20 hover:bg-white/60 transition-all shadow-sm group cursor-default"
-                                >
-                                    <span className="text-xl group-hover:scale-110 group-hover:rotate-6 transition-transform">{item.icon}</span>
-                                    <span className="text-[9px] md:text-[10px] font-black text-foreground/60 leading-tight uppercase tracking-widest text-center">{item.title}</span>
-                                </motion.div>
-                            ))}
-                        </div>
+                        {/* Key highlights grid */}
+                        <motion.div
+                            className="max-w-3xl mx-auto pt-6 border-t border-border/30"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate={isLoaded ? "visible" : "hidden"}
+                        >
+                            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4 sm:pt-8">
+                                {keyHighlights.map((item, index) => (
+                                    <motion.div
+                                        key={index}
+                                        variants={highlightItemVariants}
+                                        custom={index}
+                                        whileHover={{
+                                            scale: 1.08,
+                                            backgroundColor: "var(--card)",
+                                            boxShadow: "0 8px 24px rgba(105, 179, 0, 0.12)",
+                                        }}
+                                        className="flex flex-col items-center justify-center space-y-2 p-3 sm:p-4 rounded-lg bg-card/40 hover:bg-card/70 transition-all duration-300 cursor-pointer backdrop-blur-sm border border-border/20 hover:border-accent/30"
+                                    >
+                                        <div className="text-xl sm:text-2xl md:text-3xl">{item.icon}</div>
+                                        <p className="text-xs font-600 text-foreground/75 uppercase text-center">
+                                            {item.title}
+                                        </p>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </motion.div>
                     </motion.div>
+                </motion.div>
 
-                    {/* Right Card Column */}
-                    <motion.div
-                        className="lg:col-span-5 relative"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
+                {/* Scroll indicator */}
+                <motion.div
+                    animate={{
+                        y: [0, 12, 0],
+                        opacity: [1, 0.5, 1],
+                    }}
+                    transition={{
+                        duration: 2.2,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "easeInOut",
+                    }}
+                    className="absolute bottom-0 left-0 right-0 z-50 pb-8 sm:pb-12 flex flex-col items-center gap-3"
+                >
+                    <p className="text-xs sm:text-sm text-muted-foreground font-medium tracking-widest uppercase">
+                        Explore Solutions
+                    </p>
+
+                    <motion.svg
+                        className="w-6 h-6 sm:w-8 sm:h-8 text-accent"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
                     >
-                        <div className="relative group max-w-md mx-auto lg:max-w-none">
-                            <AnimatePresence mode="wait" custom={direction}>
-                                <motion.div
-                                    key={currentCardIndex}
-                                    custom={direction}
-                                    initial={{ opacity: 0, x: direction > 0 ? 40 : -40 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: direction > 0 ? -40 : 40 }}
-                                    transition={{ duration: 0.4, ease: "easeOut" }}
-                                    className="relative bg-white/70 backdrop-blur-3xl border border-white/50 p-8 md:p-10 rounded-[2.5rem] shadow-xl space-y-6 overflow-hidden"
-                                >
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-2xl">{carouselCards[currentCardIndex].icon}</span>
-                                        <div className="text-right">
-                                            <div className="text-lg font-black text-accent">{carouselCards[currentCardIndex].stat}</div>
-                                            <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{carouselCards[currentCardIndex].statLabel}</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-3">
-                                        <h3 className="text-xl md:text-2xl font-black text-foreground leading-tight">{carouselCards[currentCardIndex].title}</h3>
-                                        <p className="text-xs text-foreground/70 leading-relaxed font-medium">{carouselCards[currentCardIndex].description}</p>
-                                    </div>
-
-                                    <div className="flex flex-wrap gap-2">
-                                        {carouselCards[currentCardIndex].tags.map((tag) => (
-                                            <span key={tag} className="px-3 py-1 text-[9px] font-bold bg-accent/10 text-accent rounded-full uppercase tracking-wider">{tag}</span>
-                                        ))}
-                                    </div>
-
-                                    <div className="flex gap-2">
-                                        {carouselCards.map((_, idx) => (
-                                            <button key={idx} onClick={() => { setDirection(idx > currentCardIndex ? 1 : -1); setCurrentCardIndex(idx); }} className={`h-1.5 rounded-full transition-all ${idx === currentCardIndex ? "w-8 bg-accent" : "w-1.5 bg-accent/20"}`} />
-                                        ))}
-                                    </div>
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
-                    </motion.div>
-                </div>
+                        <rect x="7" y="4" width="10" height="16" rx="5" className="stroke-accent/40" strokeWidth="1.5" />
+                        <rect x="7" y="4" width="10" height="16" rx="5" className="stroke-accent" strokeWidth="1.5" />
+                        <motion.line
+                            x1="12"
+                            y1="8"
+                            x2="12"
+                            y2="8"
+                            strokeLinecap="round"
+                            strokeWidth="2"
+                            className="stroke-accent"
+                            animate={{
+                                y1: [8, 14, 8],
+                                y2: [10, 16, 10],
+                            }}
+                            transition={{
+                                duration: 2,
+                                repeat: Number.POSITIVE_INFINITY,
+                                ease: "easeInOut",
+                            }}
+                        />
+                    </motion.svg>
+                </motion.div>
             </section>
         </motion.div>
     )
