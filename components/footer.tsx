@@ -142,22 +142,22 @@ export default function Footer() {
             <h4 className="font-bold text-sm md:text-base text-white border-b border-accent/30 pb-1 w-fit">Reach Us</h4>
             <div className="space-y-3 text-xs md:text-sm">
               <p className="flex items-start gap-3 text-primary-foreground/70">
-                <MapPin size={16} className="text-accent flex-shrink-0 mt-0.5" />
+                <MapPin size={16} className="text-accent shrink-0 mt-0.5" />
                 <span>Warje, Pune - 411058, India</span>
               </p>
               <a
                 href="tel:+917720077514"
                 className="flex items-center gap-3 text-primary-foreground/70 hover:text-accent transition-colors group"
               >
-                <Phone size={16} className="text-accent flex-shrink-0 group-hover:scale-105 transition-transform" />
+                <Phone size={16} className="text-accent shrink-0 group-hover:scale-105 transition-transform" />
                 +91 7720077514
               </a>
               <a
-                href="mailto:adwitechnologies@gmail.com"
+                href="mailto:info@adwitechnologies.com"
                 className="flex items-center gap-3 text-primary-foreground/70 hover:text-accent transition-colors break-all group"
               >
                 <Mail size={16} className="text-accent flex-shrink-0 group-hover:scale-105 transition-transform" />
-                adwitechnologies@gmail.com
+                info@adwitechnologies.com
               </a>
             </div>
           </motion.div>
@@ -185,7 +185,7 @@ export default function Footer() {
               { Icon: Linkedin, href: "https://www.linkedin.com/in/rasshmi-thakur-94a986398/", label: "LinkedIn", key: "linkedin" },
               { Icon: Instagram, href: "https://www.instagram.com/adwi.technologies/", label: "Instagram", key: "instagram" },
               { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=100068307975578", label: "Facebook", key: "facebook" },
-              { Icon: Mail, href: "mailto:adwitechnologies@gmail.com", label: "Email", key: "mail" },
+              { Icon: Mail, href: "mailto:info@adwitechnologies.com", label: "Email", key: "mail" },
             ].map(({ Icon, href, label, key }, idx) => {
 
               let hoverStyles = "";
