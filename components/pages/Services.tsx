@@ -91,7 +91,7 @@ export default function ServicesPage() {
     {
       title: "Expert Team",
       description: "50+ talented professionals with years of experience across multiple domains.",
-      icon: "🚀",
+      icon: "🤜🤛",
     },
     {
       title: "Proven Results",

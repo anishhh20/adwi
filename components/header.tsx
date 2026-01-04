@@ -14,7 +14,7 @@ export default function Header() {
   const menuRef = useRef<HTMLDivElement>(null)
 
   const navLinks = [
-    { label: "About", href: "/about" },
+    { label: "About Us", href: "/about" },
     { label: "Services", href: "/services" },
     { label: "Contact Us", href: "/contact" },
   ]

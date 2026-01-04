@@ -206,7 +206,7 @@ interface ServiceCardProps {
     index: number
 }
 
-const UKFlagSVG = ({ className }: { className?: string }) => (
+export const UKFlagSVG = ({ className }: { className?: string }) => (
     <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
         <rect width="100" height="100" fill="#012169" />
         <path d="M0 0 L100 100 M100 0 L0 100" stroke="#fff" strokeWidth="20" />
@@ -216,7 +216,7 @@ const UKFlagSVG = ({ className }: { className?: string }) => (
     </svg>
 );
 
-const FranceFlagSVG = ({ className }: { className?: string }) => (
+export const FranceFlagSVG = ({ className }: { className?: string }) => (
     <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
         <rect width="33.3" height="100" fill="#002395" />
         <rect x="33.3" width="33.4" height="100" fill="#fff" />
@@ -224,7 +224,7 @@ const FranceFlagSVG = ({ className }: { className?: string }) => (
     </svg>
 );
 
-const SpainFlagSVG = ({ className }: { className?: string }) => (
+export const SpainFlagSVG = ({ className }: { className?: string }) => (
     <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
         <rect width="100" height="25" fill="#AA151B" />
         <rect y="25" width="100" height="50" fill="#F1BF00" />
@@ -233,21 +233,21 @@ const SpainFlagSVG = ({ className }: { className?: string }) => (
     </svg>
 );
 
-const JapanFlagSVG = ({ className }: { className?: string }) => (
+export const JapanFlagSVG = ({ className }: { className?: string }) => (
     <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
         <rect width="100" height="100" fill="#fff" />
         <circle cx="50" cy="50" r="30" fill="#BC002D" />
     </svg>
 );
 
-const ChinaFlagSVG = ({ className }: { className?: string }) => (
+export const ChinaFlagSVG = ({ className }: { className?: string }) => (
     <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
         <rect width="100" height="100" fill="#EE1C25" />
         <path d="M15 25 L18 35 L28 35 L20 42 L23 52 L15 45 L7 52 L10 42 L2 35 L12 35 Z" fill="#FFFF00" /> {/* Main Star */}
     </svg>
 );
 
-const KoreaFlagSVG = ({ className }: { className?: string }) => (
+export const KoreaFlagSVG = ({ className }: { className?: string }) => (
     <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
         <rect width="100" height="100" fill="#fff" />
         <circle cx="50" cy="50" r="25" fill="#CD2E3A" />
@@ -255,7 +255,7 @@ const KoreaFlagSVG = ({ className }: { className?: string }) => (
     </svg>
 );
 
-const ItalyFlagSVG = ({ className }: { className?: string }) => (
+export const ItalyFlagSVG = ({ className }: { className?: string }) => (
     <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
         <rect width="33.3" height="100" fill="#009246" />
         <rect x="33.3" width="33.4" height="100" fill="#fff" />
@@ -263,7 +263,7 @@ const ItalyFlagSVG = ({ className }: { className?: string }) => (
     </svg>
 );
 
-const PortugalFlagSVG = ({ className }: { className?: string }) => (
+export const PortugalFlagSVG = ({ className }: { className?: string }) => (
     <svg className={className} viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
         <rect width="40" height="100" fill="#006600" />
         <rect x="40" width="60" height="100" fill="#FF0000" />

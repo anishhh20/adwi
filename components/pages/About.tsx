@@ -86,7 +86,7 @@ export default function AboutPage() {
       title: "Our Approach",
       content:
         "Industry-leading technology combined with proven methodologies. We maintain open dialogue with clients throughout every stage, ensuring expectations are met.",
-      icon: "🚀",
+      icon: "🧭",
     },
     {
       title: "Our Commitment",
@@ -100,8 +100,8 @@ export default function AboutPage() {
     { title: "Software Development", icon: "💻", href: "/services/#software-development" },
     { title: "Recruitment & Staffing", icon: "👥", href: "/services/#recruitment-staffing" },
     { title: "IT Training & Certification", icon: "🎓", href: "/services/#it-training" },
-    { title: "Foreign Language", icon: "🌐", href: "/services/#foreign-language" },
-    { title: "Digital Marketing and Promotions", icon: "📢", href: "/services/#digital-marketing" },
+    { title: "Foreign Language", icon: "🌍", href: "/services/#foreign-language" },
+    { title: "Digital Marketing and Promotions", icon: "🚀", href: "/services/#digital-marketing" },
   ]
 
   const aboutSections = [

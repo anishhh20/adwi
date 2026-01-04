@@ -59,7 +59,7 @@ export const allServicesData = [
             {
                 title: "Agile Design & Development",
                 description: "Iterative sprints, continuous feedback, and rapid prototyping.",
-                icon: "🚀",
+                icon: "🧩",
             },
             {
                 title: "Quality & Security First",
