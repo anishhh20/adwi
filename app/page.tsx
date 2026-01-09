@@ -12,10 +12,15 @@ import TestimonialsSection from '@/components/sections/testimonials-section'
 
 const page = () => {
   return (
-
-    <>
+    <main className="relative bg-black">
+      {/* The Banner remains relative/sticky internally */}
       <Banner />
-      <div className="w-full relative z-20 bg-white dark:bg-black">
+
+      {/* This container acts as the 'curtain'. 
+          - z-20 ensures it stays above the parallax background.
+          - shadow-2xl adds depth as it scrolls over the banner.
+      */}
+      <div className="relative z-20 bg-white dark:bg-black shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
         <AboutSection />
         <StatsSection />
         <ServicesSection />
@@ -24,8 +29,9 @@ const page = () => {
         <TestimonialsSection />
         <CTA />
       </div>
+
       <Footer />
-    </>
+    </main>
   )
 }
 

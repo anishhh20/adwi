@@ -182,7 +182,7 @@ const FLForm = ({
 
       <h2 className="text-xl font-bold text-foreground mb-3 relative z-10">Course & Student Details</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4 relative z-10"> {/* Added relative z-10 to ensure form content is above the icon */}
+      <form onSubmit={(e) => handleSubmit(e, "fl")} className="space-y-4 relative z-10"> {/* Added relative z-10 to ensure form content is above the icon */}
         {/* Enquiry For* Field */}
         <TextInput
           as="select"
@@ -324,7 +324,7 @@ const GeneralContactForm = ({
   return (
 
     <div className="space-y-5 p-5  border border-border rounded-lg shadow-md relative overflow-hidden">
-      <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
+      <form onSubmit={(e) => handleSubmit(e, "general")} className="space-y-4 relative z-10">
         {/* Subtle Background Icon */}
         <EnvelopeOutlineIcon
           className="absolute bottom-0 left-0 h-48 w-48 -translate-x-1/4 translate-y-1/4 text-primary/5 opacity-10"
@@ -427,22 +427,40 @@ export default function ContactPage() {
 
   const [isFlForm, setIsFlForm] = useState(isFlQuery)
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+    formType: "general" | "fl"
+  ) => {
     e.preventDefault()
     setLoading(true)
 
-    // Simplified target email logic based on FL Form context
-    const targetEmail = isFlQuery && enquiryType === "Language_Enquiry" ? "fladwitechnologies@gmail.com" : "info@adwitechnologies.com"
+    const form = e.currentTarget
+    const formData = new FormData(form)
 
-    console.log("Form submission started...")
-    console.log("Target Email:", targetEmail)
+    formData.append("formType", formType)
 
-    setTimeout(() => {
+    try {
+      const res = await fetch("/mail.php", {
+        method: "POST",
+        body: formData,
+      })
+
+      const data = await res.json()
+
+      if (data.error) {
+        alert(data.message)
+      } else {
+        setSubmitted(true)
+        form.reset()
+        setTimeout(() => setSubmitted(false), 3000)
+      }
+    } catch (err) {
+      alert("Something went wrong. Please try again.")
+    } finally {
       setLoading(false)
-      setSubmitted(true)
-      setTimeout(() => setSubmitted(false), 3000)
-    }, 1500)
+    }
   }
+
 
   return (
     <>
