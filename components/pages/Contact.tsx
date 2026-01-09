@@ -440,7 +440,7 @@ export default function ContactPage() {
     formData.append("formType", formType)
 
     try {
-      const res = await fetch("/mail.php", {
+      const res = await fetch("https://www.adwitechnologies.com/mail.php", {
         method: "POST",
         body: formData,
       })
