@@ -282,6 +282,7 @@ const FLForm = ({
     </div>
   )
 }
+
 // ------------------------------------------
 
 // --- UPDATED General Contact Form Component (Extracted for clarity) ---
@@ -339,6 +340,7 @@ const GeneralContactForm = ({
             placeholder="e.g., John Smith"
             required
             id="generalName"
+            name="generalName"
           />
           {/* Your Email */}
           <TextInput
@@ -347,6 +349,7 @@ const GeneralContactForm = ({
             placeholder="e.g., hello@domain.com"
             required
             id="generalEmail"
+            name="generalEmail"
           />
         </div>
 
@@ -357,6 +360,7 @@ const GeneralContactForm = ({
           placeholder="e.g., Inquiry about partnership"
           required
           id="generalSubject"
+          name="generalSubject"
         />
 
         {/* Your Message */}
@@ -366,6 +370,7 @@ const GeneralContactForm = ({
           rows={5}
           required
           id="generalMessage"
+          name="generalMessage"
           placeholder="Type your message here..."
         />
 
@@ -382,6 +387,7 @@ const GeneralContactForm = ({
     </div>
   )
 }
+
 // ------------------------------------------
 
 // --- Toggle Component (Unchanged) ---
