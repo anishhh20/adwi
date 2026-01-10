@@ -206,6 +206,7 @@ const FLForm = ({
             placeholder="e.g., Jane Doe"
             required
             id="fullName"
+            name="fullName"
           />
           {/* Contact Number* */}
           <TextInput
@@ -214,12 +215,13 @@ const FLForm = ({
             placeholder="e.g., +91 9876543210"
             required
             id="contactNumber"
+            name="contactNumber"
           />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Gender* */}
-          <TextInput as="select" label="Gender*" required id="gender">
+          <TextInput as="select" label="Gender*" required id="gender" name="gender">
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
@@ -232,14 +234,15 @@ const FLForm = ({
             placeholder="e.g., name@example.com"
             required
             id="emailAddress"
+            name="emailAddress"
           />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Date of Birth/Date Input */}
-          <TextInput type="date" label="Date of Birth*" required id="dob" />
+          <TextInput type="date" label="Date of Birth*" required id="dob" name="dob" />
           {/* I Am a:* */}
-          <TextInput as="select" label="I Am a:*" required id="profession">
+          <TextInput as="select" label="I Am a:*" required id="profession" name="profession">
             <option value="">Select Profession</option>
             <option value="Student">Student</option>
             <option value="Working Professional">Working Professional</option>
@@ -254,6 +257,7 @@ const FLForm = ({
           rows={2}
           required
           id="residentialAddress"
+          name="residentialAddress"
           placeholder="Enter your full address"
         />
 
