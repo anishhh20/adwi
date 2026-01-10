@@ -185,22 +185,22 @@ const services: Service[] = [
       "Boosting Career and Enabling Study Abroad Opportunities ",
     ],
   },
-  // {
-  //   id: "marketing",
-  //   title: "Digital Marketing and Promotions",
-  //   subtitle: "Elevate Your Brand with Data-Driven and Cinematic Storytelling",
-  //   IconComponent: RocketIcon, // Assuming a RocketIcon or MegaphoneIcon exists in your library
-  //   description:
-  //     "We combine strategic digital marketing with high-end cinematic production to build your brand’s presence and drive measurable growth. From social management to conceptual short films, we create content that resonates.",
-  //   details: [
-  //     "Strategic Social Media Management & Growth",
-  //     "High-Converting Landing Page Design & Creation",
-  //     "Engaging Post & Viral Reel Creation",
-  //     "ROI-Focused Paid Ads Management (Meta, Google, LinkedIn)",
-  //     "Professional Documentary Storytelling",
-  //     "Cinematic Conceptual Videos & Short Films",
-  //   ],
-  // },
+  {
+    id: "marketing",
+    title: "Digital Marketing and Promotions",
+    subtitle: "Elevate Your Brand with Data-Driven and Cinematic Storytelling",
+    IconComponent: RocketIcon, // Assuming a RocketIcon or MegaphoneIcon exists in your library
+    description:
+      "We combine strategic digital marketing with high-end cinematic production to build your brand’s presence and drive measurable growth. From social management to conceptual short films, we create content that resonates.",
+    details: [
+      "Strategic Social Media Management & Growth",
+      "High-Converting Landing Page Design & Creation",
+      "Engaging Post & Viral Reel Creation",
+      "ROI-Focused Paid Ads Management (Meta, Google, LinkedIn)",
+      "Professional Documentary Storytelling",
+      "Cinematic Conceptual Videos & Short Films",
+    ],
+  },
 ]
 
 export default function ServicesSection() {
@@ -263,7 +263,7 @@ export default function ServicesSection() {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="relative grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-6"
+          className="relative grid grid-cols-3 md:grid-cols-5 gap-2 md:gap-3 mb-6"
           onMouseEnter={() => setAutoPlay(false)}
           onMouseLeave={() => setAutoPlay(true)}
         >
@@ -274,7 +274,7 @@ export default function ServicesSection() {
                 key={service.id}
                 variants={cardVariants}
                 onClick={() => setActiveService(service.id)}
-                className="relative p-3 md:p-4 rounded-lg transition-all duration-300 text-left z-10 text-xs md:text-sm"
+                className="relative p-3 rounded-lg transition-all duration-300 text-left z-10 text-xs"
                 whileHover={{ y: -2 }}
               >
                 {isActive && (
@@ -286,16 +286,16 @@ export default function ServicesSection() {
 
                 <div className={`relative z-10`}>
                   <service.IconComponent
-                    className={`h-5 w-5 md:h-6 md:w-6 mb-2 transition-colors duration-300 ${isActive ? "text-primary" : "text-muted-foreground"
+                    className={`h-3 w-3 md:h-4 md:w-4 mb-1 transition-colors duration-300 ${isActive ? "text-primary" : "text-muted-foreground"
                       }`}
                   />
                   <h3
-                    className={`text-xs md:text-sm font-bold mb-0.5 transition-colors duration-300 ${isActive ? "text-primary" : "text-foreground"}`}
+                    className={`text-xs font-bold mb-0.5 transition-colors duration-300 ${isActive ? "text-primary" : "text-foreground"}`}
                   >
                     {service.title}
                   </h3>
                   <p
-                    className={`text-xs transition-colors duration-300 ${isActive ? "text-primary/70" : "text-muted-foreground"
+                    className={`text-[10px] transition-colors duration-300 ${isActive ? "text-primary/70" : "text-muted-foreground"
                       }`}
                   >
                     {service.subtitle}

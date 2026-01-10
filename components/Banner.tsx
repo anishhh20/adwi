@@ -109,7 +109,7 @@ const HeroBanner = () => {
                         >
                             <div className="relative">
                                 {/* Text Content Container */}
-                                <div className="inline-block bg-accent/90 backdrop-blur-md px-6 py-4 sm:px-10 sm:py-6 md:px-14 md:py-8 border-l-4 border-white">
+                                <div className="inline-block bg-accent/90 backdrop-blur-md px-6 py-4 sm:px-10 sm:py-6 md:px-14 md:py-8">
                                     <div className="flex flex-col items-start gap-4">
 
                                         {isSvgSlide && (
@@ -122,12 +122,12 @@ const HeroBanner = () => {
                                         )}
 
                                         <div>
-                                            <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+                                            <h1 className="text-xl font-bold tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
                                                 {slide.title}
                                                 {slide.highlight && <span className="text-accent"> {slide.highlight}</span>}
                                             </h1>
                                             {!isSvgSlide && (
-                                                <p className="mt-2 text-xl font-light text-white/90 sm:text-2xl">
+                                                <p className="mt-2 text-md font-light text-white/90 sm:text-lg">
                                                     {slide.subtitle}
                                                 </p>
                                             )}
@@ -135,21 +135,21 @@ const HeroBanner = () => {
                                     </div>
                                 </div>
 
-                                <p className="mt-8 max-w-xl text-lg font-light text-white/80 sm:text-xl">
+                                <p className="mt-8 max-w-xl text-md font-light text-white/80 sm:text-lg">
                                     {slide.description}
                                 </p>
 
                                 <div className="mt-10 flex flex-wrap gap-4">
                                     <button
                                         onClick={() => router.push("/services")}
-                                        className="cursor-pointer group relative overflow-hidden rounded-lg bg-accent px-8 py-4 text-base font-medium text-white transition-all hover:brightness-110"
+                                        className="cursor-pointer group relative overflow-hidden rounded-lg bg-accent p-3 text-sm font-medium text-white transition-all hover:brightness-110"
                                     >
                                         Explore Services
                                     </button>
                                 </div>
 
                                 {/* Indicators */}
-                                <div className="mt-12 flex gap-3">
+                                {/* <div className="mt-12 flex gap-3">
                                     {slides.map((_, index) => (
                                         <button
                                             key={index}
@@ -158,7 +158,7 @@ const HeroBanner = () => {
                                                 }`}
                                         />
                                     ))}
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* SVG Column */}
@@ -178,12 +178,19 @@ const HeroBanner = () => {
             {/* Scroll Indicator (Fades out on scroll) */}
             <motion.div
                 style={{ opacity: opacityScroll }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20"
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 cursor-pointer"
+                onClick={() => {
+                    const aboutSection = document.getElementById("about");
+                    if (aboutSection) {
+                        aboutSection.scrollIntoView({ behavior: "smooth" });
+                    }
+                }}
             >
                 <div className="flex h-10 w-10 items-center justify-center rounded-full border border-accent/50 bg-black/20 backdrop-blur-sm">
                     <ChevronDown className="h-5 w-5 text-white animate-bounce" />
                 </div>
             </motion.div>
+
         </motion.section>
     );
 };

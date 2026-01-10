@@ -74,7 +74,7 @@ export default function Header() {
 
   return (
     <header
-      className="fixed top-0 z-50 w-full p-4 md:p-6 transition-all duration-300 pointer-events-none"
+      className="fixed top-0 z-50 w-full transition-all duration-300 pointer-events-none"
     >
       <div className="mx-auto max-w-7xl">
         <motion.div
