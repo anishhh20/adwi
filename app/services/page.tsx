@@ -1,7 +1,11 @@
 // --- SKELETON COMPONENTS ---
-
-import ServicesPage from "@/components/pages/Services";
+"use client"
 import { Suspense } from "react";
+
+import dynamic from "next/dynamic";
+
+const ServicesPage = dynamic(() => import("@/components/pages/Services"), { ssr: false });
+
 
 // Reusable animated div for skeleton effect
 const Skeleton = ({ className }: { className?: string }) => (

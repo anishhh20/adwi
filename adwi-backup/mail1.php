@@ -2,6 +2,14 @@
 // scripts/contact-mail.php
 // <CHANGE> Polished the email design, tightened copy for a professional stock-market context, added preheader text, improved accessibility, and set charset/encoding for better client compatibility.
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+header("Access-Control-Allow-Origin: https://adwi.vercel.app");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type");
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;

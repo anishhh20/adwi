@@ -1,5 +1,8 @@
-import ContactPage from '@/components/pages/Contact';
+"use client"
+
 import { Suspense } from 'react';
+import dynamic from "next/dynamic";
+const ContactPage = dynamic(() => import("@/components/pages/Contact"), { ssr: false });
 
 // --- Skeleton Components ---
 

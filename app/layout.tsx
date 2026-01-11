@@ -1,5 +1,4 @@
 import type React from "react"
-import { Analytics } from "@vercel/analytics/next"
 import Header from "@/components/header"
 import "./globals.css"
 import { Metadata } from "next"
@@ -112,7 +111,6 @@ export default function RootLayout({
       <body className={`font-sans antialiased`}>
         <Header />
         {children}
-        <Analytics />
       </body>
     </html>
   )

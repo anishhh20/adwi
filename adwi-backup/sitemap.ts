@@ -1,4 +1,8 @@
-export default function sitemap() {
+
+// 🔴 REQUIRED for `output: "export"`
+export const dynamic = "force-static";
+
+export default function sitemap(){
   return [
     {
       url: "https://www.adwitechnologies.com/",
