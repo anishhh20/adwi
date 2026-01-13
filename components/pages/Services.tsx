@@ -9,6 +9,7 @@ import AnimatedVectorPattern from "@/components/services/animated-vector-pattern
 import { ServiceWithStickyText } from "@/components/services/service-with-sticky-text"
 import { allServicesData } from "@/lib/services-data"
 import { motion } from "framer-motion"
+import { useEffect } from "react"
 
 interface PatternProps {
   className?: string
@@ -104,6 +105,20 @@ export default function ServicesPage() {
       icon: "📞",
     },
   ]
+
+  useEffect(() => {
+    // Check if there is a hash in the URL (e.g., #software-development)
+    const hash = window.location.hash;
+    if (hash) {
+      const element = document.getElementById(hash.replace("#", ""));
+      if (element) {
+        // Timeout ensures the DOM is fully painted before scrolling
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, []);
 
   return (
     <>

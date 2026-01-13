@@ -137,10 +137,10 @@ function ProcessCard({ step, isLast }: { step: (typeof processSteps)[0], isLast:
 export default function ProcessSection() {
   const { ref, inView } = useInView({
     triggerOnce: true,
-    threshold: 0.10,
+    threshold: 0.05,
   })
 
-  const lineDuration = 2.0
+  const lineDuration = 1.0
   const cardDelay = lineDuration - 0.2
 
   const containerVariants = {
@@ -148,7 +148,7 @@ export default function ProcessSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.25,
+        staggerChildren: 0.15,
         delayChildren: cardDelay,
       },
     },

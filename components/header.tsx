@@ -156,7 +156,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden mx-auto max-w-[calc(100vw-2rem)] mt-2 bg-white border border-border/50 rounded-xl overflow-hidden shadow-lg pointer-events-auto z-90"
+            className="md:hidden mx-auto max-w-[calc(100vw-2rem)] mt-2 bg-white border border-border/50 rounded-xl overflow-hidden shadow-lg pointer-events-auto z-100"
           >
             <div className="p-4 space-y-2 flex flex-col">
               {navLinks.map((link) => (

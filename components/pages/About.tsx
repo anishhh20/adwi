@@ -99,7 +99,7 @@ export default function AboutPage() {
   const coreServices = [
     { title: "Software Development", icon: "💻", href: "/services/#software-development" },
     { title: "Recruitment & Staffing", icon: "👥", href: "/services/#recruitment-staffing" },
-    { title: "IT Training & Certification", icon: "🎓", href: "/services/#it-training" },
+    { title: "IT Training & Certification", icon: "🎓", href: "/services/#it-training-certification" },
     { title: "Foreign Language", icon: "🌍", href: "/services/#foreign-language" },
     { title: "Digital Marketing and Promotions", icon: "🚀", href: "/services/#digital-marketing" },
   ]

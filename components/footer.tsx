@@ -30,7 +30,7 @@ export default function Footer() {
 
   return (
     // Increased vertical padding for a more substantial look
-    <footer className="bg-primary text-primary-foreground relative overflow-hidden pt-8 sm:pt-16 z-80">
+    <footer className="bg-primary text-primary-foreground relative overflow-hidden pt-8 sm:pt-16">
       <div className="absolute inset-0 opacity-10">
         {/* Adjusted blur and position for better visual interest */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent rounded-full blur-[100px] opacity-70" />
@@ -100,17 +100,17 @@ export default function Footer() {
               {[
                 { label: "Software Development", href: "/services/#software-development" },
                 { label: "Recruitment and Staffing", href: "/services/#recruitment-staffing" },
-                { label: "IT Training and Certification", href: "/services/#training-certification" },
+                { label: "IT Training and Certification", href: "/services/#it-training-certification" },
                 { label: "Foreign Language", href: "/services/#foreign-language" },
                 { label: "Digital Marketing and Promotions", href: "/services/#digital-marketing" },
               ].map((service) => (
                 <li key={service.href}>
-                  <Link
+                  <a
                     href={service.href}
                     className="text-primary-foreground/70 hover:text-accent transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
                     {service.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

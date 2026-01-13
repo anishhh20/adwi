@@ -260,7 +260,7 @@ export function OfficeCard({ office, index }: { office: (typeof officeLocations)
 
             {/* ✨ MODIFICATION: Use the SmallFlagIcon component here ✨ */}
             <motion.div
-              whileHover={{ rotate: 180, scale: 1.1 }}
+              // whileHover={{ rotate: 180, scale: 1.1 }}
               className={`p-2.5 rounded-xl ${color} text-white`}
             >
               <SmallFlagIcon countryCode={office.country} />

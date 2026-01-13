@@ -2,6 +2,7 @@ import type React from "react"
 import Header from "@/components/header"
 import "./globals.css"
 import { Metadata } from "next"
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "ADWI Technologies - Software Development & Staffing",
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 export default function RootLayout({
   children,
@@ -38,6 +40,20 @@ export default function RootLayout({
         <link rel="preload" href="/adwi_logo.png" as="image" />
 
         <link rel="manifest" href="/site.webmanifest" />
+
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga-script" strategy="afterInteractive">
+          {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}');
+              `}
+        </Script>
 
         <script
           type="application/ld+json"
