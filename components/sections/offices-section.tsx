@@ -104,7 +104,7 @@ export const USAFlagSVG = ({ className }: { className?: string }) => (
 const officeLocations = [
   {
     city: "Pune, India (HQ)",
-    address: "Warje, Pune, India, Maharashtra 411014",
+    address: "2nd Floor, Runwal platinum, opposite to Croma, Bavdhan, Pune,21",
     phone: "+91 7720077514",
     email: "info@adwitechnologies.com",
     country: "🇮🇳",

@@ -290,8 +290,7 @@
       <div class="row address">
         <div class="col-md-offset-1 col-lg-offset-1 col-sm-12 col-md-5 col-ld-5">
           <p><strong>ADWI Technologies</strong><br>
-            D4/ A /801, Rahul Park,<br>
-            Warje, Pune - 411058</p>
+            2nd Floor, Runwal platinum, opposite to Croma, Bavdhan, Pune,21</p>
         </div>
         <div class="col-sm-12 col-md-3 col-ld-3">
           <p>Ph:- 91 7720077514<br>

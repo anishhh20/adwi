@@ -126,7 +126,7 @@ export default function Footer() {
             <div className="space-y-3 text-xs md:text-sm">
               <p className="flex items-start gap-3 text-primary-foreground/70">
                 <MapPin size={16} className="text-accent shrink-0 mt-0.5" />
-                <span>Warje, Pune - 411058, India</span>
+                <span>Bavdhan, Pune , India</span>
               </p>
               <a
                 href="tel:+917720077514"

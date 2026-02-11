@@ -121,7 +121,7 @@ export default function RootLayout({
   "image": "https://www.adwitechnologies.com/adwi_logo.png",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Warje",
+    "streetAddress": "Bavdhan",
     "addressLocality": "Pune",
     "postalCode": "411058",
     "addressCountry": "IN"
