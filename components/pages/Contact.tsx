@@ -616,7 +616,16 @@ export default function ContactPage() {
         <section className="py-8 md:py-12 px-4 ">
           <div className="container mx-auto max-w-6xl">
             <div className="w-full h-48  rounded-lg overflow-hidden border border-border shadow-sm">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4246.163831874813!2d73.7772755112256!3d18.52324878249809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bfe48d6f94e3%3A0xaf9ae783fd44a476!2sCroma%20-%20Bavdhan!5e1!3m2!1sen!2sin!4v1770830057674!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.6841482843486!2d73.8369869!3d18.52!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2cf2c2c2c2c2d%3A0x3c3c3c3c3c3c3c3c!2sWarje%2C%20Pune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Location Map"
+              />
             </div>
           </div>
         </section>
